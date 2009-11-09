@@ -394,7 +394,7 @@ If current outlinee is the body element, then the outline created for that eleme
 	
 	var _log=function()
 	{
-		if (console && console.log) {
+		if (typeof console != 'undefined' && console.log) {
 			console.log.apply(console, arguments);
 		}
 	}
