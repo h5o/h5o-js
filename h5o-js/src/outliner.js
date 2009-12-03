@@ -16,7 +16,6 @@
  */
 (function(){
 	var DEBUG = (typeof fireunit != 'undefined');
-	
 	var Section=function()
 	{
 		this.sections=[];
@@ -45,7 +44,7 @@
 		getHeadingText: function()
 		{
 			if (isHeading(this.heading)) {
-				if (this.heading.tagName=='HGROUP') {
+				if (this.heading.tagName.toUpperCase()=='HGROUP') {
 					var rank = this.headingRank();
 					var headingEl = this.heading.getElementsByTagName('h'+(-rank))[0];
 					return headingEl.innerHTML;
@@ -125,7 +124,7 @@
 			}
 			
 			for (var i=0; i < tagList.length; i++) {
-				if (tagList[i] == el.tagName) {
+				if (tagList[i] == el.tagName.toUpperCase()) {
 					return true;
 				}
 			}
@@ -160,7 +159,7 @@
 	var getHeadingRank = function(el)
 		{
 			if (!isHeading(el)) { throw new Error("Only heading elements have ranks!"); };
-			if (el.tagName=='HGROUP') {
+			if (el.tagName.toUpperCase()=='HGROUP') {
 				/* The rank of an hgroup element is the rank of the highest-ranked h1–h6 element descendant of the hgroup element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank). */
 				for (var i=1; i <= 6; i++) {
 					if (el.getElementsByTagName('H'+i).length > 0)
@@ -396,6 +395,8 @@ If current outlinee is the body element, then the outline created for that eleme
 	{
 		if (typeof console != 'undefined' && console.log) {
 			console.log.apply(console, arguments);
+		} else if (typeof opera != 'undefined') {
+			opera.postError.apply(arguments);
 		}
 	}
 	
