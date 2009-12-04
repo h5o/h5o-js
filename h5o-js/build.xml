@@ -1,0 +1,106 @@
+<project name="h5o" default="debug" basedir=".">
+	<!-- Learning by example from jQuery -->
+	
+	<!-- BUILD TOOLS -->
+    <property description="Files for parsing etc." name="BUILD_DIR" value="build" />
+    <property description="YUICompressor" name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
+	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="${BUILD_DIR}/svnant-1.3.0/lib" includes="**/*.jar" />
+		</classpath>
+	</taskdef>
+
+	<svn>
+		<status path="${basedir}" revisionProperty="svn.revision" />
+	</svn>
+	<echo>Sandbox Revision: ${svn.revision}</echo>
+	
+    <!-- SETUP -->
+ 
+    <property description="Source Folder" name="SRC_DIR" value="src"  />
+	<loadfile description="Release version" property="RELEASE_VERSION" srcfile="version.txt" />
+	<property description="Full build version" name="VERSION" value="${RELEASE_VERSION}.${svn.revision}"  />
+ 
+    <property description="Folder for completed build" name="DIST_DIR" value="./dist" />
+ 
+    <!-- Files names for distribution -->
+    <property name="H5O_DEBUG" value="${DIST_DIR}/outliner.debug.js" />
+	<property name="H5O_MIN" value="${DIST_DIR}/outliner.min.js" />
+	<property name="H5O_RELEASE_JS" value="${DIST_DIR}/outliner.${VERSION}.js" />
+	<property name="H5O_RELEASE_BOOKMARKLET" value="${DIST_DIR}/outliner.${VERSION}.html" />
+
+    <!-- MAIN -->
+ 
+	<target name="debug" description="Debug H5O build, concatenated source files">
+        <echo message="Building ${H5O_DEBUG}" />
+        <mkdir dir="${DIST_DIR}" />
+        <concat destfile="${H5O_DEBUG}">
+			<fileset dir="${SRC_DIR}" includes="notice.txt" />
+            <fileset dir="${SRC_DIR}" includes="_head.js" />
+            <fileset dir="${SRC_DIR}" includes="Section.js" />
+            <fileset dir="${SRC_DIR}" includes="Outline.js" />
+            <fileset dir="${SRC_DIR}" includes="walk.js" />
+            <fileset dir="${SRC_DIR}" includes="enterNode.js" />
+            <fileset dir="${SRC_DIR}" includes="exitNode.js" />
+            <fileset dir="${SRC_DIR}" includes="func.js" />
+            <fileset dir="${SRC_DIR}" includes="HTML5Outline.js" />
+            <fileset dir="${SRC_DIR}" includes="_foot.js" />
+        </concat>
+        <echo message="${H5O_DEBUG} built." />
+  </target>
+ 
+    <target name="min" depends="debug" description="Minified build">
+        <echo message="Building ${H5O_MIN}" />
+		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
+			<fileset dir="${DIST_DIR}">
+				<include name="outliner.debug.js" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${YUICompressor}" />
+			<arg value="--charset" />
+			<arg value="ANSI" />
+			<arg value="-o" />
+			<targetfile />
+			<mapper type="glob" from="outliner.debug.js" to="outliner.min.js" />
+		</apply>
+        <echo message="${H5O_MIN} built." />
+    </target>
+ 
+    <target name="clean">
+        <delete dir="${DIST_DIR}" />
+    </target>
+ 
+    <target name="all" depends="clean,debug,min">
+        <echo message="Build complete." />
+    </target>
+	
+	<target name="release" depends="all">
+		<echo message="Building ${H5O_RELEASE_JS}" />
+        <concat destfile="${H5O_RELEASE_JS}">
+			<fileset dir="${SRC_DIR}" includes="notice.txt" />
+			<fileset dir="${DIST_DIR}" includes="outliner.min.js" />
+		</concat>
+		<echo message="${H5O_RELEASE_JS} built." />
+		
+		<echo message="Building ${H5O_RELEASE_BOOKMARKLET}" />
+		<copy file="${SRC_DIR}/bookmarklet.html" tofile="${H5O_RELEASE_BOOKMARKLET}" />
+		
+		<replace token="@VERSION" value="${VERSION}" file="${H5O_RELEASE_BOOKMARKLET}" />
+		
+		<loadfile property="h5o.release.notice" srcfile="${SRC_DIR}/notice.txt" />
+		<replace token="@NOTICE" value="${h5o.release.notice}" file="${H5O_RELEASE_BOOKMARKLET}" />
+		
+		<!-- @todo: figure out a proper escaping routine -->
+		<copy file="${H5O_MIN}" tofile="${DIST_DIR}/tmp.js" />
+		<replace token="&amp;" value="&amp;amp;" file="${DIST_DIR}/tmp.js" />
+		<replace token="&quot;" value="&amp;quot;" file="${DIST_DIR}/tmp.js" />
+		<replace token="&lt;" value="&amp;lt;" file="${DIST_DIR}/tmp.js" />
+		<replace token="&gt;" value="&amp;gt;" file="${DIST_DIR}/tmp.js" />
+		<loadfile property="h5o.release.minified" srcfile="${DIST_DIR}/tmp.js" />
+		<delete file="${DIST_DIR}/tmp.js" />
+		
+		<replace token="@MINIFIED" value="${h5o.release.minified}" file="${H5O_RELEASE_BOOKMARKLET}" />
+		<echo message="${H5O_RELEASE_BOOKMARKLET} built." />
+	</target>
+ 
+</project>
