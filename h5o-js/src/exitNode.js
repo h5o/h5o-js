@@ -18,7 +18,7 @@
 			
 			// set an implied heading, if none was set
 			if (!currentSection.heading) {
-				currentSection.heading = impliedHeading(node);
+				currentSection.heading = '<i>' + impliedHeading(node) + '</i>';
 			}
 			
 		}
