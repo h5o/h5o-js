@@ -10,24 +10,16 @@
 		</classpath>
 	</taskdef>
 
-	<svn>
-		<status path="${basedir}" revisionProperty="svn.revision" />
-	</svn>
-	<echo>Sandbox Revision: ${svn.revision}</echo>
-	
     <!-- SETUP -->
  
     <property description="Source Folder" name="SRC_DIR" value="src"  />
 	<loadfile description="Release version" property="RELEASE_VERSION" srcfile="version.txt" />
-	<property description="Full build version" name="VERSION" value="${RELEASE_VERSION}.${svn.revision}"  />
  
     <property description="Folder for completed build" name="DIST_DIR" value="./dist" />
  
     <!-- Files names for distribution -->
     <property name="H5O_DEBUG" value="${DIST_DIR}/outliner.debug.js" />
 	<property name="H5O_MIN" value="${DIST_DIR}/outliner.min.js" />
-	<property name="H5O_RELEASE_JS" value="${DIST_DIR}/outliner.${VERSION}.js" />
-	<property name="H5O_RELEASE_BOOKMARKLET" value="${DIST_DIR}/outliner.${VERSION}.html" />
 
     <!-- MAIN -->
  
@@ -75,6 +67,14 @@
     </target>
 	
 	<target name="release" depends="all">
+		<svn>
+			<status path="${basedir}" revisionProperty="svn.revision" />
+		</svn>
+		<echo>Sandbox Revision: ${svn.revision}</echo>
+		<property description="Full build version" name="VERSION" value="${RELEASE_VERSION}.${svn.revision}"  />
+		<property name="H5O_RELEASE_JS" value="${DIST_DIR}/outliner.${VERSION}.js" />
+		<property name="H5O_RELEASE_BOOKMARKLET" value="${DIST_DIR}/outliner.${VERSION}.html" />
+
 		<echo message="Building ${H5O_RELEASE_JS}" />
         <concat destfile="${H5O_RELEASE_JS}">
 			<fileset dir="${SRC_DIR}" includes="notice.txt" />
