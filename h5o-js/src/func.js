@@ -19,7 +19,7 @@
 	var isSecRoot	= _createTagChecker(['BLOCKQUOTE', 'BODY', 'DETAILS', 'FIELDSET', 'FIGURE', 'TD']),
 		isSecContent= _createTagChecker(['ARTICLE', 'ASIDE', 'NAV', 'SECTION']),
 		isHeading	= _createTagChecker(['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HGROUP']),
-		isElement	= function(obj) { return (typeof obj != 'undefined') && (obj.nodeType == Node.ELEMENT_NODE); };
+		isElement	= function(obj) { return obj && obj.tagName; };
 	
 	var _implieadHeadings={
 		BLOCKQUOTE: 'Untitled quote', 
