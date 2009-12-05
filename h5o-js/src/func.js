@@ -52,12 +52,3 @@
 				return -parseInt(el.tagName.substr(1));
 			}
 		};
-		
-	if (DEBUG) {
-		fireunit.compare(-1, getHeadingRank(document.createElement('H1')), "Get rank for H1");
-		fireunit.compare(-2, getHeadingRank(document.createElement('H2')), "Get rank for H2");
-		fireunit.compare(-3, getHeadingRank(document.createElement('H3')), "Get rank for H3");
-		fireunit.compare(-4, getHeadingRank(document.createElement('H4')), "Get rank for H4");
-		fireunit.compare(-5, getHeadingRank(document.createElement('H5')), "Get rank for H5");
-		fireunit.compare(-6, getHeadingRank(document.createElement('H6')), "Get rank for H6");
-	}

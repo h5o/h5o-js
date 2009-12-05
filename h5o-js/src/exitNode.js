@@ -5,21 +5,18 @@
 			stack.pop();
 			return;
 		}
-		
+
+		// If the top of the stack is a heading content element - do nothing
 		if (isHeading(stack[stack.length-1])) {
-			_log("Exiting: If the top of the stack is a heading content element - do nothing", node);
 			return;
 		}
 		
 		/************ MODIFICATION OF ORIGINAL ALGORITHM *****************/
 		// existing sectioning content or sectioning root
 		// this means, currentSection will change (and we won't get back to it)
-		if (isSecContent(node) || isSecRoot(node)) {
+		if ((isSecContent(node) || isSecRoot(node)) && !currentSection.heading) {
 			
-			// set an implied heading, if none was set
-			if (!currentSection.heading) {
-				currentSection.heading = '<i>' + impliedHeading(node) + '</i>';
-			}
+			currentSection.heading = '<i>' + impliedHeading(node) + '</i>';
 			
 		}
 		/************ END MODIFICATION ***********************************/
@@ -68,10 +65,6 @@
 			return;
 		}
 		
-		if (currentOutlinee==null) {
-			_log("If the current outlinee is null, do nothing");
-			return;
-		}
-
-		_log("Do nothing (exiting):", node);
+		// If the current outlinee is null, do nothing
+		// Do nothing
 	}

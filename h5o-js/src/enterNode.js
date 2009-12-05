@@ -1,7 +1,7 @@
 	var enterNode=function(node)
 	{
+		// If the top of the stack is a heading content element - do nothing
 		if (isHeading(stack[stack.length-1])) {
-			_log("Entering: If the top of the stack is a heading content element - do nothing", node);
 			return;
 		}
 
@@ -31,9 +31,9 @@
 			currentOutlinee.outline = new Outline(currentOutlinee, currentSection);
 			return;
 		}
-		
+
+		// If the current outlinee is null, do nothing
 		if (currentOutlinee==null) {
-			_log("If the current outlinee is null, do nothing");
 			return;
 		}
 		
@@ -100,5 +100,5 @@
 			return;
 		}
 
-		_log("Do nothing (entering):", node);
+		// Do nothing.
 	}
