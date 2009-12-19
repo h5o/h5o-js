@@ -2,7 +2,7 @@
 	<!-- Learning by example from jQuery -->
 	
 	<!-- BUILD TOOLS -->
-    <property description="Files for parsing etc." name="BUILD_DIR" value="build" />
+    <property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
     <property description="YUICompressor" name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
@@ -13,7 +13,7 @@
     <!-- SETUP -->
  
     <property description="Source Folder" name="SRC_DIR" value="src"  />
-	<loadfile description="Release version" property="RELEASE_VERSION" srcfile="version.txt" />
+	<loadfile description="Release version" property="RELEASE_VERSION" srcfile="../version.txt" />
  
     <property description="Folder for completed build" name="DIST_DIR" value="./dist" />
  
