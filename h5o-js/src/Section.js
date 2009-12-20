@@ -30,9 +30,9 @@
 				if (this.heading.tagName.toUpperCase()=='HGROUP') {
 					var rank = this.headingRank();
 					var headingEl = this.heading.getElementsByTagName('h'+(-rank))[0];
-					return headingEl.innerHTML;
+					return headingEl.textContent || headingEl.innerHTML;
 				} else {
-					return this.heading.innerHTML; // @todo: fix up properly!
+					return this.heading.textContent || this.heading.innerHTML; // @todo: fix up properly!
 				}
 			}
 			return this.heading;
