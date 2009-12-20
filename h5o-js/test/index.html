@@ -32,7 +32,7 @@
 						clearInterval(waitForLoad);
 
 						var expected = cleanWhiteSpace(out.innerHTML);
-						var actual = cleanWhiteSpace(HTML5Outline(doc));
+						var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML());
 						
 						fireunit.compare(expected, actual, "Comparison for: "+testID);
 						

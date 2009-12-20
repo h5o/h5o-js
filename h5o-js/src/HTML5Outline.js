@@ -26,6 +26,6 @@ Associate all nodes with the heading of the section with which they are associat
 If current outlinee is the body element, then the outline created for that element is the outline of the entire document.
 */
 		
-		return currentOutlinee.outline.asHTML();
+		return currentOutlinee.outline;
 		
 	};
