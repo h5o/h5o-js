@@ -4,11 +4,6 @@
 		this.sections=[section];
 	};
 	Outline.prototype={
-		lastSection: function()
-		{
-			return this.sections[this.sections.length-1];
-		},
-			
 		asHTML: function()
 		{
 			var html='<ol>';

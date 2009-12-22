@@ -49,3 +49,8 @@
 			return -parseInt(elTagName.substr(1));
 		}
 	};
+	
+	var _lastSection = function (outlineOrSection)
+	{
+		return outlineOrSection.sections[outlineOrSection.sections.length-1];
+	}

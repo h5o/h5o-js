@@ -28,7 +28,7 @@
 			currentOutlinee = stack.pop();
 			
 			// Let current section be the last section in the outline of the current outlinee element.
-			currentSection = currentOutlinee.outline.lastSection();
+			currentSection = _lastSection(currentOutlinee.outline);
 			
 			// Append the outline of the sectioning content element being exited to the current section. (This does not change which section is the last section in the outline.)
 			for (var i = 0; i < node.outline.sections.length; i++) {
@@ -43,13 +43,13 @@
 			currentOutlinee = stack.pop();
 			
 			// Let current section be the last section in the outline of the current outlinee element.
-			currentSection = currentOutlinee.outline.lastSection();
+			currentSection = _lastSection(currentOutlinee.outline);
 
 			// Finding the deepest child: If current section has no child sections, stop these steps.
 			while (currentSection.sections.length > 0) {
 				
 				// Let current section be the last child section of the current current section.
-				currentSection = currentSection.lastChild();
+				currentSection = _lastSection(currentSection);
 				
 				// Go back to the substep labeled finding the deepest child.
 			}

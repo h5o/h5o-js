@@ -5,11 +5,6 @@
 	Section.prototype={
 		heading: false,
 			
-		lastChild: function()
-		{
-			return this.sections[this.sections.length-1];
-		},
-		
 		headingRank: function() {
 			if (isHeading(this.heading)) {
 				return getHeadingRank(this.heading);
