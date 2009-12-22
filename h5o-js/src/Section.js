@@ -5,12 +5,6 @@
 	Section.prototype={
 		heading: false,
 			
-		headingRank: function() {
-			// if an implied heading was set, treat is as "over the board highest rank"
-			/* @todo: check if this is true!!! */
-			return isHeading(this.heading) ? getHeadingRank(this.heading) : 1;
-		},
-		
 		append: function(what)
 		{
 			what.container=this;
@@ -22,8 +16,7 @@
 			var headingEl = this.heading;
 			if (isHeading(headingEl)) {
 				if (_getTagName(headingEl)=='HGROUP') {
-					var rank = this.headingRank();
-					headingEl = headingEl.getElementsByTagName('h'+(-rank))[0];
+					headingEl = headingEl.getElementsByTagName('h'+(-_sectionHeadingRank(this)))[0];
 				}
 				return headingEl.textContent || headingEl.innerHTML;
 			}

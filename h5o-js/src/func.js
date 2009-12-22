@@ -35,7 +35,7 @@
 		return _implieadHeadings[_getTagName(el)];
 	}
 		
-	var getHeadingRank = function(el)
+	var getHeadingElementRank = function(el)
 	{
 		if (!isHeading(el)) { throw new Error("Only heading elements have ranks!"); };
 		var elTagName = _getTagName(el);
@@ -49,6 +49,11 @@
 			return -parseInt(elTagName.substr(1));
 		}
 	};
+	
+	var _sectionHeadingRank = function(section)
+	{
+		return isHeading(section.heading) ? getHeadingElementRank(section.heading) : 1;
+	}
 	
 	var _lastSection = function (outlineOrSection)
 	{
