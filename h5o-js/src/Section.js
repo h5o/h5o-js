@@ -6,11 +6,9 @@
 		heading: false,
 			
 		headingRank: function() {
-			if (isHeading(this.heading)) {
-				return getHeadingRank(this.heading);
-			}
 			// if an implied heading was set, treat is as "over the board highest rank"
-			return 1; /* @todo: check if this is true!!! */
+			/* @todo: check if this is true!!! */
+			return isHeading(this.heading) ? getHeadingRank(this.heading) : 1;
 		},
 		
 		append: function(what)
