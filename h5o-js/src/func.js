@@ -4,27 +4,17 @@
 		return el.tagName.toUpperCase(); // upper casing due to http://ejohn.org/blog/nodename-case-sensitivity/
 	}
 
-	var _createTagChecker=function(tagList)
+	var _createTagChecker=function(regexString)
 	{
 		return function(el)
 		{
-			if (!isElement(el)) {
-				return false;
-			}
-			
-			for (var i=0; i < tagList.length; i++) {
-				if (tagList[i] == el.tagName.toUpperCase()) {
-					return true;
-				}
-			}
-			
-			return false;
+			return isElement(el) && (new RegExp(regexString, "i")).test(_getTagName(el));
 		}
 	}
 	
-	var isSecRoot	= _createTagChecker(['BLOCKQUOTE', 'BODY', 'DETAILS', 'FIELDSET', 'FIGURE', 'TD']),
-		isSecContent= _createTagChecker(['ARTICLE', 'ASIDE', 'NAV', 'SECTION']),
-		isHeading	= _createTagChecker(['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'HGROUP']),
+	var isSecRoot	= _createTagChecker('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$'),
+		isSecContent= _createTagChecker('^ARTICLE|ASIDE|NAV|SECTION$'),
+		isHeading	= _createTagChecker('^H[1-6]|HGROUP$'),
 		isElement	= function(obj) { return obj && obj.tagName; };
 	
 	var _implieadHeadings={
