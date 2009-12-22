@@ -4,6 +4,7 @@
 	<!-- BUILD TOOLS -->
     <property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
     <property description="YUICompressor" name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
+    <property description="YUICompressor" name="ClosureCompiler" value="${BUILD_DIR}/closure-compiler/compiler.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
 			<fileset dir="${BUILD_DIR}/svnant-1.3.0/lib" includes="**/*.jar" />
@@ -53,9 +54,26 @@
 			<arg value="ANSI" />
 			<arg value="-o" />
 			<targetfile />
-			<mapper type="glob" from="outliner.debug.js" to="outliner.min.js" />
+			<mapper type="glob" from="*.debug.js" to="*.min.js" />
 		</apply>
         <echo message="${H5O_MIN} built." />
+    </target>
+ 
+    <target name="closure" depends="debug" description="Minified build (Google Closure compiler)">
+        <echo message="Building ${H5O_MIN} [Google Closure Compiler]" />
+		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
+			<fileset dir="${DIST_DIR}">
+				<include name="outliner.debug.js" />
+			</fileset>
+			<arg line="-jar"/>
+			<arg path="${ClosureCompiler}"/>
+			<arg line="--js"/>
+			<srcfile/>
+			<arg line="--js_output_file"/>
+			<mapper type="glob" from="*.debug.js" to="*.min.js"/>
+			<targetfile/>
+		</apply>
+        <echo message="${H5O_MIN} [Google Closure Compiler] built." />
     </target>
  
     <target name="clean">

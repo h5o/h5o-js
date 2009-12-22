@@ -26,16 +26,15 @@
 			
 		getHeadingText: function()
 		{
-			if (isHeading(this.heading)) {
-				if (this.heading.tagName.toUpperCase()=='HGROUP') {
+			var headingEl = this.heading;
+			if (isHeading(headingEl)) {
+				if (_getTagName(headingEl)=='HGROUP') {
 					var rank = this.headingRank();
-					var headingEl = this.heading.getElementsByTagName('h'+(-rank))[0];
-					return headingEl.textContent || headingEl.innerHTML;
-				} else {
-					return this.heading.textContent || this.heading.innerHTML; // @todo: fix up properly!
+					headingEl = headingEl.getElementsByTagName('h'+(-rank))[0];
 				}
+				return headingEl.textContent || headingEl.innerHTML;
 			}
-			return this.heading;
+			return headingEl;
 		},
 			
 		asHTML: function()

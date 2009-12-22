@@ -1,3 +1,9 @@
+	// minifiers will love this more than using el.tagName.toUpperCase() directly
+	var _getTagName = function(el)
+	{
+		return el.tagName.toUpperCase(); // upper casing due to http://ejohn.org/blog/nodename-case-sensitivity/
+	}
+
 	var _createTagChecker=function(tagList)
 	{
 		return function(el)
@@ -36,19 +42,20 @@
 	}
 	var impliedHeading=function(el)
 	{
-		return _implieadHeadings[el.tagName.toUpperCase()];
+		return _implieadHeadings[_getTagName(el)];
 	}
 		
 	var getHeadingRank = function(el)
-		{
-			if (!isHeading(el)) { throw new Error("Only heading elements have ranks!"); };
-			if (el.tagName.toUpperCase()=='HGROUP') {
-				/* The rank of an hgroup element is the rank of the highest-ranked h1-h6 element descendant of the hgroup element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank). */
-				for (var i=1; i <= 6; i++) {
-					if (el.getElementsByTagName('H'+i).length > 0)
-						return -i;
-				}
-			} else {
-				return -parseInt(el.tagName.substr(1));
+	{
+		if (!isHeading(el)) { throw new Error("Only heading elements have ranks!"); };
+		var elTagName = _getTagName(el);
+		if (elTagName=='HGROUP') {
+			/* The rank of an hgroup element is the rank of the highest-ranked h1-h6 element descendant of the hgroup element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank). */
+			for (var i=1; i <= 6; i++) {
+				if (el.getElementsByTagName('H'+i).length > 0)
+					return -i;
 			}
-		};
+		} else {
+			return -parseInt(elTagName.substr(1));
+		}
+	};

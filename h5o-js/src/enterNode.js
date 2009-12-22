@@ -9,12 +9,12 @@
 		if (isSecContent(node) || isSecRoot(node)) {
 			// If current outlinee is not null, and the current section has no heading,
 			// create an implied heading and let that be the heading for the current section.
-			if (currentOutlinee!=null && !currentSection.heading) {
+			/*if (currentOutlinee!=null && !currentSection.heading) {
 				// I am slightly hesitant about this, but it seems that "implied heading" is always created
 				// as "false" in my implementation, i.e. I do NOT need to do anything here right now
 				// I do, however, have a mod of algorithm, where I am creating an implied heading
 				// when EXITING the node.
-			}
+			}*/
 			
 			// If current outlinee is not null, push current outlinee onto the stack.
 			if (currentOutlinee!=null) {
