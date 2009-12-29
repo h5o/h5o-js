@@ -11,21 +11,9 @@ Section.prototype={
 		this.sections.push(what);
 	},
 		
-	getHeadingText: function()
-	{
-		var headingEl = this.heading;
-		if (isHeading(headingEl)) {
-			if (_getTagName(headingEl)=='HGROUP') {
-				headingEl = headingEl.getElementsByTagName('h'+(-_sectionHeadingRank(this)))[0];
-			}
-			return headingEl.textContent || headingEl.innerHTML;
-		}
-		return headingEl;
-	},
-	
 	asHTML: function()
 	{
-		return this.getHeadingText() + _sectionListAsHTML(this.sections);
+		return _sectionHeadingText(this.heading) + _sectionListAsHTML(this.sections);
 	}
 };
 
@@ -44,4 +32,15 @@ var _sectionListAsHTML = function (sections)
 var _sectionHeadingRank = function(section)
 {
 	return isHeading(section.heading) ? _getHeadingElementRank(section.heading) : 1;
+}
+
+var _sectionHeadingText = function(sectionHeading)
+{
+	if (isHeading(sectionHeading)) {
+		if (_getTagName(sectionHeading)=='HGROUP') {
+			sectionHeading = sectionHeading.getElementsByTagName('h'+(-_getHeadingElementRank(sectionHeading)))[0];
+		}
+		return sectionHeading.textContent || sectionHeading.innerHTML;
+	}
+	return ""+sectionHeading;
 }
