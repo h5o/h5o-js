@@ -5,12 +5,6 @@
  *		(c) Copyright 2004-2009 Apple Computer, Inc., Mozilla Foundation, and Opera Software ASA.
  *		You are granted a license to use, reproduce and create derivative works of this document.
  *
- * However, I am not as of this moment sure, what will happen with licensing when the work is 
- * published by W3C. The current W3C draft [3] (retrieved on Nov 9, 2009) of HTML5 does not include 
- * the outlining algorithm. I suppose it will be covered by W3C Documenation or W3C Software 
- * license. They are in theory compatible with MIT license. Please don't sue me.
- *
  * [1] http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#outlines
  * [2] http://www.whatwg.org/specs/web-apps/current-work/multipage/index.html
- * [3] http://dev.w3.org/html5/spec/Overview.html#outlines
  */
