@@ -44,9 +44,12 @@
  
     <target name="yui" depends="debug" description="Minified build">
         <echo message="Building ${H5O_MIN} [YUI Compressor]" />
+		<copy file="${SRC_DIR}/HTML5OutlineBookmarklet.js" tofile="${DIST_DIR}/HTML5OutlineBookmarklet.debug.js" />
+
 		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
 			<fileset dir="${DIST_DIR}">
 				<include name="outliner.debug.js" />
+				<include name="HTML5OutlineBookmarklet.debug.js" />
 			</fileset>
 			<arg line="-jar" />
 			<arg path="${YUICompressor}" />
@@ -56,14 +59,19 @@
 			<targetfile />
 			<mapper type="glob" from="*.debug.js" to="*.min.js" />
 		</apply>
+
+		<delete file="${DIST_DIR}/HTML5OutlineBookmarklet.debug.js" />
         <echo message="${H5O_MIN} built." />
     </target>
  
     <target name="closure" depends="debug" description="Minified build (Google Closure compiler)">
         <echo message="Building ${H5O_MIN} [Google Closure Compiler]" />
+		<copy file="${SRC_DIR}/HTML5OutlineBookmarklet.js" tofile="${DIST_DIR}/HTML5OutlineBookmarklet.debug.js" />
+		
 		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
 			<fileset dir="${DIST_DIR}">
 				<include name="outliner.debug.js" />
+				<include name="HTML5OutlineBookmarklet.debug.js" />
 			</fileset>
 			<arg line="-jar"/>
 			<arg path="${ClosureCompiler}"/>
@@ -73,7 +81,9 @@
 			<mapper type="glob" from="*.debug.js" to="*.min.js"/>
 			<targetfile/>
 		</apply>
-        <echo message="${H5O_MIN} [Google Closure Compiler] built." />
+        
+		<delete file="${DIST_DIR}/HTML5OutlineBookmarklet.debug.js" />
+		<echo message="${H5O_MIN} [Google Closure Compiler] built." />
     </target>
  
     <target name="clean">
@@ -107,6 +117,15 @@
 		
 		<loadfile property="h5o.release.notice" srcfile="${SRC_DIR}/notice.txt" />
 		<replace token="@NOTICE" value="${h5o.release.notice}" file="${H5O_RELEASE_BOOKMARKLET}" />
+		
+		<replace token="&amp;" value="&amp;amp;" file="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		<replace token="&quot;" value="&amp;quot;" file="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		<replace token="&lt;" value="&amp;lt;" file="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		<replace token="&gt;" value="&amp;gt;" file="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		<loadfile property="h5o.release.runBookmarklet" srcfile="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		<delete file="${DIST_DIR}/HTML5OutlineBookmarklet.min.js" />
+		
+		<replace token="@RUNBOOKMARKLET" value="${h5o.release.runBookmarklet}" file="${H5O_RELEASE_BOOKMARKLET}" />
 		
 		<!-- @todo: figure out a proper escaping routine -->
 		<copy file="${H5O_MIN}" tofile="${DIST_DIR}/tmp.js" />
