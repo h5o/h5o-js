@@ -13,16 +13,15 @@
 		walk(start, enterNode, exitNode);
 
 		// If the current outlinee is null, then there was no sectioning content element or sectioning root element in the DOM. There is no outline. Abort these steps.
+		/*
 		if (currentOutlinee != null) {
-			/*
 			Associate any nodes that were not associated with a section in the steps above with current outlinee as their section.
 
 			Associate all nodes with the heading of the section with which they are associated, if any.
 
 			If current outlinee is the body element, then the outline created for that element is the outline of the entire document.
-			*/
-			return currentOutlinee.outline;
 		}
+		*/
 		
-		return null;
+		return currentOutlinee != null ? currentOutlinee.outline : null;
 	};

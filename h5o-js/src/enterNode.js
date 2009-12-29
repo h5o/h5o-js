@@ -1,7 +1,7 @@
 	var enterNode=function(node)
 	{
 		// If the top of the stack is a heading content element - do nothing
-		if (isHeading(stack[stack.length-1])) {
+		if (isHeading(_arrayLast(stack))) {
 			return;
 		}
 

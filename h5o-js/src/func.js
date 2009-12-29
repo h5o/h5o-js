@@ -53,5 +53,11 @@
 	
 	var _lastSection = function (outlineOrSection)
 	{
-		return outlineOrSection.sections[outlineOrSection.sections.length-1];
+		return _arrayLast(outlineOrSection.sections);
 	}
+
+	var _arrayLast = function (arr)
+	{
+		return arr[arr.length-1];
+	}
+	
