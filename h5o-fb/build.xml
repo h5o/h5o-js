@@ -1,0 +1,58 @@
+<project name="h5o-fb" default="debug" basedir=".">
+	
+	<!-- BUILD TOOLS -->
+    <property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
+	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="${BUILD_DIR}/svnant-1.3.0/lib" includes="**/*.jar" />
+		</classpath>
+	</taskdef>
+
+    <!-- SETUP -->
+ 
+    <property description="Source Folder" name="SRC_DIR" value="src"  />
+	<loadfile description="Release version" property="RELEASE_VERSION" srcfile="../version.txt" />
+
+	<svn>
+		<status path="${basedir}" revisionProperty="svn.revision" />
+	</svn>
+	<echo>Sandbox Revision: ${svn.revision}</echo>
+	<property description="Full build version" name="VERSION" value="${RELEASE_VERSION}.${svn.revision}"  />
+	
+    <property description="Folder for completed build" name="DIST_DIR" value="./dist" />
+	<property name="DEBUG_DIR" value="${DIST_DIR}/extension" />
+
+    <!-- MAIN -->
+	<target name="debug" description="H5O for Firebug debug build">
+        <echo message="Building unpacked extension" />
+        <mkdir dir="${DIST_DIR}" />
+		<mkdir dir="${DEBUG_DIR}" />
+		
+		<subant target="debug" buildpath="../h5o-js" />
+		<copy file="../h5o-js/dist/outliner.debug.js" tofile="${DEBUG_DIR}/chrome/content/FireOutliner/outliner.debug.js" />
+
+		<copy todir="${DEBUG_DIR}">
+			<fileset dir="${SRC_DIR}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+		<replace token="@VERSION" value="${VERSION}" file="${DEBUG_DIR}/install.rdf" />
+
+		<copy file="MIT-LICENSE.txt" tofile="${DEBUG_DIR}/MIT-LICENSE.txt" />
+        <echo message="Unpacked extension built." />
+	</target>
+ 
+    <target name="clean">
+        <delete dir="${DIST_DIR}" />
+    </target>
+ 
+    <target name="all" depends="clean,debug">
+        <echo message="Build complete." />
+    </target>
+	
+	<target name="release" depends="all">
+		<zip destfile="${DIST_DIR}/outliner-${VERSION}.xpi" basedir="${DEBUG_DIR}" includes="**/*" />
+	</target>
+ 
+</project>

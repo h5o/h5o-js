@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>h5o@code.google.com</em:id>
+    <em:version>@VERSION</em:version>
+    <em:type>2</em:type>
+   
+    <!-- Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.5</em:minVersion>
+        <em:maxVersion>3.5.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:name>HTML5 Outliner for FireBug</em:name>
+    <em:description></em:description>
+    <em:creator>Dominykas Blyžė</em:creator>
+    <em:homepageURL>http://code.google.com/p/h5o/</em:homepageURL>
+  </Description>      
+</RDF>

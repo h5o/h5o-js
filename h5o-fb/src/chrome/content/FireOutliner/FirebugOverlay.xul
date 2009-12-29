@@ -1,0 +1,28 @@
+<?xml version="1.0"?> 
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"> 
+
+    <script type="application/x-javascript" src="chrome://FireOutliner/content/FirebugPanel.js"/> 
+    <script type="application/x-javascript" src="chrome://FireOutliner/content/outliner.debug.js"/> 
+            
+    <commandset id="mainCommandSet"> 
+    
+        <command id="cmd_h5oRefresh" oncommand="Firebug.HTML5Outline.refresh()"/> 
+        
+    </commandset> 
+    
+    <toolbar id="fbToolbar" align="center"> 
+    
+        <hbox id="fbToolbarInner" insertbefore="fbDetachButton" flex="1" align="center"> 
+        
+            <hbox id="fbFirebugH5OButtons" insertafter="fbNetButtons"> 
+
+                <toolbarbutton label="Refresh" class="toolbar-text-button" 
+                               tooltiptext="Regenerate outline from current DOM" command="cmd_h5oRefresh"/> 
+            </hbox> 
+
+        </hbox> 
+
+    </toolbar> 
+
+</overlay>
