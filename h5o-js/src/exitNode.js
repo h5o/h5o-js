@@ -16,7 +16,7 @@
 		// this means, currentSection will change (and we won't get back to it)
 		if ((isSecContent(node) || isSecRoot(node)) && !currentSection.heading) {
 			
-			currentSection.heading = '<i>' + impliedHeading(node) + '</i>';
+			currentSection.heading = '<i>Untitled ' + _getTagName(node) + '</i>';
 			
 		}
 		/************ END MODIFICATION ***********************************/
