@@ -1,13 +1,14 @@
 	var exitNode=function(node)
 	{
-		// If the top of the stack is a heading element, and you are exiting that element
-		if (_arrayLast(stack)==node && isHeading(node)) {
-			stack.pop();
-			return;
-		}
-
+		// If the top of the stack is an element, and you are exiting that element
+		//				Note: The element being exited is a heading content element.
+		//		Pop that element from the stack.
 		// If the top of the stack is a heading content element - do nothing
-		if (isHeading(_arrayLast(stack))) {
+		var stackTop = _arrayLast(stack);
+		if (isHeading(stackTop)) {
+			if (stackTop == node) {
+				stack.pop();
+			}
 			return;
 		}
 		

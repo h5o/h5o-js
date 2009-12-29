@@ -19,19 +19,21 @@ Section.prototype={
 
 var _sectionListAsHTML = function (sections)
 {
-	if (sections.length == 0) return '';
+	var retval = '';
 	
-	var retval='<ol>';
 	for (var i=0; i < sections.length; i++) {
 		retval+='<li>'+sections[i].asHTML()+'</li>';
 	}
-	retval+='</ol>';
-	return retval;
+	
+	return (retval=='' ? retval : '<ol>'+retval+'</ol>');
 }
 
 var _sectionHeadingRank = function(section)
 {
-	return isHeading(section.heading) ? _getHeadingElementRank(section.heading) : 1;
+	var heading = section.heading;
+	return isHeading(heading) 
+				? _getHeadingElementRank(heading) 
+				: 1; // is this true? TODO: find a reference...
 }
 
 var _sectionHeadingText = function(sectionHeading)
@@ -40,7 +42,7 @@ var _sectionHeadingText = function(sectionHeading)
 		if (_getTagName(sectionHeading)=='HGROUP') {
 			sectionHeading = sectionHeading.getElementsByTagName('h'+(-_getHeadingElementRank(sectionHeading)))[0];
 		}
-		return sectionHeading.textContent || sectionHeading.innerHTML;
+		return sectionHeading.textContent || sectionHeading.innerText || sectionHeading.innerHTML;
 	}
 	return ""+sectionHeading;
 }

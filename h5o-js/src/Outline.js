@@ -1,11 +1,10 @@
-	var Outline=function(outlinee, section)
+var Outline=function(outlinee, section)
+{
+	this.outlinee = outlinee;
+	this.sections = [section];
+	
+	this.asHTML=function()
 	{
-		this.outlinee = outlinee;
-		this.sections=[section];
+		return _sectionListAsHTML(this.sections);
 	};
-	Outline.prototype={
-		asHTML: function()
-		{
-			return _sectionListAsHTML(this.sections);
-		}
-	};
+};
