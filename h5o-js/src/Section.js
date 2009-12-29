@@ -43,5 +43,5 @@ var _sectionListAsHTML = function (sections)
 
 var _sectionHeadingRank = function(section)
 {
-	return isHeading(section.heading) ? getHeadingElementRank(section.heading) : 1;
+	return isHeading(section.heading) ? _getHeadingElementRank(section.heading) : 1;
 }

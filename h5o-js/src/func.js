@@ -37,9 +37,8 @@
 	}
 	*/
 		
-	var getHeadingElementRank = function(el)
+	var _getHeadingElementRank = function(el)
 	{
-		if (!isHeading(el)) { throw new Error("Only heading elements have ranks!"); };
 		var elTagName = _getTagName(el);
 		if (elTagName=='HGROUP') {
 			/* The rank of an hgroup element is the rank of the highest-ranked h1-h6 element descendant of the hgroup element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank). */

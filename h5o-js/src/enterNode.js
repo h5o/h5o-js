@@ -49,7 +49,7 @@
 				currentSection.heading = node;
 			
 			// Otherwise, if the element being entered has a rank equal to or greater than the heading of the last section of the outline of the current outlinee, 
-			} else if (getHeadingElementRank(node) >= _sectionHeadingRank(_lastSection(currentOutlinee.outline))) {
+			} else if (_getHeadingElementRank(node) >= _sectionHeadingRank(_lastSection(currentOutlinee.outline))) {
 				
 				// create a new section and 
 				var newSection=new Section();
@@ -71,7 +71,7 @@
 
 				do {
 					// 2. If the element being entered has a rank lower than the rank of the heading of the candidate section, 
-					if (getHeadingElementRank(node) < _sectionHeadingRank(candidateSection)) {
+					if (_getHeadingElementRank(node) < _sectionHeadingRank(candidateSection)) {
 						
 						// create a new section,
 						var newSection = new Section();
