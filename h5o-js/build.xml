@@ -42,8 +42,8 @@
         <echo message="${H5O_DEBUG} built." />
   </target>
  
-    <target name="min" depends="debug" description="Minified build">
-        <echo message="Building ${H5O_MIN}" />
+    <target name="yui" depends="debug" description="Minified build">
+        <echo message="Building ${H5O_MIN} [YUI Compressor]" />
 		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
 			<fileset dir="${DIST_DIR}">
 				<include name="outliner.debug.js" />
@@ -80,7 +80,7 @@
         <delete dir="${DIST_DIR}" />
     </target>
  
-    <target name="all" depends="clean,debug,min">
+    <target name="all" depends="clean,debug,closure">
         <echo message="Build complete." />
     </target>
 	

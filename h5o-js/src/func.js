@@ -17,7 +17,7 @@
 		isHeading	= _createTagChecker('^H[1-6]|HGROUP$'),
 		isElement	= function(obj) { return obj && obj.tagName; };
 	
-	var _implieadHeadings={
+	/*var _implieadHeadings={
 		BLOCKQUOTE: 'Untitled quote', 
 		BODY: 'Untitled document', 
 		DETAILS: 'Untitled details', 
@@ -29,10 +29,11 @@
 		ASIDE: 'Untitled sidebar', 
 		NAV: 'Untitled navigation', 
 		SECTION: 'Untitled section'
-	}
+	}*/
 	var impliedHeading=function(el)
 	{
-		return _implieadHeadings[_getTagName(el)];
+		//return _implieadHeadings[_getTagName(el)];
+		return "Untitled "+_getTagName(el);
 	}
 		
 	var getHeadingElementRank = function(el)
