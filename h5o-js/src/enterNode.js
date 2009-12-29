@@ -32,7 +32,10 @@
 			currentSection = new Section();
 
 			// Let there be a new outline for the new current outlinee, initialized with just the new current section as the only section in the outline.
-			currentOutlinee.outline = new Outline(currentOutlinee, currentSection);
+			currentOutlinee.outline = {
+										sections: [currentSection],
+										asHTML: function() { return _sectionListAsHTML(this.sections); }
+									}
 			return;
 		}
 
