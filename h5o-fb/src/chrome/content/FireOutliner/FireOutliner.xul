@@ -15,7 +15,7 @@
     
         <hbox id="fbToolbarInner" insertbefore="fbDetachButton" flex="1" align="center"> 
         
-            <hbox id="fbFirebugH5OButtons" insertafter="fbNetButtons"> 
+            <hbox id="fbH5OButtons" insertafter="fbNetButtons"> 
 
                 <toolbarbutton label="Refresh" class="toolbar-text-button" 
                                tooltiptext="Regenerate outline from current DOM" command="cmd_h5oRefresh"/> 

@@ -9,13 +9,23 @@ Firebug.FireOutliner = extend(Firebug.Module,
 }); 
 
 
-function HTML5OutlinePanel() {}
-HTML5OutlinePanel.prototype = extend(Firebug.Panel, 
+function FireOutlinerPanel() {}
+FireOutlinerPanel.prototype = extend(Firebug.Panel, 
 { 
     name: "FireOutliner", 
     title: "Outline", 
     searchable: false, 
     editable: false,
+	
+	show: function(state)
+	{
+		this.showToolbarButtons("fbH5OButtons", true);
+	},
+		
+	hide: function()
+	{
+		this.showToolbarButtons("fbH5OButtons", false);
+	},
 
 	showOutline: function() {
       this.panelNode.innerHTML = HTML5Outline(this.context.window.document.body).asHTML();
@@ -24,6 +34,6 @@ HTML5OutlinePanel.prototype = extend(Firebug.Panel,
 
 
 Firebug.registerModule(Firebug.FireOutliner); 
-Firebug.registerPanel(HTML5OutlinePanel); 
+Firebug.registerPanel(FireOutlinerPanel); 
 
 }});
