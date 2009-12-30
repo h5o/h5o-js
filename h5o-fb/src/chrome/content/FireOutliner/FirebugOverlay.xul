@@ -2,7 +2,7 @@
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"> 
 
-    <script type="application/x-javascript" src="chrome://FireOutliner/content/FirebugPanel.js"/> 
+    <script type="application/x-javascript" src="chrome://FireOutliner/content/FireOutliner.js"/> 
     <script type="application/x-javascript" src="chrome://FireOutliner/content/outliner.debug.js"/> 
             
     <commandset id="mainCommandSet"> 
