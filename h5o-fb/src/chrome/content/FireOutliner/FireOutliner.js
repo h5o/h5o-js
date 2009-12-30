@@ -4,7 +4,7 @@ Firebug.FireOutliner = extend(Firebug.Module,
 { 
 	refresh: function() 
 	{ 
-		FirebugContext.getPanel("FireOutliner").showOutline()
+		FirebugContext.getPanel("FireOutliner").updateView()
 	} 
 }); 
 
@@ -20,6 +20,7 @@ FireOutlinerPanel.prototype = extend(Firebug.Panel,
 	show: function(state)
 	{
 		this.showToolbarButtons("fbH5OButtons", true);
+		this.updateView();
 	},
 		
 	hide: function()
@@ -27,8 +28,8 @@ FireOutlinerPanel.prototype = extend(Firebug.Panel,
 		this.showToolbarButtons("fbH5OButtons", false);
 	},
 
-	showOutline: function() {
-      this.panelNode.innerHTML = HTML5Outline(this.context.window.document.body).asHTML();
+	updateView: function() {
+		this.panelNode.innerHTML = HTML5Outline(this.context.window.document.body).asHTML();
     }
 }); 
 
