@@ -7,7 +7,7 @@
             
     <commandset id="mainCommandSet"> 
     
-        <command id="cmd_h5oRefresh" oncommand="Firebug.HTML5Outline.refresh()"/> 
+        <command id="cmd_h5oRefresh" oncommand="Firebug.FireOutliner.refresh()"/> 
         
     </commandset> 
     

@@ -1,10 +1,10 @@
 FBL.ns(function() { with (FBL) {
 
-Firebug.HTML5Outline = extend(Firebug.Module, 
+Firebug.FireOutliner = extend(Firebug.Module, 
 { 
 	refresh: function() 
 	{ 
-		FirebugContext.getPanel("HTML5Outline").showOutline()
+		FirebugContext.getPanel("FireOutliner").showOutline()
 	} 
 }); 
 
@@ -12,7 +12,7 @@ Firebug.HTML5Outline = extend(Firebug.Module,
 function HTML5OutlinePanel() {}
 HTML5OutlinePanel.prototype = extend(Firebug.Panel, 
 { 
-    name: "HTML5Outline", 
+    name: "FireOutliner", 
     title: "Outline", 
     searchable: false, 
     editable: false,
@@ -23,7 +23,7 @@ HTML5OutlinePanel.prototype = extend(Firebug.Panel,
 }); 
 
 
-Firebug.registerModule(Firebug.HTML5Outline); 
+Firebug.registerModule(Firebug.FireOutliner); 
 Firebug.registerPanel(HTML5OutlinePanel); 
 
 }});
