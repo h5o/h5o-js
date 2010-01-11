@@ -56,5 +56,10 @@ var _sectionHeadingText = function(sectionHeading)
 
 var _generateId = function(node)
 {
-	return node.getAttribute('id') || 'h5o-'+(++linkCounter);
+	var id=node.getAttribute('id');
+	if (id) return id;
+	
+	id='h5o-'+(++linkCounter);
+	node.setAttribute('id', id);
+	return id;
 }
