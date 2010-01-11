@@ -49,7 +49,8 @@ var _sectionHeadingText = function(sectionHeading)
 		if (_getTagName(sectionHeading)=='HGROUP') {
 			sectionHeading = sectionHeading.getElementsByTagName('h'+(-_getHeadingElementRank(sectionHeading)))[0];
 		}
-		return sectionHeading.textContent || sectionHeading.innerText || sectionHeading.innerHTML;
+		// @todo: try to resolve text content from img[alt] or *[title]
+		return sectionHeading.textContent || sectionHeading.innerText || "<i>No text content inside "+sectionHeading.nodeName+"</i>";
 	}
 	return ""+sectionHeading;
 }
