@@ -1,5 +1,7 @@
 	HTML5Outline=function(start)
 	{
+		linkCounter=0;
+		
 		// Let current outlinee be null. (It holds the element whose outline is being created.)
 		currentOutlinee=null;
 		
@@ -22,5 +24,6 @@
 			If current outlinee is the body element, then the outline created for that element is the outline of the entire document.
 		}
 		*/
+		
 		return currentOutlinee != null ? currentOutlinee.outline : null;
 	};

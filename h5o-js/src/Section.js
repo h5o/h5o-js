@@ -14,7 +14,13 @@ Section.prototype={
 		
 	asHTML: function(createLinks)
 	{
-		return _sectionHeadingText(this.heading) + _sectionListAsHTML(this.sections);
+		var headingText = _sectionHeadingText(this.heading);
+		if (createLinks) {
+			headingText = '<a href="#'+_generateId(this.startingNode)+'">'
+			              + headingText
+						  + '</a>';
+		}
+		return headingText + _sectionListAsHTML(this.sections, createLinks);
 	}
 };
 
@@ -46,4 +52,9 @@ var _sectionHeadingText = function(sectionHeading)
 		return sectionHeading.textContent || sectionHeading.innerText || sectionHeading.innerHTML;
 	}
 	return ""+sectionHeading;
+}
+
+var _generateId = function(node)
+{
+	return node.getAttribute('id') || 'h5o-'+(++linkCounter);
 }
