@@ -4,7 +4,7 @@
 		currentOutlinee=null;
 		
 		// Let current section be null. (It holds a pointer to a section, so that elements in the DOM can all be associated with a section.)
-		currentSection=new Section();
+		currentSection=null;
 		
 		// Create a stack to hold elements, which is used to handle nesting. Initialize this stack to empty.
 		stack=[];
@@ -22,6 +22,5 @@
 			If current outlinee is the body element, then the outline created for that element is the outline of the entire document.
 		}
 		*/
-		
 		return currentOutlinee != null ? currentOutlinee.outline : null;
 	};
