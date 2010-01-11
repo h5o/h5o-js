@@ -59,7 +59,9 @@ var _generateId = function(node)
 	var id=node.getAttribute('id');
 	if (id) return id;
 	
-	id='h5o-'+(++linkCounter);
+	do {
+		id='h5o-'+(++linkCounter);
+	} while (rootDocument.getElementById(id));
 	node.setAttribute('id', id);
 	return id;
 }

@@ -2,6 +2,9 @@
 	{
 		linkCounter=0;
 		
+		// we need a document, to be able to use getElementById - @todo: figure out a better way, if there is one
+		rootDocument = start.ownerDocument || window.document; // @todo: how will this work in, say, Rhino, for outlining fragments?
+		
 		// Let current outlinee be null. (It holds the element whose outline is being created.)
 		currentOutlinee=null;
 		

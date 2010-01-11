@@ -1,4 +1,4 @@
-	var currentOutlinee, currentSection, stack, linkCounter;
+	var currentOutlinee, currentSection, stack, linkCounter, rootDocument;
 	
 	var walk=function (root, enter, exit) {
 		var node = root;
