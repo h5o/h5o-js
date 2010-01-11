@@ -7,12 +7,13 @@
 			var init=function()
 			{
 				var testList=[
-					"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst", "hgroup"
+					"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst", "hgroup",
+					"links_simple"
 				];
 				
 				var cleanWhiteSpace=function(s)
 				{
-					return s.replace(/\s/g, '');
+					return s.replace(/>\s+/g, '>').replace(/\s+</g, '<');
 				}
 				
 				var testOutline=function(testID, nextTest)
@@ -20,6 +21,8 @@
 					var docIframe = document.createElement("iframe"),
 						outIframe = document.createElement("iframe"),
 						doc=out=false;
+					
+					var createLinks = (testID.substring(0,6)=='links_');
 					
 					docIframe.src = testID + ".doc.html";
 					docIframe.onload = function() { doc=docIframe.contentWindow.document.body; }
@@ -32,7 +35,7 @@
 						clearInterval(waitForLoad);
 
 						var expected = cleanWhiteSpace(out.innerHTML);
-						var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML());
+						var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML(createLinks));
 						
 						fireunit.compare(expected, actual, "Comparison for: "+testID);
 						
