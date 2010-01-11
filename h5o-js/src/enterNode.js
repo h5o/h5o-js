@@ -29,12 +29,13 @@
 			currentOutlinee = node;
 
 			// Let current section be a newly created section for the current outlinee element.
-			currentSection = new Section();
+			currentSection = new Section(node);
 
 			// Let there be a new outline for the new current outlinee, initialized with just the new current section as the only section in the outline.
 			currentOutlinee.outline = {
 										sections: [currentSection],
-										asHTML: function() { return _sectionListAsHTML(this.sections); }
+										startingNode: node,
+										asHTML: function(createLinks) { return _sectionListAsHTML(this.sections, createLinks); }
 									}
 			return;
 		}
@@ -55,7 +56,8 @@
 			} else if (_getHeadingElementRank(node) >= _sectionHeadingRank(_lastSection(currentOutlinee.outline))) {
 				
 				// create a new section and 
-				var newSection=new Section();
+				var newSection=new Section(node);
+				
 				// append it to the outline of the current outlinee element, so that this new section is the new last section of that outline. 
 				currentOutlinee.outline.sections.push(newSection);
 				
@@ -77,7 +79,7 @@
 					if (_getHeadingElementRank(node) < _sectionHeadingRank(candidateSection)) {
 						
 						// create a new section,
-						var newSection = new Section();
+						var newSection = new Section(node);
 
 						// and append it to candidate section. (This does not change which section is the last section in the outline.)
 						candidateSection.append(newSection);

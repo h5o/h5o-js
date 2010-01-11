@@ -1,6 +1,7 @@
-var Section=function()
+var Section=function(startingNode)
 {
 	this.sections=[];
+	this.startingNode = startingNode;
 };
 Section.prototype={
 	heading: false,
@@ -11,18 +12,18 @@ Section.prototype={
 		this.sections.push(what);
 	},
 		
-	asHTML: function()
+	asHTML: function(createLinks)
 	{
 		return _sectionHeadingText(this.heading) + _sectionListAsHTML(this.sections);
 	}
 };
 
-var _sectionListAsHTML = function (sections)
+var _sectionListAsHTML = function (sections, createLinks)
 {
 	var retval = '';
 	
 	for (var i=0; i < sections.length; i++) {
-		retval+='<li>'+sections[i].asHTML()+'</li>';
+		retval+='<li>'+sections[i].asHTML(createLinks)+'</li>';
 	}
 	
 	return (retval=='' ? retval : '<ol>'+retval+'</ol>');
