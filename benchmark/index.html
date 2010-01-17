@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML outliner benchmark</title>
+	<script type="text/javascript">
+
+		var CLEANUP_IFRAMES = false,
+			TEST_VERSION = "800kb",
+			TEST_CASES=[
+				{
+					// http://code.google.com/p/h5o/
+					fileName: 'outliner.0.5.0.62.js',
+					test: function(win, doc, onFinished)
+					{
+						var outline = win.HTML5Outline(doc.body).asHTML(true);
+						doc.getElementById('toc').innerHTML = outline;
+						onFinished();
+					}
+				},
+				{
+					// http://github.com/joshwnj/toc
+					fileName: 'joshwnj.js',
+					test: function(win, doc, onFinished)
+					{
+						win.joshwnj();
+						onFinished();
+					}
+				},
+				{
+					// http://lab.diogovincenzi.com/blog/view/table-contents-jquery
+					fileName: 'diogio.js',
+					test: function(win, doc, onFinished)
+					{
+						win.diogio();
+						onFinished();
+					}
+				},
+				{
+					// http://www.wait-till-i.com/2010/01/06/the-table-of-contents-script-my-old-nemesis/
+					fileName: 'codepo8-dom.js',
+					test: function(win, doc, onFinished)
+					{
+						win.codepo8_dom();
+						onFinished();
+					}
+				},
+				{ // DOES NOT WORK UNDER IE/Opera
+					// http://www.wait-till-i.com/2010/01/06/the-table-of-contents-script-my-old-nemesis/
+					fileName: 'codepo8-regex.js',
+					test: function(win, doc, onFinished)
+					{
+						win.codepo8_regex();
+						onFinished();
+					}
+				},
+				{
+					// http://www.wait-till-i.com/2010/01/06/the-table-of-contents-script-my-old-nemesis/
+					fileName: 'codepo8-yui.js',
+					test: function(win, doc, onFinished)
+					{
+						win.codepo8_yui(onFinished);
+					}
+				},
+				{
+					// http://www.kryogenix.org/code/browser/generated-toc/#aftertoc
+					fileName: 'sil.js',
+					test: function(win, doc, onFinished)
+					{
+						win.generated_toc.generate();
+						onFinished();
+					}
+				}
+			];
+		
+		var setOnLoad = function(what, callback)
+		{
+			if (what.addEventListener)
+			{
+				what.addEventListener('load', callback, true);
+			} else if (what.attachEvent)
+			{
+				what.attachEvent('onreadystatechange', function()
+				{
+					if (what.readyState == 'complete' || what.readyState == 'loaded')
+					{
+						callback();
+					}
+				});
+			}
+		};
+		
+		var runTests = function()
+		{
+			var i=0,
+				nextTest=function()
+				{
+					if (i >= TEST_CASES.length)  return;
+					
+					runTest(TEST_CASES[i], nextTest);
+					i++;
+				}
+			nextTest();
+		};
+		
+		var runTest = function(testCase, onComplete)
+		{
+			var docIframe = document.createElement('iframe');
+			docIframe.setAttribute('src', 'testDocument.'+TEST_VERSION+'.html');
+			
+			setOnLoad(docIframe, function()
+			{
+				var testWin = docIframe.contentWindow,
+					testDoc = testWin.document,
+					testBody = testDoc.body,
+					elScript = testDoc.createElement('script');
+				
+				elScript.setAttribute('src', 'outliners/'+testCase.fileName);
+				setOnLoad(elScript, function()
+				{
+					var startTime = (new Date()).getTime();
+					testCase.test(testWin, testDoc, function(){
+						var runTime = testCase.fileName+': '+((new Date()).getTime()-startTime)/1000;
+						
+						var p = document.createElement('p');
+						p.innerHTML = runTime;
+						document.getElementById('results').appendChild(p);
+						
+						if (CLEANUP_IFRAMES) docIframe.parentNode.removeChild(docIframe);
+						onComplete();
+					});
+				});
+				testDoc.getElementsByTagName("head")[0].appendChild(elScript);
+			});
+			document.body.appendChild(docIframe);
+		};
+	</script>
+	<style type="text/css">
+		#results 
+		{
+			padding: 0 1em;
+			margin: 1em 0;
+			background-color: #eee;
+		}
+		iframe
+		{
+			width: 90%;
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<h1>HTML outliner benchmark</h1>
+	<button onclick="runTests()">Test</button>
+	<div id="results"></div>
+</body>
+</html>
