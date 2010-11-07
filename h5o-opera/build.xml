@@ -1,4 +1,4 @@
-<project name="h5o-chrome" default="debug" basedir=".">
+<project name="h5o-opera" default="debug" basedir=".">
 	
 	<!-- BUILD TOOLS -->
     <property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
@@ -23,7 +23,7 @@
 	<property name="DEBUG_DIR" value="${DIST_DIR}/extension" />
 
     <!-- MAIN -->
-	<target name="debug" description="Debug H5O for Chrome build">
+	<target name="debug" description="Debug H5O for Opera build">
         <echo message="Building unpacked extension" />
         <mkdir dir="${DIST_DIR}" />
 		<mkdir dir="${DEBUG_DIR}" />
@@ -31,24 +31,24 @@
 		<subant target="debug" buildpath="../h5o-js" />
 		<copy file="../h5o-js/dist/outliner.debug.js" tofile="${DEBUG_DIR}/outliner.debug.js" />
 		
-		<copy file="${SRC_DIR}/manifest.json" tofile="${DEBUG_DIR}/manifest.json" />
-		<replace token="@VERSION" value="${VERSION}" file="${DEBUG_DIR}/manifest.json" />
+		<copy file="${SRC_DIR}/config.xml" tofile="${DEBUG_DIR}/config.xml" />
+		<replace token="@VERSION" value="${VERSION}" file="${DEBUG_DIR}/config.xml" />
 
 		<copy todir="${DEBUG_DIR}/img">
 			<fileset dir="${SRC_DIR}/img">
 				<include name="*.png" />
 			</fileset>
 		</copy>
-		<copy file="${SRC_DIR}/background.html" tofile="${DEBUG_DIR}/background.html" />
+		<copy file="${SRC_DIR}/index.html" tofile="${DEBUG_DIR}/index.html" />
 		<copy file="${SRC_DIR}/popup.html" tofile="${DEBUG_DIR}/popup.html" />
 		<copy file="MIT-LICENSE.txt" tofile="${DEBUG_DIR}/MIT-LICENSE.txt" />
-        <concat destfile="${DEBUG_DIR}/createOutline.js">
+        <concat destfile="${DEBUG_DIR}/includes/createOutline.js">
             <fileset dir="${DEBUG_DIR}" includes="outliner.debug.js" />
-            <fileset dir="${SRC_DIR}" includes="createOutline.js" />
+            <fileset dir="${SRC_DIR}/includes" includes="createOutline.js" />
         </concat>
-        
+
         <delete file="${DEBUG_DIR}/outliner.debug.js"/>
-		
+        
         <echo message="Unpacked extension built." />
 	</target>
  
@@ -59,9 +59,9 @@
     <target name="all" depends="clean,debug">
         <echo message="Build complete." />
     </target>
-	
+ 	
 	<target name="release" depends="all">
-		<zip destfile="${DIST_DIR}/outliner.${VERSION}.zip" basedir="${DEBUG_DIR}" includes="**/*" />
+		<zip destfile="${DIST_DIR}/outliner.${VERSION}.oex" basedir="${DEBUG_DIR}" includes="**/*" />
 	</target>
- 
+
 </project>

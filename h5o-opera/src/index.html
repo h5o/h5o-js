@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Outliner</title>
+	<script>
+		window.addEventListener('load', function(){
+			var buttonProperties = {
+				disabled: false,
+				title: "Show outline",
+				icon: "img/16.png",
+				popup: {
+					href: "popup.html",
+					width: 500,
+					height: 300
+				}
+			};
+			var btn = opera.contexts.toolbar.createItem(buttonProperties);
+			opera.contexts.toolbar.addItem(btn);
+			
+
+			var popup;
+			
+			opera.extension.onconnect=function(e)
+			{
+				if (e.origin.indexOf('widget://') > -1)
+				{
+					var tab = opera.extension.tabs.getFocused();
+					if (tab)
+					{
+						tab.postMessage({msg:"getPorts"});
+						popup = e.source;
+					}
+					else
+					{
+						opera.postError("This extension doesn't have access to the active tab - F5 might help");
+					}
+				}
+			}
+
+			opera.extension.onmessage = function(e)
+			{
+				if (e.data.msg == 'establishConnection')
+				{
+					popup.postMessage({msg:"establishConnection"}, e.ports)
+				}
+			}
+		}, false);
+	</script>
+</head>
+</html>
