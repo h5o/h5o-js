@@ -18,9 +18,9 @@ The current (Nov, 2009) HTML5 draft defines quite a precise algorithm, for produ
 ### Current status ###
 
 * [Chrome extension](https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo) available
-* [Bookmarklet](http://code.google.com/p/h5o/downloads/list) available (Tested in FF3.5 -and O10.10- - should also work elsewhere)
-  - -Limited [version for IE](http://h5o.googlecode.com/files/bookmarklet.for.ie.html) also available. See: [ProblemsWithInternetExplorer]-
-* -Firebug extension is in a very [early experimental state](http://code.google.com/p/h5o/downloads/list)-
+* [Bookmarklet](http://code.google.com/p/h5o/downloads/list) available (Tested in FF3.5 ~~and O10.10~~ - should also work elsewhere)
+  - ~~Limited [version for IE](http://h5o.googlecode.com/files/bookmarklet.for.ie.html) also available. See: [ProblemsWithInternetExplorer]~~
+* ~~Firebug extension is in a very [early experimental state](http://code.google.com/p/h5o/downloads/list)~~
 * [Minified JS](http://code.google.com/p/h5o/downloads/list) that you can use.
   - `HTML5Outline(startFrom)` (you likely want startFrom to be document.body). Returned value is an outline object, with sections.
   - `outline.asHTML(createLinks)` to get a simple ordered list. If createLinks is true, the DOM will be amended with IDs and the list will contain links for navigation
