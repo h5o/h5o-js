@@ -3,6 +3,8 @@
 This project originally lived on Google Code, and for the time being, 
 the downloads still reside there: https://code.google.com/p/h5o/downloads/list
 
+If you like this tool, please consider [a charitable donation](https://www.ammado.com/community/112794) to Ocean Voyages Institute (Project Kaisei).
+
 ## Original README ##
 
 The current (Nov, 2009) HTML5 draft defines quite a precise algorithm, for producing an outline for HTML documents. h5o is an implementation of the algorithm in JavaScript.
