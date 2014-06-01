@@ -1,3 +1,0 @@
-content FireOutliner chrome/content/FireOutliner/ xpcnativewrappers=no
-
-overlay chrome://firebug/content/firebugOverlay.xul         chrome://FireOutliner/content/FireOutliner.xul

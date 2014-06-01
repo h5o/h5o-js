@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets">
-	<name>HTML5 Outliner v@VERSION</name>
-	<description>Generates a navigable page outline with heading and sectioning elements</description>
-  	<author href="http://www.dominykas.com/">Dominykas Blyžė</author>
-	<icon src="img/48.png"/>
-</widget>
