@@ -1,0 +1,23 @@
+{
+  "name": "h5o",
+  "version": "0.5.2",
+  "description": "HTML5 outliner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h5o/h5o-js.git"
+  },
+  "author": {
+    "name": "Dominykas Blyžė",
+    "email": "hello@dominykas.com",
+    "url": "http://www.dominykas.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/h5o/h5o-js/issues"
+  },
+  "homepage": "https://github.com/h5o/h5o-js"
+}
