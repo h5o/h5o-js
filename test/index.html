@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HTML5 Outliner tests</title>
+		<script type="text/javascript" src="../dist/outliner.min.js"></script>
+		<script type="text/javascript">
+			var init=function()
+			{
+				var testList=[
+					"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst", "hgroup",
+					"links_simple", "links_idreuse", "links_idcollision"
+				];
+				
+				var cleanWhiteSpace=function(s)
+				{
+					return s.replace(/>\s+/g, '>').replace(/\s+</g, '<');
+				}
+				
+				var testOutline=function(testID, nextTest)
+				{
+					var docIframe = document.createElement("iframe"),
+						outIframe = document.createElement("iframe"),
+						doc=out=false;
+					
+					var createLinks = (testID.substring(0,6)=='links_');
+					
+					docIframe.src = testID + ".doc.html";
+					docIframe.onload = function() { doc=docIframe.contentWindow.document.body; }
+					
+					outIframe.src = testID + ".out.html";
+					outIframe.onload = function() { out=outIframe.contentWindow.document.body; }
+
+					var runTest = function() {
+						if (!doc || !out) return;
+						clearInterval(waitForLoad);
+
+						var expected = cleanWhiteSpace(out.innerHTML);
+						var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML(createLinks));
+						
+						fireunit.compare(expected, actual, "Comparison for: "+testID);
+						
+						setTimeout(function(){
+							docIframe.parentNode.removeChild(docIframe);
+							outIframe.parentNode.removeChild(outIframe);
+							nextTest();
+						}, 100);
+					}
+
+					var waitForLoad=setInterval(runTest, 1);
+					
+					document.body.appendChild(docIframe);
+					document.body.appendChild(outIframe);
+				}
+				
+				document.getElementById('start').onclick=function()
+				{
+					if (typeof fireunit === 'object') {
+					
+						/* test non-sectioning element outlining */
+						var t1 = document.createElement('div');
+						var actual1 = HTML5Outline(t1);
+						fireunit.compare(null, actual1, "Outline for an empty DIV should be null");
+						
+						/* test section inside a div - not starting with secRoot */
+						var t2 = document.createElement('div');
+						t2.appendChild(document.createElement('section'));
+						var actual2 = HTML5Outline(t2);
+						fireunit.compare("<ol><li><i>Untitled SECTION</i></li></ol>", 
+											actual2.asHTML(), 
+											"Outline for a DIV is the outline of the SECTION inside");
+					
+						/* test two sections inside a div - not starting with secRoot */
+						var t3 = document.createElement('div');
+						t3.appendChild(document.createElement('section'));
+						t3.appendChild(document.createElement('section'));
+						var actual3 = HTML5Outline(t3);
+						fireunit.compare("<ol><li><i>Untitled SECTION</i><ol><li><i>Untitled SECTION</i></li></ol></li></ol>", 
+											actual3.asHTML(), 
+											"Second SECTION becomes a child of the first one. Odd - TODO - verify");
+
+						/* test some headings */
+						var t4 = document.createElement('div');
+						var h = document.createElement('h1');
+							h.innerHTML="Test";
+						t4.appendChild(h);
+						t4.appendChild(document.createElement('section'));
+						var actual4 = HTML5Outline(t4);
+						fireunit.compare("<ol><li><i>Untitled SECTION</i></li></ol>", 
+											actual4.asHTML(), 
+											"Heading outside of sectioning root is ignored");
+						fireunit.testDone();
+					
+						/* iframe tests */
+						var i=0;
+						var nextTest=function()
+						{
+							if (i < testList.length) {
+								testOutline(testList[i], nextTest);
+								i++;
+							} else {
+								fireunit.testDone();
+							}
+						}
+						nextTest();
+					}
+					else alert("Fireunit required");
+				}
+			}
+		</script>
+	</head>
+	<body onload="init();">
+		<button id="start">Start</button>
+		<hr />
+	</body>
+</html>

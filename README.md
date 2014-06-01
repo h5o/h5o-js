@@ -12,7 +12,7 @@ The current (Nov, 2009) HTML5 draft defines quite a precise algorithm, for produ
 ### The goals of this project are: ###
 
 * A bookmarklet, to produce outlines in decent browsers
-* A Firebug extension, to help HTML5 development
+* ~~A Firebug extension, to help HTML5 development~~
 * A repository of HTML5 outlining test cases
 
 ### Current status ###
@@ -24,3 +24,11 @@ The current (Nov, 2009) HTML5 draft defines quite a precise algorithm, for produ
 * [Minified JS](http://code.google.com/p/h5o/downloads/list) that you can use.
   - `HTML5Outline(startFrom)` (you likely want startFrom to be document.body). Returned value is an outline object, with sections.
   - `outline.asHTML(createLinks)` to get a simple ordered list. If createLinks is true, the DOM will be amended with IDs and the list will contain links for navigation
+
+## Real current status ##
+
+Kind of trying to revive this, clean up and create myself some space for experimentation.
+
+It's probably horribly broken and nothing will work, while it's in transition.
+
+Chrome Extension is now split out into a separate repo: https://github.com/h5o/h5o-chrome
