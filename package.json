@@ -4,7 +4,8 @@
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/testling/bin/cmd.js"
+    "prepublish": "node ./node_modules/grunt-cli/bin/grunt",
+    "test": "node ./node_modules/grunt-cli/bin/grunt default intern"
   },
   "repository": {
     "type": "git",
@@ -28,27 +29,8 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-release": "^0.7.0",
+    "intern": "^1.7.0",
     "load-grunt-tasks": "^0.4.0",
-    "tape": "^2.13.2",
-    "testling": "^1.6.1",
     "time-grunt": "^0.3.1"
-  },
-  "testling": {
-    "files": [
-      "dist/outliner.min.js",
-      "test/tests.js"
-    ],
-    "browsers": [
-      "chrome/latest",
-      "firefox/3.6",
-      "firefox/latest",
-      "safari/latest",
-      "opera/12",
-      "opera/latest",
-      "iphone/6",
-      "ipad/6",
-      "android-browser/latest",
-      "ie/latest"
-    ]
   }
 }

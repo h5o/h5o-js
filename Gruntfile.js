@@ -44,8 +44,20 @@ module.exports = function (grunt) {
 				"src": [ "dist/debug/outliner.debug.js" ],
 				"dest": "dist/outliner.min.js"
 			}
+		},
+		"intern": {
+			"dist": {
+				"options": {
+					"runType": 'runner',
+					"config": 'test/intern.config',
+					"reporters": [ 'console' ],
+					"suites": [ 'test/tests' ]
+				}
+			}
 		}
 	});
+
+	grunt.loadNpmTasks("intern")
 
 	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
 
