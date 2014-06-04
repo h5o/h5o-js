@@ -4,8 +4,8 @@
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
-    "prepublish": "node ./node_modules/grunt-cli/bin/grunt release",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "node ./node_modules/grunt-cli/bin/grunt",
+    "test": "node ./node_modules/testling/bin/cmd.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,24 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-uglify": "^0.4.0",
     "load-grunt-tasks": "^0.4.0",
+    "tape": "^2.13.2",
+    "testling": "^1.6.1",
     "time-grunt": "^0.3.1"
+  },
+  "testling": {
+    "files": [
+      "dist/outliner.min.js",
+      "test/tests.js"
+    ],
+    "browsers": [
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/3.5..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
+    ]
   }
 }
