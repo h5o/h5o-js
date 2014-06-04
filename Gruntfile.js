@@ -38,7 +38,9 @@ module.exports = function (grunt) {
 				"dest": "dist/debug/HTML5OutlineBookmarklet.min.js"
 			},
 			"outliner-js": {
-				"banner": require("fs").readFileSync("src/notice.txt"),
+				"options": {
+					"banner": require("fs").readFileSync("src/notice.txt")
+				},
 				"src": [ "dist/debug/outliner.debug.js" ],
 				"dest": "dist/outliner.min.js"
 			}
