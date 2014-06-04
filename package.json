@@ -35,8 +35,10 @@
     "time-grunt": "^0.3.1"
   },
   "testling": {
+    "scripts": [
+      "dist/outliner.min.js"
+    ],
     "files": [
-      "dist/outliner.min.js",
       "test/tests.js"
     ],
     "browsers": [
