@@ -40,11 +40,11 @@
       "test/tests.js"
     ],
     "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/3.5..latest",
+      "ie/latest",
+      "chrome/latest",
+      "firefox/3.6,latest",
       "safari/latest",
-      "opera/11.0..latest",
+      "opera/12,latest",
       "iphone/6",
       "ipad/6",
       "android-browser/latest"
