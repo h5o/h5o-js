@@ -4,7 +4,6 @@
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
-    "prepublish": "node ./node_modules/grunt-cli/bin/grunt",
     "test": "node ./node_modules/testling/bin/cmd.js"
   },
   "repository": {
@@ -35,10 +34,8 @@
     "time-grunt": "^0.3.1"
   },
   "testling": {
-    "scripts": [
-      "dist/outliner.min.js"
-    ],
     "files": [
+      "dist/outliner.min.js",
       "test/tests.js"
     ],
     "browsers": [

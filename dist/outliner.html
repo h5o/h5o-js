@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HTML5 Outliner bookmarklet (v0.5.4)</title>
+	</head>
+	<body>
+<!--		
+/**
+ * This code contains an implementation of HTML5 outlining algorithm, as described by WHATWG at [1]
+ *
+ * The copyright notice at [2] says:
+ *		(c) Copyright 2004-2009 Apple Computer, Inc., Mozilla Foundation, and Opera Software ASA.
+ *		You are granted a license to use, reproduce and create derivative works of this document.
+ *
+ * [1] http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#outlines
+ * [2] http://www.whatwg.org/specs/web-apps/current-work/multipage/index.html
+ */
+
+-->
+		<h1>Drag this link to your favorites bar: <a href="javascript:%2F**%0D%0A%20*%20This%20code%20contains%20an%20implementation%20of%20HTML5%20outlining%20algorithm%2C%20as%20described%20by%20WHATWG%20at%20%5B1%5D%0D%0A%20*%0D%0A%20*%20The%20copyright%20notice%20at%20%5B2%5D%20says%3A%0D%0A%20*%09%09(c)%20Copyright%202004-2009%20Apple%20Computer%2C%20Inc.%2C%20Mozilla%20Foundation%2C%20and%20Opera%20Software%20ASA.%0D%0A%20*%09%09You%20are%20granted%20a%20license%20to%20use%2C%20reproduce%20and%20create%20derivative%20works%20of%20this%20document.%0D%0A%20*%0D%0A%20*%20%5B1%5D%20http%3A%2F%2Fwww.whatwg.org%2Fspecs%2Fweb-apps%2Fcurrent-work%2Fmultipage%2Fsections.html%23outlines%0D%0A%20*%20%5B2%5D%20http%3A%2F%2Fwww.whatwg.org%2Fspecs%2Fweb-apps%2Fcurrent-work%2Fmultipage%2Findex.html%0D%0A%20*%2F%0D%0A!function()%7Bvar%20a%3Dfunction(a)%7Bthis.sections%3D%5B%5D%2Cthis.startingNode%3Da%7D%3Ba.prototype%3D%7Bheading%3A!1%2Cappend%3Afunction(a)%7Ba.container%3Dthis%2Cthis.sections.push(a)%7D%2CasHTML%3Afunction(a)%7Bvar%20b%3Di(this.heading)%3Breturn%20a%26%26(b%3D'%3Ca%20href%3D%22%23'%2Bj(this.startingNode)%2B'%22%3E'%2Bb%2B%22%3C%2Fa%3E%22)%2Cb%2Bg(this.sections%2Ca)%7D%7D%3Bvar%20b%2Cc%2Cd%2Ce%2Cf%2Cg%3Dfunction(a%2Cb)%7Bfor(var%20c%3D%22%22%2Cd%3D0%3Bd%3Ca.length%3Bd%2B%2B)c%2B%3D%22%3Cli%3E%22%2Ba%5Bd%5D.asHTML(b)%2B%22%3C%2Fli%3E%22%3Breturn%22%22%3D%3Dc%3Fc%3A%22%3Col%3E%22%2Bc%2B%22%3C%2Fol%3E%22%7D%2Ch%3Dfunction(a)%7Bvar%20b%3Da.heading%3Breturn%20r(b)%3Ft(b)%3A1%7D%2Ci%3Dfunction(a)%7Breturn%20r(a)%3F(%22HGROUP%22%3D%3Dn(a)%26%26(a%3Da.getElementsByTagName(%22h%22%2B-t(a))%5B0%5D)%2Ca.textContent%7C%7Ca.innerText%7C%7C%22%3Ci%3ENo%20text%20content%20inside%20%22%2Ba.nodeName%2B%22%3C%2Fi%3E%22)%3A%22%22%2Ba%7D%2Cj%3Dfunction(a)%7Bvar%20b%3Da.getAttribute(%22id%22)%3Bif(b)return%20b%3Bdo%20b%3D%22h5o-%22%2B%20%2B%2Be%3Bwhile(f.getElementById(b))%3Breturn%20a.setAttribute(%22id%22%2Cb)%2Cb%7D%2Ck%3Dfunction(a%2Cb%2Cc)%7Bvar%20d%3Da%3Ba%3Afor(%3Bd%3B)if(b(d)%2Cd.firstChild)d%3Dd.firstChild%3Belse%20for(%3Bd%3B)%7Bif(c(d)%2Cd.nextSibling)%7Bd%3Dd.nextSibling%3Bcontinue%20a%7Dd%3Dd%3D%3Da%3Fnull%3Ad.parentNode%7D%7D%2Cl%3Dfunction(e)%7Bif(!r(v(d)))%7Bif(q(e)%7C%7Cp(e))return%20null!%3Db%26%26d.push(b)%2Cb%3De%2Cc%3Dnew%20a(e)%2Cvoid(b.outline%3D%7Bsections%3A%5Bc%5D%2CstartingNode%3Ae%2CasHTML%3Afunction(a)%7Breturn%20g(this.sections%2Ca)%7D%7D)%3Bif(null!%3Db%26%26r(e))%7Bif(c.heading)if(t(e)%3E%3Dh(u(b.outline)))%7Bvar%20f%3Dnew%20a(e)%3Bb.outline.sections.push(f)%2Cc%3Df%2Cc.heading%3De%7Delse%7Bvar%20i%3D!1%2Cj%3Dc%3Bdo%7Bif(t(e)%3Ch(j))%7Bvar%20f%3Dnew%20a(e)%3Bj.append(f)%2Cc%3Df%2Cc.heading%3De%2Ci%3D!0%7Dvar%20k%3Dj.container%3Bj%3Dk%7Dwhile(!i)%7Delse%20c.heading%3De%3Breturn%20void%20d.push(e)%7D%7D%7D%2Cm%3Dfunction(a)%7Bvar%20e%3Dv(d)%3Bif(r(e))return%20void(e%3D%3Da%26%26d.pop())%3Bif(!q(a)%26%26!p(a)%7C%7Cc.heading%7C%7C(c.heading%3D%22%3Ci%3EUntitled%20%22%2Bn(a)%2B%22%3C%2Fi%3E%22)%2Cq(a)%26%26d.length%3E0)%7Bb%3Dd.pop()%2Cc%3Du(b.outline)%3Bfor(var%20f%3D0%3Bf%3Ca.outline.sections.length%3Bf%2B%2B)c.append(a.outline.sections%5Bf%5D)%7Delse%7Bif(!(p(a)%26%26d.length%3E0))return%20q(a)%7C%7Cp(a)%3Fvoid(c%3Db.outline.sections%5B0%5D)%3Avoid%200%3Bfor(b%3Dd.pop()%2Cc%3Du(b.outline)%3Bc.sections.length%3E0%3B)c%3Du(c)%7D%7D%2Cn%3Dfunction(a)%7Breturn%20a.tagName.toUpperCase()%7D%2Co%3Dfunction(a)%7Breturn%20function(b)%7Breturn%20s(b)%26%26new%20RegExp(a%2C%22i%22).test(n(b))%7D%7D%2Cp%3Do(%22%5EBLOCKQUOTE%7CBODY%7CDETAILS%7CFIELDSET%7CFIGURE%7CTD%24%22)%2Cq%3Do(%22%5EARTICLE%7CASIDE%7CNAV%7CSECTION%24%22)%2Cr%3Do(%22%5EH%5B1-6%5D%7CHGROUP%24%22)%2Cs%3Dfunction(a)%7Breturn%20a%26%26a.tagName%7D%2Ct%3Dfunction(a)%7Bvar%20b%3Dn(a)%3Bif(%22HGROUP%22!%3Db)return-parseInt(b.substr(1))%3Bfor(var%20c%3D1%3B6%3E%3Dc%3Bc%2B%2B)if(a.getElementsByTagName(%22H%22%2Bc).length%3E0)return-c%7D%2Cu%3Dfunction(a)%7Breturn%20v(a.sections)%7D%2Cv%3Dfunction(a)%7Breturn%20a%5Ba.length-1%5D%7D%3BHTML5Outline%3Dfunction(a)%7Breturn%20e%3D0%2Cf%3Da.ownerDocument%7C%7Cwindow.document%2Cb%3Dnull%2Cc%3Dnull%2Cd%3D%5B%5D%2Ck(a%2Cl%2Cm)%2Cnull!%3Db%3Fb.outline%3Anull%7D%7D()%3B;!function()%7Bvar%20a%3Dfunction(a%2Cb)%7Bfor(var%20c%3D0%3Bc%3Ca.length%3Bc%2B%2B)a%5Bc%5D.setAttribute(%22style%22%2Cb)%7D%2Cb%3D%22font-size%3A11px%3Bfont-family%3AVerdana%2C%20sans-serif%3B%22%2Cc%3D%22position%3Afixed%3Btop%3A10px%3Bright%3A10px%3Bborder%3A2px%20solid%20%23000%3Bbackground%3Argba(255%2C255%2C255%2C.9)%3Bpadding%3A15px%3Bz-index%3A999%3Bmax-height%3A400px%3Boverflow%3Aauto%3B%22%2Cd%3D%22list-style%3Adecimal%20outside%3Bmargin-left%3A20px%3B%22%2Ce%3D%22margin%3A%200%3Bpadding%3A0%3B%22%2Cf%3D%22color%3A%23008%3Btext-decoration%3Aunderline%3B%22%2Cg%3D%22float%3A%20right%3B%20margin%3A%200%200%205px%205px%3B%20padding%3A%205px%3B%20border%3A%201px%20%23008%20solid%3Bcolor%3A%2300f%3Bbackground-color%3A%23ccf%3B%22%2Ch%3DHTML5Outline(document.body).asHTML(!0)%2Ci%3Ddocument.createElement(%22div%22)%3Ba(%5Bi%5D%2Cc%2Bb)%2Ci.innerHTML%3Dh%2Ca(i.getElementsByTagName(%22li%22)%2Cd%2Bb)%2Ca(i.getElementsByTagName(%22ol%22)%2Ce%2Bb)%2Ca(i.getElementsByTagName(%22a%22)%2Cf%2Bb)%3Bvar%20j%3Di.insertBefore(document.createElement(%22a%22)%2Ci.firstChild)%3Ba(%5Bj%5D%2Cg)%2Cj.innerHTML%3D%22Close%22%2Cj.href%3D%22%23%22%2Cj.onclick%3Dfunction()%7Bdocument.body.removeChild(i)%2Ci%3Dj%3Dnull%7D%2Cdocument.body.appendChild(i)%7D()%3B;" title="H5O v0.5.4">H5O v0.5.4</a></h1>
+		
+		<h2>Tested in:</h2>
+		<ul>
+			<li>Opera 10.10</li>
+			<li>Firefox 3.5</li>
+		</ul>
+		<p>However, it should work normally in other modern browsers. Please <a href="http://code.google.com/p/h5o/issues/list">report a bug</a> if it doesn't.</p>
+		
+		<h2>Internet Explorer is not supported</h2>
+		<p>Except for an <a href="http://h5o.googlecode.com/files/bookmarklet.for.ie.html">older version</a> of the bookmarklet. For reasoning please see the <a href="http://code.google.com/p/h5o/wiki/ProblemsWithInternetExplorer">ProblemsWithInternetExplorer</a> wiki page.</p>
+		
+	</body>
+</html>
