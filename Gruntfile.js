@@ -60,6 +60,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("intern")
 
 	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
+	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", "intern" ]);
 
 	grunt.registerTask("_bookmarklet-release", "Prepare bookmarklet HTML for release", function () {
 		var done = this.async();
