@@ -3,7 +3,8 @@ module.exports = function (grunt) {
 	require('time-grunt')(grunt);
 	require('load-grunt-tasks')(grunt);
 
-	var VERSION = require("./package.json").version;
+	var VERSION = require("./package.json").version,
+		BANNER = require("fs").readFileSync("src/notice.txt");
 
 	grunt.initConfig({
 		"clean": {
@@ -39,7 +40,7 @@ module.exports = function (grunt) {
 			},
 			"outliner-js": {
 				"options": {
-					"banner": require("fs").readFileSync("src/notice.txt")
+					"banner": BANNER
 				},
 				"src": [ "dist/debug/outliner.debug.js" ],
 				"dest": "dist/outliner.min.js"
@@ -57,23 +58,28 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks("intern")
+	grunt.loadNpmTasks("intern");
 
 	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
 	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", "intern" ]);
 
 	grunt.registerTask("_bookmarklet-release", "Prepare bookmarklet HTML for release", function () {
 		var done = this.async();
-		var fs = require("fs");
+		var fs = require("fs"),
+			ejs = require("ejs");
 
-		var bookmarkletHtml = fs.readFileSync("src/bookmarklet.html").toString();
+		ejs.renderFile("src/bookmarklet.html.ejs", {
 
-		bookmarkletHtml = bookmarkletHtml.replace(/@VERSION/g, VERSION);
-		bookmarkletHtml = bookmarkletHtml.replace(/@NOTICE/g, fs.readFileSync("src/notice.txt"));
-		bookmarkletHtml = bookmarkletHtml.replace(/@RUNBOOKMARKLET/g, encodeURIComponent(fs.readFileSync("dist/debug/HTML5OutlineBookmarklet.min.js").toString()));
-		bookmarkletHtml = bookmarkletHtml.replace(/@MINIFIED/g, encodeURIComponent(fs.readFileSync("dist/outliner.min.js").toString()));
+			version: VERSION,
+			banner: BANNER,
+			outliner: encodeURIComponent(fs.readFileSync("dist/debug/HTML5OutlineBookmarklet.min.js").toString()),
+			bookmarklet: encodeURIComponent(fs.readFileSync("dist/outliner.min.js").toString())
 
-		fs.writeFile("dist/outliner.html", bookmarkletHtml, done);
+		}, function (err, bookmarklet) {
+			if (err) grunt.fail.fatal(err);
+			fs.writeFile("dist/outliner.html", bookmarklet, done);
+		});
+
 	});
 
 };
