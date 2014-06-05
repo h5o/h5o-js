@@ -88,8 +88,8 @@ module.exports = function (grunt) {
 
 			version: VERSION,
 			banner: BANNER,
-			outliner: encodeURIComponent(fs.readFileSync("dist/debug/HTML5OutlineBookmarklet.min.js").toString()),
-			bookmarklet: encodeURIComponent(fs.readFileSync("dist/outliner.min.js").toString())
+			bookmarklet: encodeURIComponent(fs.readFileSync("dist/debug/HTML5OutlineBookmarklet.min.js").toString()),
+			outliner: encodeURIComponent(fs.readFileSync("dist/outliner.min.js").toString())
 
 		}, function (err, bookmarklet) {
 			if (err) grunt.fail.fatal(err);
