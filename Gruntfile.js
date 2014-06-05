@@ -55,13 +55,29 @@ module.exports = function (grunt) {
 					"suites": [ 'test/tests' ]
 				}
 			}
+		},
+		"gh-pages": {
+			"dist": {
+				"options": { "base": "dist" },
+				"src": [
+					"outliner.min.js",
+					"outliner.html"
+				]
+			}
 		}
 	});
 
 	grunt.loadNpmTasks("intern");
+	grunt.renameTask("release", "_release");
 
 	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
 	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", "intern" ]);
+
+	grunt.registerTask("release", function () {
+		var bump = grunt.option("bump");
+		if (bump != "patch" && bump != "minor" && bump != "major") grunt.fail.fatal("Please pass --bump");
+		grunt.task.run(["test", "release:" + bump, "gh-pages"]);
+	});
 
 	grunt.registerTask("_bookmarklet-release", "Prepare bookmarklet HTML for release", function () {
 		var done = this.async();
