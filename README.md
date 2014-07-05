@@ -14,6 +14,7 @@ Kind of trying to revive this, clean up and create myself some space for experim
 Chrome Extension is now split out into a separate repo: https://github.com/h5o/h5o-chrome
 
 [![Build Status](https://travis-ci.org/h5o/h5o-js.svg?branch=master)](https://travis-ci.org/h5o/h5o-js)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/h5o-js.svg)](https://saucelabs.com/u/h5o-js)
 
 ### Running tests locally ###
 * start phantomjs webdriver server: `phantomjs --webdriver=4444`
