@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	var VERSION = require("./package.json").version,
-		BANNER = require("fs").readFileSync("src/notice.txt");
+		BANNER = require("fs").readFileSync("src/notice.txt").toString();
 
 	grunt.initConfig({
 		"clean": {
