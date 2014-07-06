@@ -2,6 +2,7 @@
 
 	var expect = buster.referee.expect,
 		describe = buster.spec.describe,
+		before = buster.spec.before,
 		it = buster.spec.it;
 
 	var cleanWhiteSpace = function (s) {
@@ -9,6 +10,10 @@
 	};
 
 	describe('h5o', function () {
+
+		before(function () {
+			this.timeout = 5000;
+		});
 
 		it("non-sectioning element outlining", function () {
 			var actual = HTML5Outline(document.createElement('div'));
@@ -64,35 +69,33 @@
 					out,
 					doc = out = false;
 
+				var contextPath = buster.env.contextPath || "";
+
 				var createLinks = (testID.substring(0, 6) == 'links_');
 
-				docIframe.src = (buster.env.contextPath + "/test/" + testID + ".doc.html");
-				docIframe.onload = function () {
-					doc = docIframe.contentWindow.document.body;
-				};
-
-				outIframe.src = (buster.env.contextPath + "/test/" + testID + ".out.html");
-				outIframe.onload = function () {
-					out = outIframe.contentWindow.document.body;
-				};
 
 				var runTest = function () {
-					if (!doc || !out) return;
-					clearInterval(waitForLoad);
-
 					var expected = cleanWhiteSpace(out.innerHTML);
 					var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML(createLinks));
 
 					expect(actual).toEqual(expected, "Comparison for: " + testID);
 
-					setTimeout(function () {
-						docIframe.parentNode.removeChild(docIframe);
-						outIframe.parentNode.removeChild(outIframe);
-						done();
-					}, 100);
+					docIframe.parentNode.removeChild(docIframe);
+					outIframe.parentNode.removeChild(outIframe);
+					done();
 				};
 
-				var waitForLoad = setInterval(runTest, 1);
+				docIframe.onload = function () {
+					doc = docIframe.contentWindow.document.body;
+					if (out) runTest();
+				};
+				docIframe.src = (contextPath + "/test/" + testID + ".doc.html");
+
+				outIframe.onload = function () {
+					out = outIframe.contentWindow.document.body;
+					if (doc) runTest();
+				};
+				outIframe.src = (contextPath + "/test/" + testID + ".out.html");
 
 				document.body.appendChild(docIframe);
 				document.body.appendChild(outIframe);
