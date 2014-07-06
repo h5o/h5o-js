@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "node ./node_modules/grunt-cli/bin/grunt",
-    "test": "node ./node_modules/grunt-cli/bin/grunt test --verbose"
+    "test": "node ./node_modules/grunt-cli/bin/grunt test",
+    "start": "node ./node_modules/grunt-cli/bin/grunt start-dev"
   },
   "repository": {
     "type": "git",
@@ -22,17 +23,23 @@
   },
   "homepage": "https://github.com/h5o/h5o-js",
   "devDependencies": {
-    "ejs": "^1.0.0",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-concat": "^0.4.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-uglify": "^0.5.0",
-    "grunt-gh-pages": "^0.9.1",
-    "grunt-release": "^0.7.0",
-    "intern": "^2.0.0",
-    "load-grunt-tasks": "^0.6.0",
-    "time-grunt": "^0.3.1"
+    "buster": "0.7.x",
+    "buster-reporter-sauce": "0.1.x",
+    "ejs": "1.x",
+    "grunt": "0.4.x",
+    "grunt-buster": "0.3.x",
+    "grunt-cli": "0.1.x",
+    "grunt-contrib-clean": "0.5.x",
+    "grunt-contrib-concat": "0.4.x",
+    "grunt-contrib-copy": "0.5.x",
+    "grunt-contrib-uglify": "0.5.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-gh-pages": "0.9.x",
+    "grunt-open": "0.2.x",
+    "grunt-release": "0.7.x",
+    "grunt-saucelabs": "8.x",
+    "load-grunt-tasks": "0.6.x",
+    "resolve-bin": "0.3.x",
+    "time-grunt": "0.3.x"
   }
 }
