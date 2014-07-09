@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
 
-	require('time-grunt')(grunt);
-	require('load-grunt-tasks')(grunt);
+	require("time-grunt")(grunt);
+	require("load-grunt-tasks")(grunt);
 
 	var VERSION = require("./package.json").version,
 		BANNER = require("fs").readFileSync("src/notice.txt").toString();
@@ -90,18 +90,21 @@ module.exports = function (grunt) {
 					testname: "HTML5 outliner",
 					build: process.env.TRAVIS_JOB_ID || "",
 					browsers: [
-						{ browserName: 'internet explorer', platform: "Windows 8.1", version: '11' },
-						{ browserName: 'internet explorer', platform: "Windows 7", version: '11' },
-						{ browserName: 'internet explorer', platform: "Windows 7", version: '10' },
-						{ browserName: 'firefox', platform: "Windows 8.1" },
-						{ browserName: 'firefox', platform: "Windows 7" },
-						{ browserName: 'firefox', platform: "OS X 10.9" },
-						{ browserName: 'firefox', platform: "Linux" },
-						{ browserName: 'chrome', platform: "Windows 8.1" },
-						{ browserName: 'chrome', platform: "Windows 7" },
-						{ browserName: 'chrome', platform: "OS X 10.9" },
-						{ browserName: 'chrome', platform: "Linux" },
-						{ browserName: 'safari', platform: "OS X 10.9" }
+						{ browserName: "internet explorer", platform: "Windows 8.1", version: "11" },
+						{ browserName: "internet explorer", platform: "Windows 7", version: "11" },
+						{ browserName: "internet explorer", platform: "Windows 7", version: "10" },
+						{ browserName: "internet explorer", platform: "Windows 7", version: "9" },
+						{ browserName: "internet explorer", platform: "Windows XP", version: "8" },
+						{ browserName: "internet explorer", platform: "Windows XP", version: "6" },
+						{ browserName: "firefox", platform: "Windows 8.1", version: "30" },
+						{ browserName: "firefox", platform: "Windows 7", version: "30" },
+						{ browserName: "firefox", platform: "OS X 10.9", version: "30" },
+						{ browserName: "firefox", platform: "Linux", version: "30" },
+						{ browserName: "chrome", platform: "Windows 8.1", version: "35" },
+						{ browserName: "chrome", platform: "Windows 7", version: "35" },
+						{ browserName: "chrome", platform: "OS X 10.9", version: "35" },
+						{ browserName: "chrome", platform: "Linux", version: "35" },
+						{ browserName: "safari", platform: "OS X 10.9" }
 					],
 					urls: [
 						"http://127.0.0.1:8000/?reporter=sauce"
@@ -150,7 +153,7 @@ module.exports = function (grunt) {
 		var done = this.async();
 
 		var resolveBin = require("resolve-bin"),
-			cp = require('child_process');
+			cp = require("child_process");
 
 		resolveBin("buster", { executable: "buster-static" }, function (e, busterStaticBinPath) {
 			if (e) {
@@ -162,10 +165,10 @@ module.exports = function (grunt) {
 				env: process.env,
 				setsid: true
 			});
-			busterStaticProcess.stdout.once('data', function () {
+			busterStaticProcess.stdout.once("data", function () {
 				done();
 			});
-			busterStaticProcess.stderr.on('data', function (data) {
+			busterStaticProcess.stderr.on("data", function (data) {
 				grunt.fail.fatal(data);
 			});
 			process.on("exit", function () {
