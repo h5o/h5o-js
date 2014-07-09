@@ -58,17 +58,24 @@ module.exports = function (grunt) {
 		watch: {
 			autoBuild: {
 				files: [ "src/**" ],
-				tasks: [ "default" ]
+				tasks: [ "test" ]
 			},
 			autoTest: {
 				files: [ "test/**" ],
-				tasks: [ "buster:local:test" ]
+				tasks: [ "buster:local:test", "buster:jsdom:test" ]
 			}
 		},
 		buster: {
 			local: {
 				options: {
-					reporter: "specification"
+					reporter: "specification",
+					group: "h5o-browser"
+				}
+			},
+			jsdom: {
+				options: {
+					reporter: "specification",
+					group: "h5o-jsdom"
 				}
 			}
 		},
@@ -107,9 +114,10 @@ module.exports = function (grunt) {
 	grunt.renameTask("release", "_release");
 
 	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
-	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", process.env.SAUCE_USERNAME ? "test-sauce" : "test-local" ]);
+	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", process.env.SAUCE_USERNAME ? "test-sauce" : "test-local", "test-jsdom" ]);
 	grunt.registerTask("test-sauce", [ "buster-static", "saucelabs-custom" ]);
 	grunt.registerTask("test-local", [ "buster:local:server", "open:capture-browser", "buster:local:test" ]);
+	grunt.registerTask("test-jsdom", [ "buster:jsdom:test" ]);
 	grunt.registerTask("start-dev", [ "buster:local:server", "open:capture-browser", "watch" ]);
 
 	grunt.registerTask("release", function () {

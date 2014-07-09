@@ -1,5 +1,9 @@
 (function () {
 
+	var doc = this.document || this.jsdomDocument;
+
+	var contextPath = this.contextPath || buster.env.contextPath || "";
+
 	var expect = buster.referee.expect,
 		describe = buster.spec.describe,
 		before = buster.spec.before,
@@ -16,14 +20,14 @@
 		});
 
 		it("non-sectioning element outlining", function () {
-			var actual = HTML5Outline(document.createElement('div'));
+			var actual = HTML5Outline(doc.createElement('div'));
 
 			expect(actual).toBeNull("Outline for an empty DIV should be null");
 		});
 
 		it("section inside a div - not starting with secRoot", function () {
-			var div = document.createElement('div');
-			div.appendChild(document.createElement('section'));
+			var div = doc.createElement('div');
+			div.appendChild(doc.createElement('section'));
 
 			expect(HTML5Outline(div).asHTML())
 				.toEqual("<ol><li><i>Untitled SECTION</i></li></ol>",
@@ -31,9 +35,9 @@
 		});
 
 		it("two sections inside a div - not starting with secRoot", function () {
-			var div = document.createElement('div');
-			div.appendChild(document.createElement('section'));
-			div.appendChild(document.createElement('section'));
+			var div = doc.createElement('div');
+			div.appendChild(doc.createElement('section'));
+			div.appendChild(doc.createElement('section'));
 
 			expect(HTML5Outline(div).asHTML())
 				.toEqual("<ol><li><i>Untitled SECTION</i><ol><li><i>Untitled SECTION</i></li></ol></li></ol>",
@@ -41,11 +45,11 @@
 		});
 
 		it("some headings", function () {
-			var div = document.createElement('div');
-			var heading = document.createElement('h1');
+			var div = doc.createElement('div');
+			var heading = doc.createElement('h1');
 			heading.innerHTML = "Test";
 			div.appendChild(heading);
-			div.appendChild(document.createElement('section'));
+			div.appendChild(doc.createElement('section'));
 
 			expect(HTML5Outline(div).asHTML())
 				.toEqual("<ol><li><i>Untitled SECTION</i></li></ol>",
@@ -64,41 +68,39 @@
 		function testOutline(testID) {
 			return function (done) {
 
-				var docIframe = document.createElement("iframe"),
-					outIframe = document.createElement("iframe"),
-					out,
-					doc = out = false;
-
-				var contextPath = buster.env.contextPath || "";
+				var inputIframe = doc.createElement("iframe"),
+					outputIframe = doc.createElement("iframe"),
+					outputBody,
+					inputBody = outputBody = false;
 
 				var createLinks = (testID.substring(0, 6) == 'links_');
 
 
 				var runTest = function () {
-					var expected = cleanWhiteSpace(out.innerHTML);
-					var actual = cleanWhiteSpace(HTML5Outline(doc).asHTML(createLinks));
+					var expected = cleanWhiteSpace(outputBody.innerHTML);
+					var actual = cleanWhiteSpace(HTML5Outline(inputBody).asHTML(createLinks));
 
 					expect(actual).toEqual(expected, "Comparison for: " + testID);
 
-					docIframe.parentNode.removeChild(docIframe);
-					outIframe.parentNode.removeChild(outIframe);
+					inputIframe.parentNode.removeChild(inputIframe);
+					outputIframe.parentNode.removeChild(outputIframe);
 					done();
 				};
 
-				docIframe.onload = function () {
-					doc = docIframe.contentWindow.document.body;
-					if (out) runTest();
+				inputIframe.onload = function () {
+					inputBody = inputIframe.contentWindow.document.body;
+					if (outputBody) runTest();
 				};
-				docIframe.src = (contextPath + "/test/" + testID + ".doc.html");
+				inputIframe.src = (contextPath + "/test/" + testID + ".doc.html");
 
-				outIframe.onload = function () {
-					out = outIframe.contentWindow.document.body;
-					if (doc) runTest();
+				outputIframe.onload = function () {
+					outputBody = outputIframe.contentWindow.document.body;
+					if (inputBody) runTest();
 				};
-				outIframe.src = (contextPath + "/test/" + testID + ".out.html");
+				outputIframe.src = (contextPath + "/test/" + testID + ".out.html");
 
-				document.body.appendChild(docIframe);
-				document.body.appendChild(outIframe);
+				doc.body.appendChild(inputIframe);
+				doc.body.appendChild(outputIframe);
 			}
 		}
 	});

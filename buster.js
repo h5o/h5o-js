@@ -1,6 +1,6 @@
 var config = module.exports;
 
-config["h5o-js-tests"] = {
+config["h5o-browser"] = {
 	rootPath: ".",
 	environment: "browser",
 	src: [
@@ -14,5 +14,13 @@ config["h5o-js-tests"] = {
 	],
 	extensions: [
 		require("buster-reporter-sauce")
+	]
+};
+
+config["h5o-jsdom"] = {
+	rootPath: ".",
+	environment: "node",
+	tests: [
+		"test/tests.jsdom.js"
 	]
 };

@@ -38,6 +38,7 @@
     "grunt-open": "0.2.x",
     "grunt-release": "0.7.x",
     "grunt-saucelabs": "8.x",
+    "jsdom": "0.11.x",
     "load-grunt-tasks": "0.6.x",
     "resolve-bin": "0.3.x",
     "time-grunt": "0.3.x"
