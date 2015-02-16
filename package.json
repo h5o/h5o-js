@@ -25,22 +25,22 @@
   "devDependencies": {
     "buster": "0.7.x",
     "buster-reporter-sauce": "0.1.x",
-    "ejs": "1.x",
+    "ejs": "2.x",
     "grunt": "0.4.x",
     "grunt-buster": "0.3.x",
     "grunt-cli": "0.1.x",
-    "grunt-contrib-clean": "0.5.x",
-    "grunt-contrib-concat": "0.4.x",
-    "grunt-contrib-copy": "0.5.x",
-    "grunt-contrib-uglify": "0.5.x",
+    "grunt-contrib-clean": "0.6.x",
+    "grunt-contrib-concat": "0.5.x",
+    "grunt-contrib-copy": "0.7.x",
+    "grunt-contrib-uglify": "0.7.x",
     "grunt-contrib-watch": "0.6.x",
-    "grunt-gh-pages": "0.9.x",
+    "grunt-gh-pages": "0.10.x",
     "grunt-open": "0.2.x",
-    "grunt-release": "0.7.x",
+    "grunt-release": "0.11.x",
     "grunt-saucelabs": "8.x",
-    "jsdom": "0.11.x",
-    "load-grunt-tasks": "0.6.x",
+    "jsdom": "3.x",
+    "load-grunt-tasks": "3.x",
     "resolve-bin": "0.3.x",
-    "time-grunt": "0.3.x"
+    "time-grunt": "1.x"
   }
 }
