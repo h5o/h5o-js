@@ -68,20 +68,34 @@ module.exports = function (grunt) {
 		buster: {
 			local: {
 				options: {
-					reporter: "specification",
-					group: "h5o-browser"
+					"reporter": "specification",
+					"config-group": "h5o-browser"
 				}
 			},
 			jsdom: {
-				options: {
-					reporter: "specification",
-					group: "h5o-jsdom"
+				test: {
+					"reporter": "specification",
+					"config-group": "h5o-jsdom"
 				}
 			}
 		},
 		open: {
 			"capture-browser": {
 				path: "http://127.0.0.1:1111/capture"
+			}
+		},
+		browserify: {
+			"outliner-js": {
+				"src": [
+					"index.js"
+				],
+				"dest": "dist/debug/outliner.debug.js",
+				"options": {
+					"banner": BANNER,
+					"browserifyOptions": {
+						"standalone": "HTML5Outline"
+					}
+				}
 			}
 		},
 		"saucelabs-custom": {

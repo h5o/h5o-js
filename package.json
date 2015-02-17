@@ -27,6 +27,7 @@
     "buster-reporter-sauce": "0.1.x",
     "ejs": "2.x",
     "grunt": "0.4.x",
+    "grunt-browserify": "3.x",
     "grunt-buster": "0.3.x",
     "grunt-cli": "0.1.x",
     "grunt-contrib-clean": "0.6.x",
