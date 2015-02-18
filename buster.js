@@ -1,6 +1,6 @@
 var config = module.exports;
 
-config["h5o-browser"] = {
+config["browser"] = {
 	rootPath: ".",
 	environment: "browser",
 	src: [
@@ -17,7 +17,7 @@ config["h5o-browser"] = {
 	]
 };
 
-config["h5o-jsdom"] = {
+config["jsdom"] = {
 	rootPath: ".",
 	environment: "node",
 	tests: [

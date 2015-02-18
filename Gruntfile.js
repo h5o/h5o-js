@@ -16,23 +16,6 @@ module.exports = function (grunt) {
 				"dest": "dist/debug/HTML5OutlineBookmarklet.debug.js"
 			}
 		},
-		"concat": {
-			"outliner-js": {
-				"src": [
-					"src/notice.txt",
-					"src/_head.js",
-					"src/Section.js",
-					"src/Outline.js",
-					"src/walk.js",
-					"src/enterNode.js",
-					"src/exitNode.js",
-					"src/func.js",
-					"src/HTML5Outline.js",
-					"src/_foot.js"
-				],
-				"dest": "dist/debug/outliner.debug.js"
-			}
-		},
 		"uglify": {
 			"bookmarklet-js": {
 				"src": [ "dist/debug/HTML5OutlineBookmarklet.debug.js" ],
@@ -58,7 +41,7 @@ module.exports = function (grunt) {
 		watch: {
 			autoBuild: {
 				files: [ "src/**" ],
-				tasks: [ "test" ]
+				tasks: [ "default", "buster:local:test", "buster:jsdom:test" ]
 			},
 			autoTest: {
 				files: [ "test/**" ],
@@ -66,16 +49,16 @@ module.exports = function (grunt) {
 			}
 		},
 		buster: {
-			local: {
-				options: {
+			"local": {
+				"test": {
 					"reporter": "specification",
-					"config-group": "h5o-browser"
+					"config-group": "browser"
 				}
 			},
-			jsdom: {
-				test: {
+			"jsdom": {
+				"test": {
 					"reporter": "specification",
-					"config-group": "h5o-jsdom"
+					"config-group": "jsdom"
 				}
 			}
 		},
@@ -130,7 +113,7 @@ module.exports = function (grunt) {
 
 	grunt.renameTask("release", "_release");
 
-	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "concat:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
+	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
 	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", process.env.SAUCE_USERNAME ? "test-sauce" : "test-local", "test-jsdom" ]);
 	grunt.registerTask("test-sauce", [ "buster-static", "saucelabs-custom" ]);
 	grunt.registerTask("test-local", [ "buster:local:server", "open:capture-browser", "buster:local:test" ]);

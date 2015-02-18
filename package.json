@@ -31,7 +31,6 @@
     "grunt-buster": "0.3.x",
     "grunt-cli": "0.1.x",
     "grunt-contrib-clean": "0.6.x",
-    "grunt-contrib-concat": "0.5.x",
     "grunt-contrib-copy": "0.7.x",
     "grunt-contrib-uglify": "0.7.x",
     "grunt-contrib-watch": "0.6.x",

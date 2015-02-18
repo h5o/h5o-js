@@ -10,7 +10,8 @@ require("jsdom")
 		jsdomDocument = w.document;
 		contextPath = require("path").resolve(__dirname + "/..");
 
-		require("../dist/outliner.min");
+		// @todo: tests still rely on a global being present
+		global.HTML5Outline = require("../dist/outliner.min");
 		require("./tests");
 
 	});
