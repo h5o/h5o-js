@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Site title</title>
+</head>
+<body>
+<header>
+	<nav>
+		<!-- hidden heading just for h5o, screenreaders and spiders -->
+		<h6 style="border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;">
+			Service navigation
+		</h6>
+		<ul>
+			<li><a href="#">Sitemap</a></li>
+		</ul>
+	</nav>
+	<form action="/" method="get">
+		<!-- this fieldset makes h5o return false or UNTITLED BODY instead of the site title -->
+		<fieldset>
+			<input type="text" value="Site search" name="q" />
+			<input type="submit" />
+		</fieldset>
+	</form>
+	<h1>Site title</h1>
+</header>
+</body>
+</html>
