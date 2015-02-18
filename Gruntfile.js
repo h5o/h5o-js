@@ -91,8 +91,6 @@ module.exports = function (grunt) {
 						{ browserName: "internet explorer", platform: "Windows 7", version: "11" },
 						{ browserName: "internet explorer", platform: "Windows 7", version: "10" },
 						{ browserName: "internet explorer", platform: "Windows 7", version: "9" },
-						{ browserName: "internet explorer", platform: "Windows XP", version: "8" },
-						{ browserName: "internet explorer", platform: "Windows XP", version: "6" },
 						{ browserName: "firefox", platform: "Windows 8.1", version: "30" },
 						{ browserName: "firefox", platform: "Windows 7", version: "30" },
 						{ browserName: "firefox", platform: "OS X 10.9", version: "30" },
