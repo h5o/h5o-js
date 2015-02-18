@@ -14,9 +14,10 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
 * [Chrome extension](https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo) available
     - Source: https://github.com/h5o/h5o-chrome
 * [Bookmarklet](http://h5o.github.io/h5o-js/outliner.html)
-* Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
-  `var HTML5Outline = require('h5o')` in your favorite CommonJS workflow (node/browserify/etc)
-  - `HTML5Outline(startFrom)` (you likely want startFrom to be document.body). Returned value is an outline object, with sections.
+* `npm install h5o` (as of 2015, you should not be using any other way of managing your JS dependencies)
+  - Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
+    `var HTML5Outline = require('h5o')` in node or browserify
+  - `HTML5Outline(startFrom)` (you likely want `startFrom` to be `document.body`). Returned value is an outline object, with sections.
   - `outline.asHTML(createLinks)` to get HTML with an ordered list. If `createLinks` is `true`, the DOM will be amended with IDs and the list will contain links for navigation
 
 ## Development ##
