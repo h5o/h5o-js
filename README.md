@@ -34,6 +34,9 @@ Run `grunt test`
 * Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom)
 * @todo: automatically run tests in phantom: https://github.com/h5o/h5o-js/issues/26
 
+Run `grunt start-dev`
+* Will watch for file changes and run tests automatically
+
 ### Release ###
 Run `grunt release --bump=[patch|minor|major]`
 * Will bump version
