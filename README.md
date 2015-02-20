@@ -47,6 +47,10 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### v0.7.1 (2015-02-20) ###
+* README updates
+* ignore `.grunt` folder
+
 ### v0.7.0 (2015-02-18) ###
 * Using browserify instead of concatenation
 * Making tests pass with jsdom
