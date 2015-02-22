@@ -8,30 +8,30 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			"all": [ "dist/**" ]
+			"all": ["dist/**"]
 		},
 		"copy": {
 			"bookmarklet-js": {
-				"src": [ "src/HTML5OutlineBookmarklet.js" ],
+				"src": ["src/HTML5OutlineBookmarklet.js"],
 				"dest": "dist/debug/HTML5OutlineBookmarklet.debug.js"
 			}
 		},
 		"uglify": {
 			"bookmarklet-js": {
-				"src": [ "dist/debug/HTML5OutlineBookmarklet.debug.js" ],
+				"src": ["dist/debug/HTML5OutlineBookmarklet.debug.js"],
 				"dest": "dist/debug/HTML5OutlineBookmarklet.min.js"
 			},
 			"outliner-js": {
 				"options": {
 					"banner": BANNER
 				},
-				"src": [ "dist/debug/outliner.debug.js" ],
+				"src": ["dist/debug/outliner.debug.js"],
 				"dest": "dist/outliner.min.js"
 			}
 		},
 		"gh-pages": {
 			"dist": {
-				"options": { "base": "dist" },
+				"options": {"base": "dist"},
 				"src": [
 					"outliner.min.js",
 					"outliner.html"
@@ -40,12 +40,12 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			autoBuild: {
-				files: [ "src/**" ],
-				tasks: [ "default", "buster:local:test", "buster:jsdom:test" ]
+				files: ["src/**"],
+				tasks: ["default", "buster:local:test", "buster:jsdom:test"]
 			},
 			autoTest: {
-				files: [ "test/**" ],
-				tasks: [ "buster:local:test", "buster:jsdom:test" ]
+				files: ["test/**"],
+				tasks: ["buster:local:test", "buster:jsdom:test"]
 			}
 		},
 		buster: {
@@ -87,19 +87,19 @@ module.exports = function (grunt) {
 					testname: "HTML5 outliner",
 					build: process.env.TRAVIS_JOB_ID || "",
 					browsers: [
-						{ browserName: "internet explorer", platform: "Windows 8.1", version: "11" },
-						{ browserName: "internet explorer", platform: "Windows 7", version: "11" },
-						{ browserName: "internet explorer", platform: "Windows 7", version: "10" },
-						{ browserName: "internet explorer", platform: "Windows 7", version: "9" },
-						{ browserName: "firefox", platform: "Windows 8.1" },
-						{ browserName: "firefox", platform: "Windows 7" },
-						{ browserName: "firefox", platform: "OS X 10.10" },
-						{ browserName: "firefox", platform: "Linux" },
-						{ browserName: "chrome", platform: "Windows 8.1" },
-						{ browserName: "chrome", platform: "Windows 7" },
-						{ browserName: "chrome", platform: "OS X 10.10" },
-						{ browserName: "chrome", platform: "Linux" },
-						{ browserName: "safari", platform: "OS X 10.10" }
+						{browserName: "internet explorer", platform: "Windows 8.1", version: "11"},
+						{browserName: "internet explorer", platform: "Windows 7", version: "11"},
+						{browserName: "internet explorer", platform: "Windows 7", version: "10"},
+						{browserName: "internet explorer", platform: "Windows 7", version: "9"},
+						{browserName: "firefox", platform: "Windows 8.1"},
+						{browserName: "firefox", platform: "Windows 7"},
+						{browserName: "firefox", platform: "OS X 10.10"},
+						{browserName: "firefox", platform: "Linux"},
+						{browserName: "chrome", platform: "Windows 8.1"},
+						{browserName: "chrome", platform: "Windows 7"},
+						{browserName: "chrome", platform: "OS X 10.10"},
+						{browserName: "chrome", platform: "Linux"},
+						{browserName: "safari", platform: "OS X 10.10"}
 					],
 					urls: [
 						"http://127.0.0.1:8000/?reporter=sauce"
@@ -111,12 +111,17 @@ module.exports = function (grunt) {
 
 	grunt.renameTask("release", "_release");
 
-	grunt.registerTask("default", "Clean build and minify", [ "clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release" ]);
-	grunt.registerTask("test", "Clean build, minify and run tests", [ "default", process.env.SAUCE_USERNAME ? "test-sauce" : "test-local", "test-jsdom" ]);
-	grunt.registerTask("test-sauce", [ "buster-static", "saucelabs-custom" ]);
-	grunt.registerTask("test-local", [ "buster:local:server", "open:capture-browser", "buster:local:test" ]);
-	grunt.registerTask("test-jsdom", [ "buster:jsdom:test" ]);
-	grunt.registerTask("start-dev", [ "buster:local:server", "open:capture-browser", "watch" ]);
+	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release"]);
+	grunt.registerTask("test", "Clean build, minify and run tests",
+		process.env.SAUCE_USERNAME ?
+			["default", "test-sauce", "test-phantom", "test-jsdom"] :
+			["default", "test-local", "test-jsdom"]
+	);
+	grunt.registerTask("test-sauce", ["buster-static", "saucelabs-custom"]);
+	grunt.registerTask("test-phantom", ["buster:local:server", "buster:local:phantomjs", "buster:local:test"]);
+	grunt.registerTask("test-local", ["buster:local:server", "buster:local:phantomjs", "open:capture-browser", "buster:local:test"]);
+	grunt.registerTask("test-jsdom", ["buster:jsdom:test"]);
+	grunt.registerTask("start-dev", ["buster:local:server", "buster:local:phantomjs", "open:capture-browser", "watch"]);
 
 	grunt.registerTask("release", function () {
 		var bump = grunt.option("bump");
@@ -150,13 +155,13 @@ module.exports = function (grunt) {
 		var resolveBin = require("resolve-bin"),
 			cp = require("child_process");
 
-		resolveBin("buster", { executable: "buster-static" }, function (e, busterStaticBinPath) {
+		resolveBin("buster", {executable: "buster-static"}, function (e, busterStaticBinPath) {
 			if (e) {
 				grunt.fail.fatal(e);
 				return;
 			}
 			grunt.log.writeln("Spawning " + busterStaticBinPath + " --port 8000");
-			var busterStaticProcess = cp.spawn(process.execPath, [ busterStaticBinPath, "--port", "8000" ], {
+			var busterStaticProcess = cp.spawn(process.execPath, [busterStaticBinPath, "--port", "8000"], {
 				env: process.env,
 				setsid: true
 			});
