@@ -1,5 +1,10 @@
 # HTML5 outliner #
 [![Build Status](https://travis-ci.org/h5o/h5o-js.svg?branch=master)](https://travis-ci.org/h5o/h5o-js)
+![Supported: io.js](http://img.shields.io/badge/node-io.js-brightgreen.svg)
+![Supported: node v0.10](http://img.shields.io/badge/node-0.10.x-brightgreen.svg)
+![Supported: node v0.12](http://img.shields.io/badge/node-0.12.x-brightgreen.svg)
+![Supported: phantom.js v1.9](http://img.shields.io/badge/phantom.js-1.9.x-brightgreen.svg)
+
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/h5o-js.svg)](https://saucelabs.com/u/h5o-js)
 
 h5o is an implementation of the HTML5 outline algorithm in JavaScript. Specifications:
@@ -46,6 +51,10 @@ Run `grunt release --bump=[patch|minor|major]`
 
 
 ## History ##
+
+### v0.7.2 (2015-02-22) ###
+* Run tests on node 0.12 and io.js
+* Run tests in phantom.js as well as real browsers
 
 ### v0.7.1 (2015-02-20) ###
 * README updates
