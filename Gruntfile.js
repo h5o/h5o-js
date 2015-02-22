@@ -113,9 +113,9 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release"]);
 	grunt.registerTask("test", "Clean build, minify and run tests",
-		process.env.SAUCE_USERNAME ?
-			["default", "test-sauce", "test-phantom", "test-jsdom"] :
-			["default", "test-local", "test-jsdom"]
+		process.env.SAUCE_LABS==="true" ?
+			["default", "test-jsdom", "test-phantom", "test-sauce"] :
+			["default", "test-jsdom", "test-local"]
 	);
 	grunt.registerTask("test-sauce", ["buster-static", "saucelabs-custom"]);
 	grunt.registerTask("test-phantom", ["buster:local:server", "buster:local:phantomjs", "buster:local:test"]);
