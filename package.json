@@ -40,7 +40,7 @@
     "grunt-saucelabs": "8.x",
     "jsdom": "3.x",
     "load-grunt-tasks": "3.x",
-    "phantomjs": "^1.9.15",
+    "phantomjs": "1.9.x",
     "resolve-bin": "0.3.x",
     "time-grunt": "1.x"
   }
