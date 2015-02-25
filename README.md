@@ -52,6 +52,9 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### v0.7.3 (2015-02-25) ###
+* Travis deploy
+
 ### v0.7.2 (2015-02-22) ###
 * Run tests on node 0.12 and io.js
 * Run tests in phantom.js as well as real browsers

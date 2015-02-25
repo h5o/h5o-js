@@ -8,3 +8,12 @@ matrix:
     - node_js: "io.js"
     - node_js: "0.12"
       env: SAUCE_LABS=true
+deploy:
+  provider: releases
+  file:
+    - "dist/outliner.html"
+    - "dist/outliner.min.js"
+  on:
+    tags: true
+  api-key:
+    secure: kQsaWLh8QwX5k3OweMEVxS+05H1yLQO0EqG9lHMMDD3h/sHCQQd/5OK6NxbC7xAN87gSbF3QFYx9Satd2z91FBrpnLqJcBAR31Wh+yTXxKIWT3MqABOqXxxQT1EEr7MKh9RanB+GlsEKYRfZV6kRdS8OzGJDyN8X6YZtNbwOkro=
