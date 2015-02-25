@@ -10,10 +10,13 @@ matrix:
       env: SAUCE_LABS=true
 deploy:
   provider: releases
+  skip_cleanup: true
   file:
     - "dist/outliner.html"
     - "dist/outliner.min.js"
   on:
     tags: true
+    node_js: "0.12"
+    condition: $SAUCE_LABS = true
   api-key:
     secure: kQsaWLh8QwX5k3OweMEVxS+05H1yLQO0EqG9lHMMDD3h/sHCQQd/5OK6NxbC7xAN87gSbF3QFYx9Satd2z91FBrpnLqJcBAR31Wh+yTXxKIWT3MqABOqXxxQT1EEr7MKh9RanB+GlsEKYRfZV6kRdS8OzGJDyN8X6YZtNbwOkro=

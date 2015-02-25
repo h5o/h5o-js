@@ -52,6 +52,9 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### v0.7.4 (2015-02-25) ###
+* Travis deploy (second try)
+
 ### v0.7.3 (2015-02-25) ###
 * Travis deploy
 
