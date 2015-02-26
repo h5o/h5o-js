@@ -38,7 +38,7 @@ module.exports = function (grunt) {
 				]
 			}
 		},
-		watch: {
+		"_watch": {
 			autoBuild: {
 				files: ["src/**"],
 				tasks: ["default", "buster:local:test", "buster:jsdom:test"]
@@ -110,6 +110,7 @@ module.exports = function (grunt) {
 	});
 
 	grunt.renameTask("release", "_release");
+	grunt.renameTask("watch", "_watch");
 
 	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release"]);
 	grunt.registerTask("test", "Clean build, minify and run tests",
@@ -121,7 +122,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("test-phantom", ["buster:local:server", "buster:local:phantomjs", "buster:local:test"]);
 	grunt.registerTask("test-local", ["buster:local:server", "buster:local:phantomjs", "open:capture-browser", "buster:local:test"]);
 	grunt.registerTask("test-jsdom", ["buster:jsdom:test"]);
-	grunt.registerTask("start-dev", ["buster:local:server", "buster:local:phantomjs", "open:capture-browser", "watch"]);
+	grunt.registerTask("watch", ["buster:local:server", "buster:local:phantomjs", "open:capture-browser", "_watch"]);
 
 	grunt.registerTask("release", function () {
 		var bump = grunt.option("bump");
