@@ -52,8 +52,11 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
-### vNext (????-??-??) ###
+### v0.7.5 (2015-02-26) ###
 * Renaming `grunt start-dev` in favor a simpler `grunt watch`
+* Bookmarklet now goes via browserify
+* Bookmarklet works in Firefox again (fixes #6)
+* Fixed #9
 
 ### v0.7.4 (2015-02-25) ###
 * Travis deploy (second try)

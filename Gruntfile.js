@@ -10,16 +10,13 @@ module.exports = function (grunt) {
 		"clean": {
 			"all": ["dist/**"]
 		},
-		"copy": {
-			"bookmarklet-js": {
-				"src": ["src/HTML5OutlineBookmarklet.js"],
-				"dest": "dist/debug/HTML5OutlineBookmarklet.debug.js"
-			}
-		},
 		"uglify": {
 			"bookmarklet-js": {
-				"src": ["dist/debug/HTML5OutlineBookmarklet.debug.js"],
-				"dest": "dist/debug/HTML5OutlineBookmarklet.min.js"
+				"options": {
+					"banner": BANNER
+				},
+				"src": ["dist/debug/bookmarklet.debug.js"],
+				"dest": "dist/debug/bookmarklet.min.js"
 			},
 			"outliner-js": {
 				"options": {
@@ -79,6 +76,15 @@ module.exports = function (grunt) {
 						"standalone": "HTML5Outline"
 					}
 				}
+			},
+			"bookmarklet-js": {
+				"src": [
+					"bookmarklet.js"
+				],
+				"dest": "dist/debug/bookmarklet.debug.js",
+				"options": {
+					"banner": BANNER
+				}
 			}
 		},
 		"saucelabs-custom": {
@@ -112,7 +118,7 @@ module.exports = function (grunt) {
 	grunt.renameTask("release", "_release");
 	grunt.renameTask("watch", "_watch");
 
-	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify:outliner-js", "copy:bookmarklet-js", "uglify", "_bookmarklet-release"]);
+	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify", "uglify", "_bookmarklet-release"]);
 	grunt.registerTask("test", "Clean build, minify and run tests",
 		process.env.SAUCE_LABS === "true" ?
 			["default", "test-jsdom", "test-phantom", "test-sauce"] :
@@ -135,12 +141,11 @@ module.exports = function (grunt) {
 		var fs = require("fs"),
 			ejs = require("ejs");
 
-		ejs.renderFile("src/bookmarklet.html.ejs", {
+		ejs.renderFile("bookmarklet.html.ejs", {
 
 			version: VERSION,
 			banner: BANNER,
-			bookmarklet: encodeURIComponent(fs.readFileSync("dist/debug/HTML5OutlineBookmarklet.min.js").toString()),
-			outliner: encodeURIComponent(fs.readFileSync("dist/outliner.min.js").toString())
+			bookmarklet: encodeURIComponent(fs.readFileSync("dist/debug/bookmarklet.debug.js").toString())
 
 		}, function (err, bookmarklet) {
 			if (err) grunt.fail.fatal(err);
