@@ -52,6 +52,9 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### vNext (????-??-??) ###
+* Renaming `grunt start-dev` in favor a simpler `grunt watch`
+
 ### v0.7.4 (2015-02-25) ###
 * Travis deploy (second try)
 
