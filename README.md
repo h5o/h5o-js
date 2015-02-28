@@ -52,6 +52,9 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### vNext (????-??-??) ###
+* Adding jsdom@4.x on io.js to the test matrix
+
 ### v0.8.0 (2015-03-01) ###
 * Updating to the latest specified algorithm
 * Fixed #11: HTML entity escaping
