@@ -11,45 +11,53 @@ function getSectionHeadingRank(section) {
 	var heading = section.heading;
 	return utils.isHeading(heading)
 		? utils.getHeadingElementRank(heading)
-		: 1; // is this true? TODO: find a reference...
+		: 1; // @todo: as our ranks are negative, this is waaaay incorrect
 }
 
-var currentOutlinee, currentSection, stack;
+var currentOutlineTarget, currentSection, stack;
 
 function onEnterNode(node) {
-	// If the top of the stack is a heading content element - do nothing
-	if (utils.isHeading(arrayLast(stack))) {
+
+	// If the top of the stack is a heading content element or an element with a hidden attribute
+	// Do nothing.
+	var stackTop = arrayLast(stack);
+	if (utils.isHeading(stackTop) || utils.hasHiddenAttribute(stackTop)) {
 		return;
 	}
 
-	// When entering a sectioning content element or a sectioning root element
-	if (utils.isSecContent(node) || utils.isSecRoot(node)) {
-		// If current outlinee is not null, and the current section has no heading,
-		// create an implied heading and let that be the heading for the current section.
-		//if (currentOutlinee!=null && !currentSection.heading) {
-		/*
-		 TODO: is this really the way it should be done?
-		 In my implementation, "implied heading" is always created (section.heading=false by default)
+	// When entering an element with a hidden attribute
+	// Push the element being entered onto the stack. (This causes the algorithm to skip that element and any
+	// descendants of the element.)
+	if (utils.hasHiddenAttribute(node)) {
+		stack.push(node);
+		return;
+	}
 
-		 If I DO "create" something else here, the algorithm goes very wrong, as there's a place
-		 where you have to check whether a "heading exists" - so - does the "implied heading" mean
-		 there is a heading or not?
-		 */
-		//}
+	// When entering a sectioning content element
+	if (utils.isSecContent(node)) {
 
-		// If current outlinee is not null, push current outlinee onto the stack.
-		if (currentOutlinee != null) {
-			stack.push(currentOutlinee);
+		// If current outline target is not null, run these substeps:
+		if (currentOutlineTarget != null) {
+			// If the current section has no heading, create an implied heading and let that be the heading for the
+			// current section.
+			// @todo
+
+			// Push current outline target onto the stack.
+			stack.push(currentOutlineTarget);
 		}
 
-		// Let current outlinee be the element that is being entered.
-		currentOutlinee = node;
+		// Let current outline target be the element that is being entered.
+		currentOutlineTarget = node;
 
-		// Let current section be a newly created section for the current outlinee element.
+		// Let current section be a newly created section for the current outline target element.
+		// Associate current outline target with current section.
+		// @todo: should the above two steps really be done in one step?
 		currentSection = new Section(node);
 
-		// Let there be a new outline for the new current outlinee, initialized with just the new current section as the only section in the outline.
-		currentOutlinee.outline = {
+		// Let there be a new outline for the new current outline target, initialised with just the new current section
+		// as the only section in the outline.
+		// @todo: extract this into a new Outline()?
+		currentOutlineTarget.outline = {
 			sections: [currentSection],
 			startingNode: node,
 			asHTML: function (createLinks) {
@@ -59,8 +67,34 @@ function onEnterNode(node) {
 		return;
 	}
 
-	// If the current outlinee is null, do nothing
-	if (currentOutlinee == null) {
+	// When entering a sectioning root element
+	if (utils.isSecRoot(node)) {
+
+		// If current outline target is not null, push current outline target onto the stack.
+		if (currentOutlineTarget != null) {
+			stack.push(currentOutlineTarget);
+		}
+
+		// Let current outline target be the element that is being entered.
+		currentOutlineTarget = node;
+
+		// Let current outline target's parent section be current section.
+		currentOutlineTarget.parentSection = currentSection;
+
+		// Let current section be a newly created section for the current outline target element.
+		// @todo: why not "associate", like when entering a sectioning content element?
+		currentSection = new Section(node);
+
+		// Let there be a new outline for the new current outline target, initialised with just the new current section
+		// as the only section in the outline.
+		// @todo: extract this into a new Outline()?
+		currentOutlineTarget.outline = {
+			sections: [currentSection],
+			startingNode: node,
+			asHTML: function (createLinks) {
+				return asHtml(this.sections, createLinks);
+			}
+		};
 		return;
 	}
 
@@ -71,14 +105,18 @@ function onEnterNode(node) {
 		if (!currentSection.heading) {
 			currentSection.heading = node;
 
-			// Otherwise, if the element being entered has a rank equal to or greater than the heading of the last section of the outline of the current outlinee,
-		} else if (utils.getHeadingElementRank(node) >= getSectionHeadingRank(arrayLast(currentOutlinee.outline.sections))) {
+		// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
+		// the outline of the current outline target, or if the heading of the last section of the outline of the current
+		// outline target is an implied heading, then
+		// @todo: fix getSectionHeadingRank to not return 1
+		} else if (utils.getHeadingElementRank(node) >= getSectionHeadingRank(arrayLast(currentOutlineTarget.outline.sections)) || !arrayLast(currentOutlineTarget.outline.sections).heading) {
 
 			// create a new section and
 			var newSection = new Section(node);
 
-			// append it to the outline of the current outlinee element, so that this new section is the new last section of that outline.
-			currentOutlinee.outline.sections.push(newSection);
+			// append it to the outline of the current outline target element, so that this new section is the new last
+			// section of that outline.
+			currentOutlineTarget.outline.sections.push(newSection);
 
 			// Let current section be that new section.
 			currentSection = newSection;
@@ -86,15 +124,18 @@ function onEnterNode(node) {
 			// Let the element being entered be the new heading for the current section.
 			currentSection.heading = node;
 
-			// Otherwise, run these substeps:
+		// Otherwise, run these substeps:
 		} else {
+
 			var abortSubsteps = false;
 
-			// 1. Let candidate section be current section.
+			// Let candidate section be current section.
 			var candidateSection = currentSection;
 
+			// Heading loop:
 			do {
-				// 2. If the element being entered has a rank lower than the rank of the heading of the candidate section,
+				// If the element being entered has a rank lower than the rank of the heading of the candidate section, then
+				// @todo: double check - can candidateSection ever not have a heading or have an implied one?
 				if (utils.getHeadingElementRank(node) < getSectionHeadingRank(candidateSection)) {
 
 					// create a new section,
@@ -113,13 +154,13 @@ function onEnterNode(node) {
 					abortSubsteps = true;
 				}
 
-				// 3. Let new candidate section be the section that contains candidate section in the outline of current outlinee.
+				// Let new candidate section be the section that contains candidate section in the outline of current outline target.
 				var newCandidateSection = candidateSection.container;
 
-				// 4. Let candidate section be new candidate section.
+				// Let candidate section be new candidate section.
 				candidateSection = newCandidateSection;
 
-				// 5. Return to step 2.
+				// Return to the step labeled heading loop.
 			} while (!abortSubsteps);
 		}
 
@@ -128,32 +169,41 @@ function onEnterNode(node) {
 		return;
 	}
 
+	// Otherwise
 	// Do nothing.
 }
 
 function onExitNode(node) {
-	// If the top of the stack is an element, and you are exiting that element
-	//				Note: The element being exited is a heading content element.
-	//		Pop that element from the stack.
-	// If the top of the stack is a heading content element - do nothing
+
+
+	// When exiting an element, if that element is the element at the top of the stack
+	// Note: The element being exited is a heading content element or an element with a hidden attribute.
+	// Pop that element from the stack.
 	var stackTop = arrayLast(stack);
-	if (utils.isHeading(stackTop)) {
-		if (stackTop == node) {
-			stack.pop();
-		}
+	if (stackTop === node) {
+		stack.pop();
+	}
+
+	// If the top of the stack is a heading content element or an element with a hidden attribute
+	// Do nothing.
+	if (utils.isHeading(stackTop) || utils.hasHiddenAttribute(stackTop)) {
 		return;
 	}
 
 	// When exiting a sectioning content element, if the stack is not empty
 	if (utils.isSecContent(node) && stack.length > 0) {
 
-		// Pop the top element from the stack, and let the current outlinee be that element.
-		currentOutlinee = stack.pop();
+		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
+		// @todo
 
-		// Let current section be the last section in the outline of the current outlinee element.
-		currentSection = arrayLast(currentOutlinee.outline.sections);
+		// Pop the top element from the stack, and let the current outline target be that element.
+		currentOutlineTarget = stack.pop();
 
-		// Append the outline of the sectioning content element being exited to the current section. (This does not change which section is the last section in the outline.)
+		// Let current section be the last section in the outline of the current outline target element.
+		currentSection = arrayLast(currentOutlineTarget.outline.sections);
+
+		// Append the outline of the sectioning content element being exited to the current section.
+		// (This does not change which section is the last section in the outline.)
 		for (var i = 0; i < node.outline.sections.length; i++) {
 			currentSection.append(node.outline.sections[i]);
 		}
@@ -162,61 +212,60 @@ function onExitNode(node) {
 
 	// When exiting a sectioning root element, if the stack is not empty
 	if (utils.isSecRoot(node) && stack.length > 0) {
-		// Pop the top element from the stack, and let the current outlinee be that element.
-		currentOutlinee = stack.pop();
 
-		// Let current section be the last section in the outline of the current outlinee element.
-		currentSection = arrayLast(currentOutlinee.outline.sections);
+		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
+		// @todo
 
-		// Finding the deepest child: If current section has no child sections, stop these steps.
-		while (currentSection.sections.length > 0) {
+		// Let current section be current outline target's parent section.
+		currentSection = currentOutlineTarget.parentSection;
 
-			// Let current section be the last child section of the current current section.
-			currentSection = arrayLast(currentSection.sections);
-
-			// Go back to the substep labeled finding the deepest child.
-		}
+		// Pop the top element from the stack, and let the current outline target be that element.
+		currentOutlineTarget = stack.pop();
 		return;
 	}
 
-	// When exiting a sectioning content element or a sectioning root element
+	// The current outline target is the element being exited, and it is the sectioning content element or a sectioning
+	// root element at the root of the subtree for which an outline is being generated.
+	// Note: The current outline target is the element being exited, and it is the sectioning content element or
+	// a sectioning root element at the root of the subtree for which an outline is being generated.
 	if (utils.isSecContent(node) || utils.isSecRoot(node)) {
-		// Let current section be the first section in the outline of the current outlinee element.
-		currentSection = currentOutlinee.outline.sections[0];
+		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
+		// @todo
 
 		// Skip to the next step in the overall set of steps. (The walk is over.)
 		return;
 	}
 
-	// If the current outlinee is null, do nothing
-	// Do nothing
+	// Otherwise
+	// Do nothing.
 }
 
 function HTML5Outline(start) {
-	// Let current outlinee be null. (It holds the element whose outline is being created.)
-	currentOutlinee = null;
 
-	// Let current section be null. (It holds a pointer to a section, so that elements in the DOM can all be associated with a section.)
+	// Let current outline target be null.
+	// (It holds the element whose outline is being created.)
+	currentOutlineTarget = null;
+
+	// Let current section be null.
+	// (It holds a pointer to a section, so that elements in the DOM can all be associated with a section.)
 	currentSection = null;
 
-	// Create a stack to hold elements, which is used to handle nesting. Initialize this stack to empty.
+	// Create a stack to hold elements, which is used to handle nesting. Initialise this stack to empty.
 	stack = [];
 
-	// As you walk over the DOM in tree order, trigger the first relevant step below for each element as you enter and exit it.
+	// @todo: the below has changed. What if the element is not sectioning root/content?
+	// Walk over the DOM in tree order, starting with the sectioning content element or sectioning root element at the
+	// root of the subtree for which an outline is to be created, and trigger the first relevant step below for each
+	// element as the walk enters and exits it.
 	walk(start, onEnterNode, onExitNode);
 
-	// If the current outlinee is null, then there was no sectioning content element or sectioning root element in the DOM. There is no outline. Abort these steps.
-	/* @todo
-	 if (currentOutlinee != null) {
-	 Associate any nodes that were not associated with a section in the steps above with current outlinee as their section.
+	// @todo: In addition, whenever the walk exits a node, after doing the steps above, if the node is not associated with a section yet, associate the node with the section current section.
+	// @todo: Associate all non-element nodes that are in the subtree for which an outline is being created with the section with which their parent element is associated.
+	// @todo: Associate all nodes in the subtree with the heading of the section with which they are associated, if any.
 
-	 Associate all nodes with the heading of the section with which they are associated, if any.
+	// @todo: can currentOutlineTarget even be null?
+	return currentOutlineTarget != null ? currentOutlineTarget.outline : null;
 
-	 If current outlinee is the body element, then the outline created for that element is the outline of the entire document.
-	 }
-	 */
-
-	return currentOutlinee != null ? currentOutlinee.outline : null;
 }
 
 module.exports = HTML5Outline;

@@ -31,8 +31,13 @@ function escapeHtml(str) {
 	return (""+str).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 }
 
+function hasHiddenAttribute(el) {
+	return isElement(el) && el.hasAttribute("hidden");
+}
+
 exports.getTagName = getTagName;
 
+exports.hasHiddenAttribute = hasHiddenAttribute;
 exports.isSecRoot = tagChecker('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$');
 exports.isSecContent = tagChecker('^ARTICLE|ASIDE|NAV|SECTION$');
 exports.isHeading = tagChecker('^H[1-6]|HGROUP$');

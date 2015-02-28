@@ -19,48 +19,11 @@
 			this.timeout = 5000;
 		});
 
-		it("non-sectioning element outlining", function () {
-			var actual = HTML5Outline(doc.createElement('div'));
-
-			expect(actual).toBeNull("Outline for an empty DIV should be null");
-		});
-
-		it("section inside a div - not starting with secRoot", function () {
-			var div = doc.createElement('div');
-			div.appendChild(doc.createElement('section'));
-
-			expect(HTML5Outline(div).asHTML())
-				.toEqual("<ol><li><i>Untitled SECTION</i></li></ol>",
-				"Outline for a DIV is the outline of the SECTION inside");
-		});
-
-		it("two sections inside a div - not starting with secRoot", function () {
-			var div = doc.createElement('div');
-			div.appendChild(doc.createElement('section'));
-			div.appendChild(doc.createElement('section'));
-
-			expect(HTML5Outline(div).asHTML())
-				.toEqual("<ol><li><i>Untitled SECTION</i><ol><li><i>Untitled SECTION</i></li></ol></li></ol>",
-				"Second SECTION becomes a child of the first one. Odd - TODO - verify");
-		});
-
-		it("some headings", function () {
-			var div = doc.createElement('div');
-			var heading = doc.createElement('h1');
-			heading.innerHTML = "Test";
-			div.appendChild(heading);
-			div.appendChild(doc.createElement('section'));
-
-			expect(HTML5Outline(div).asHTML())
-				.toEqual("<ol><li><i>Untitled SECTION</i></li></ol>",
-				"Heading outside of sectioning root is ignored");
-		});
-
 		var iframeTestList = [
 			"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst",
 			"links_simple", "links_idreuse", "links_idcollision",
 			"hgroup", "hgroup-without-headings", "hgroup-with-h1",
-			"issue-11"
+			"issue-11", "issue-13"
 		];
 
 		for (var i = 0; i < iframeTestList.length; i++) {
