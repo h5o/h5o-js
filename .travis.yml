@@ -11,7 +11,7 @@ matrix:
     - node_js: "io.js"
       env: SAUCE_LABS=true
 before_script:
-  - "[ $JSDOM4 != true] || npm i jsdom@4.x"
+  - "[ $JSDOM4 != true ] || npm i jsdom@4.x"
 deploy:
   provider: releases
   skip_cleanup: true
