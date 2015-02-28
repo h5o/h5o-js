@@ -7,7 +7,11 @@ matrix:
     - node_js: "0.10"
     - node_js: "0.12"
     - node_js: "io.js"
+      env: JSDOM4=true
+    - node_js: "io.js"
       env: SAUCE_LABS=true
+before_script:
+  - "[ $JSDOM4 != true] || npm i jsdom@4.x"
 deploy:
   provider: releases
   skip_cleanup: true
