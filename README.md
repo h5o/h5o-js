@@ -52,6 +52,12 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ## History ##
 
+### v0.8.0 (2015-03-01) ###
+* Updating to the latest specified algorithm
+* Fixed #11: HTML entity escaping
+* Fixed #13: problems with sectioning root elements inside the outline
+* Handling of `hgroup` without any `h1`-`h6` inside
+
 ### v0.7.5 (2015-02-26) ###
 * Renaming `grunt start-dev` in favor a simpler `grunt watch`
 * Bookmarklet now goes via browserify
