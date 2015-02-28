@@ -26,7 +26,7 @@ function onEnterNode(node) {
 	if (utils.isSecContent(node) || utils.isSecRoot(node)) {
 		// If current outlinee is not null, and the current section has no heading,
 		// create an implied heading and let that be the heading for the current section.
-		// if (currentOutlinee!=null && !currentSection.heading) {
+		//if (currentOutlinee!=null && !currentSection.heading) {
 		/*
 		 TODO: is this really the way it should be done?
 		 In my implementation, "implied heading" is always created (section.heading=false by default)
@@ -35,7 +35,7 @@ function onEnterNode(node) {
 		 where you have to check whether a "heading exists" - so - does the "implied heading" mean
 		 there is a heading or not?
 		 */
-		// }
+		//}
 
 		// If current outlinee is not null, push current outlinee onto the stack.
 		if (currentOutlinee != null) {
@@ -143,16 +143,6 @@ function onExitNode(node) {
 		}
 		return;
 	}
-
-	/************ MODIFICATION OF ORIGINAL ALGORITHM *****************/
-	// existing sectioning content or sectioning root
-	// this means, currentSection will change (and we won't get back to it)
-	if ((utils.isSecContent(node) || utils.isSecRoot(node)) && !currentSection.heading) {
-
-		currentSection.heading = node; // @todo: remove this modification in favor of really "implied" heading; achievable if the sectioning content itself is included in the Section object
-
-	}
-	/************ END MODIFICATION ***********************************/
 
 	// When exiting a sectioning content element, if the stack is not empty
 	if (utils.isSecContent(node) && stack.length > 0) {

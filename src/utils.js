@@ -17,9 +17,11 @@ function getHeadingElementRank(el) {
 	if (elTagName == 'HGROUP') {
 		/* The rank of an hgroup element is the rank of the highest-ranked h1-h6 element descendant of the hgroup element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank). */
 		for (var i = 1; i <= 6; i++) {
-			if (el.getElementsByTagName('H' + i).length > 0)
+			if (el.getElementsByTagName('H' + i).length > 0) {
 				return -i;
+			}
 		}
+		return -1;
 	} else {
 		return -parseInt(elTagName.substr(1));
 	}

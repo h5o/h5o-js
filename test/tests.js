@@ -57,8 +57,9 @@
 		});
 
 		var iframeTestList = [
-			"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst", "hgroup",
+			"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst",
 			"links_simple", "links_idreuse", "links_idcollision",
+			"hgroup", "hgroup-without-headings", "hgroup-with-h1",
 			"issue-11"
 		];
 
