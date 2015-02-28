@@ -12,7 +12,7 @@ function getSectionHeadingRank(section) {
 	return utils.isHeading(heading)
 		? utils.getHeadingElementRank(heading)
 		: 1; // is this true? TODO: find a reference...
-};
+}
 
 var currentOutlinee, currentSection, stack;
 
@@ -129,7 +129,7 @@ function onEnterNode(node) {
 	}
 
 	// Do nothing.
-};
+}
 
 function onExitNode(node) {
 	// If the top of the stack is an element, and you are exiting that element
@@ -149,7 +149,7 @@ function onExitNode(node) {
 	// this means, currentSection will change (and we won't get back to it)
 	if ((utils.isSecContent(node) || utils.isSecRoot(node)) && !currentSection.heading) {
 
-		currentSection.heading = '<i>Untitled ' + utils.getTagName(node) + '</i>';
+		currentSection.heading = node; // @todo: remove this modification in favor of really "implied" heading; achievable if the sectioning content itself is included in the Section object
 
 	}
 	/************ END MODIFICATION ***********************************/
@@ -200,7 +200,7 @@ function onExitNode(node) {
 
 	// If the current outlinee is null, do nothing
 	// Do nothing
-};
+}
 
 function HTML5Outline(start) {
 	// Let current outlinee be null. (It holds the element whose outline is being created.)
@@ -227,6 +227,6 @@ function HTML5Outline(start) {
 	 */
 
 	return currentOutlinee != null ? currentOutlinee.outline : null;
-};
+}
 
 module.exports = HTML5Outline;

@@ -7,9 +7,9 @@ function sectionHeadingText(sectionHeading) {
 			sectionHeading = sectionHeading.getElementsByTagName('h' + (-utils.getHeadingElementRank(sectionHeading)))[0];
 		}
 		// @todo: try to resolve text content from img[alt] or *[title]
-		return sectionHeading.textContent || sectionHeading.innerText || "<i>No text content inside " + sectionHeading.nodeName + "</i>";
+		return utils.escapeHtml(sectionHeading.textContent) || "<i>No text content inside " + sectionHeading.nodeName + "</i>";
 	}
-	return "" + sectionHeading;
+	return "<i>Untitled " + utils.getTagName(sectionHeading) + "</i>";
 }
 
 function generateId(node) {

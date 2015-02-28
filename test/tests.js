@@ -58,7 +58,8 @@
 
 		var iframeTestList = [
 			"spec1", "spec2", "spec3a", "spec3b", "spec4", "navfirst", "hgroup",
-			"links_simple", "links_idreuse", "links_idcollision"
+			"links_simple", "links_idreuse", "links_idcollision",
+			"issue-11"
 		];
 
 		for (var i = 0; i < iframeTestList.length; i++) {

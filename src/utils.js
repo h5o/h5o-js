@@ -25,9 +25,15 @@ function getHeadingElementRank(el) {
 	}
 }
 
+function escapeHtml(str) {
+	return (""+str).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+}
+
 exports.getTagName = getTagName;
 
 exports.isSecRoot = tagChecker('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$');
 exports.isSecContent = tagChecker('^ARTICLE|ASIDE|NAV|SECTION$');
 exports.isHeading = tagChecker('^H[1-6]|HGROUP$');
 exports.getHeadingElementRank = getHeadingElementRank;
+
+exports.escapeHtml = escapeHtml;
