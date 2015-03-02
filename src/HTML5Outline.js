@@ -8,10 +8,11 @@ function arrayLast(arr) {
 }
 
 function getSectionHeadingRank(section) {
-	var heading = section.heading;
-	return utils.isHeading(heading)
-		? utils.getHeadingElementRank(heading)
-		: 1; // @todo: as our ranks are negative, this is waaaay incorrect
+	if (!utils.isHeading(section.heading)) {
+		// @todo: find formal proof if this is possible/not-possible
+		throw new Exception("What is the heading rank of an implied heading? Is this code even reachable?")
+	}
+	return utils.getHeadingElementRank(section.heading);
 }
 
 var currentOutlineTarget, currentSection, stack;
@@ -40,7 +41,9 @@ function onEnterNode(node) {
 		if (currentOutlineTarget != null) {
 			// If the current section has no heading, create an implied heading and let that be the heading for the
 			// current section.
-			// @todo
+			if (!currentSection.heading) {
+				currentSection.heading = {implied: true};
+			}
 
 			// Push current outline target onto the stack.
 			stack.push(currentOutlineTarget);
@@ -105,11 +108,10 @@ function onEnterNode(node) {
 		if (!currentSection.heading) {
 			currentSection.heading = node;
 
-		// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
-		// the outline of the current outline target, or if the heading of the last section of the outline of the current
-		// outline target is an implied heading, then
-		// @todo: fix getSectionHeadingRank to not return 1
-		} else if (utils.getHeadingElementRank(node) >= getSectionHeadingRank(arrayLast(currentOutlineTarget.outline.sections)) || !arrayLast(currentOutlineTarget.outline.sections).heading) {
+			// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
+			// the outline of the current outline target, or if the heading of the last section of the outline of the current
+			// outline target is an implied heading, then
+		} else if (arrayLast(currentOutlineTarget.outline.sections).heading.implied || utils.getHeadingElementRank(node) >= getSectionHeadingRank(arrayLast(currentOutlineTarget.outline.sections))) {
 
 			// create a new section and
 			var newSection = new Section(node);
@@ -124,7 +126,7 @@ function onEnterNode(node) {
 			// Let the element being entered be the new heading for the current section.
 			currentSection.heading = node;
 
-		// Otherwise, run these substeps:
+			// Otherwise, run these substeps:
 		} else {
 
 			var abortSubsteps = false;
@@ -135,7 +137,6 @@ function onEnterNode(node) {
 			// Heading loop:
 			do {
 				// If the element being entered has a rank lower than the rank of the heading of the candidate section, then
-				// @todo: double check - can candidateSection ever not have a heading or have an implied one?
 				if (utils.getHeadingElementRank(node) < getSectionHeadingRank(candidateSection)) {
 
 					// create a new section,
@@ -194,7 +195,9 @@ function onExitNode(node) {
 	if (utils.isSecContent(node) && stack.length > 0) {
 
 		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
-		// @todo
+		if (!currentSection.heading) {
+			currentSection.heading = {implied: true};
+		}
 
 		// Pop the top element from the stack, and let the current outline target be that element.
 		currentOutlineTarget = stack.pop();
@@ -214,7 +217,9 @@ function onExitNode(node) {
 	if (utils.isSecRoot(node) && stack.length > 0) {
 
 		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
-		// @todo
+		if (!currentSection.heading) {
+			currentSection.heading = {implied: true};
+		}
 
 		// Let current section be current outline target's parent section.
 		currentSection = currentOutlineTarget.parentSection;
@@ -230,7 +235,9 @@ function onExitNode(node) {
 	// a sectioning root element at the root of the subtree for which an outline is being generated.
 	if (utils.isSecContent(node) || utils.isSecRoot(node)) {
 		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
-		// @todo
+		if (!currentSection.heading) {
+			currentSection.heading = {implied: true};
+		}
 
 		// Skip to the next step in the overall set of steps. (The walk is over.)
 		return;
@@ -253,7 +260,7 @@ function HTML5Outline(start) {
 	// Create a stack to hold elements, which is used to handle nesting. Initialise this stack to empty.
 	stack = [];
 
-	// @todo: the below has changed. What if the element is not sectioning root/content?
+	// @todo: move up the tree, to the root, until a sectioning content/sectioning root is found
 	// Walk over the DOM in tree order, starting with the sectioning content element or sectioning root element at the
 	// root of the subtree for which an outline is to be created, and trigger the first relevant step below for each
 	// element as the walk enters and exits it.

@@ -29,8 +29,6 @@ function generateId(node) {
 function Section(startingNode) {
 	this.sections = [];
 	this.startingNode = startingNode;
-
-	this.heading = false;
 }
 
 Section.prototype = {
@@ -42,10 +40,16 @@ Section.prototype = {
 
 	asHTML: function (createLinks) {
 		// @todo: this really belongs in a separate formatter type thing
-		var headingText = "<i>Untitled " + utils.getTagName(this.startingNode) + "</i>";
-		if (this.heading) {
-			headingText = sectionHeadingText(this.heading);
+
+		if (!this.heading) {
+			// @todo: find formal proof if this is possible/not-possible
+			throw new Error("An implied heading should have been created at some point, but wasn't.");
 		}
+
+		var headingText = this.heading.implied
+			? "<i>Untitled " + utils.getTagName(this.startingNode) + "</i>"
+			: sectionHeadingText(this.heading);
+
 		if (createLinks) {
 			headingText = '<a href="#' + generateId(this.startingNode) + '">'
 			+ headingText

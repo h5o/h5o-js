@@ -21,7 +21,7 @@
 
 		var iframeTestList = [
 			"spec1", "spec2", "spec3a", "spec3b", "spec4",
-			"spec5", /*"spec6", "spec7",*/ "spec8",
+			"spec5", "spec6", "spec7", "spec8",
 
 			"navfirst", "blockquote",
 
