@@ -53,16 +53,22 @@ Run `grunt release --bump=[patch|minor|major]`
 ## History ##
 
 ### vNext (????-??-??) ###
-* Adding jsdom@4.x on io.js to the test matrix
+* ???
+
+### v0.9.0 (2015-03-02) ###
+* Added jsdom@4.x on io.js to the test matrix
+* Fixed implied headings to follow the spec - this actually means the previous implementation was
+  incorrect - updated the following tests: `navfirst`, `issue-13`. Issue #13 was partly invalid.
+* Added more examples from the spec 
 
 ### v0.8.0 (2015-03-01) ###
-* Updating to the latest specified algorithm
+* Updated to the latest specified algorithm
 * Fixed #11: HTML entity escaping
 * Fixed #13: problems with sectioning root elements inside the outline
-* Handling of `hgroup` without any `h1`-`h6` inside
+* Properly handling of `hgroup` without any `h1`-`h6` inside
 
 ### v0.7.5 (2015-02-26) ###
-* Renaming `grunt start-dev` in favor a simpler `grunt watch`
+* Renamed `grunt start-dev` in favor a simpler `grunt watch`
 * Bookmarklet now goes via browserify
 * Bookmarklet works in Firefox again (fixes #6)
 * Fixed #9
@@ -83,11 +89,11 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ### v0.7.0 (2015-02-18) ###
 * Using browserify instead of concatenation
-* Making tests pass with jsdom
-* Updating browsers and dependencies
+* Made tests pass with `jsdom`
+* Updated browsers and dependencies
 
 ### v0.6.3 (2014-06-06) ###
-* Replacing inter with buster
+* Replaced intern with buster
 
 ### v0.6.2 (2014-06-05) ###
 * Using ejs to generate bookmarklet HTML
