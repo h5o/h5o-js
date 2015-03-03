@@ -55,6 +55,9 @@ Run `grunt release --bump=[patch|minor|major]`
 ### vNext (????-??-??) ###
 * ???
 
+### v0.9.1 (2015-03-03) ###
+* More tests
+
 ### v0.9.0 (2015-03-02) ###
 * Added jsdom@4.x on io.js to the test matrix
 * Fixed implied headings to follow the spec - this actually means the previous implementation was
