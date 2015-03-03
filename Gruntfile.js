@@ -133,7 +133,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("release", function () {
 		var bump = grunt.option("bump");
 		if (bump != "patch" && bump != "minor" && bump != "major") grunt.fail.fatal("Please pass --bump");
-		grunt.task.run(["_release:" + bump, "gh-pages"]);
+		grunt.task.run(["checkbranch:master", "checkpending", "_release:" + bump, "gh-pages"]);
 	});
 
 	grunt.registerTask("_bookmarklet-release", "Prepare bookmarklet HTML for release", function () {
