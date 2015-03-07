@@ -1,4 +1,4 @@
-var HTML5Outline = require("./src/HTML5Outline");
+var HTML5Outline = require("./index");
 
 var setStyles = function (els, stl) {
 	for (var i = 0; i < els.length; i++) els[i].setAttribute('style', stl);
