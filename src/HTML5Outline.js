@@ -264,7 +264,6 @@ function HTML5Outline(start) {
 	// Create a stack to hold elements, which is used to handle nesting. Initialise this stack to empty.
 	stack = [];
 
-	// @todo: move up the tree, to the root, until a sectioning content/sectioning root is found
 	// Walk over the DOM in tree order, starting with the sectioning content element or sectioning root element at the
 	// root of the subtree for which an outline is to be created, and trigger the first relevant step below for each
 	// element as the walk enters and exits it.
