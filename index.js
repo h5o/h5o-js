@@ -1,1 +1,1 @@
-module.exports = require("./src/HTML5Outline");
+module.exports = require("./src/createOutline");

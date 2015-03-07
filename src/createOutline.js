@@ -1,4 +1,5 @@
 var Section = require("./Section"),
+	OutlineTarget = require("./OutlineTarget"),
 	asHtml = require("./asHtml"),
 	walk = require("./walk"),
 	utils = require("./utils");
@@ -17,11 +18,16 @@ function getSectionHeadingRank(section) {
 
 var currentOutlineTarget, currentSection, stack;
 
+function stackTopNode() {
+	var top = arrayLast(stack);
+	return top ? top.node : undefined;
+}
+
 function onEnterNode(node) {
 
 	// If the top of the stack is a heading content element or an element with a hidden attribute
 	// Do nothing.
-	var stackTop = arrayLast(stack);
+	var stackTop = stackTopNode();
 	if (utils.isHeading(stackTop) || utils.hasHiddenAttribute(stackTop)) {
 		return;
 	}
@@ -30,7 +36,7 @@ function onEnterNode(node) {
 	// Push the element being entered onto the stack. (This causes the algorithm to skip that element and any
 	// descendants of the element.)
 	if (utils.hasHiddenAttribute(node)) {
-		stack.push(node);
+		stack.push({node: node});
 		return;
 	}
 
@@ -50,7 +56,7 @@ function onEnterNode(node) {
 		}
 
 		// Let current outline target be the element that is being entered.
-		currentOutlineTarget = node;
+		currentOutlineTarget = new OutlineTarget(node);
 
 		// Let current section be a newly created section for the current outline target element.
 		// Associate current outline target with current section.
@@ -79,13 +85,13 @@ function onEnterNode(node) {
 		}
 
 		// Let current outline target be the element that is being entered.
-		currentOutlineTarget = node;
+		currentOutlineTarget = new OutlineTarget(node);
 
 		// Let current outline target's parent section be current section.
 		currentOutlineTarget.parentSection = currentSection;
 
 		// Let current section be a newly created section for the current outline target element.
-		// @todo: why not "associate", like when entering a sectioning content element?
+		// @todo: why not "associate", like when entering a sectioning content element? Is the "parentSection" the association? Is Outline a Section?
 		currentSection = new Section(node);
 
 		// Let there be a new outline for the new current outline target, initialised with just the new current section
@@ -166,7 +172,7 @@ function onEnterNode(node) {
 		}
 
 		// Push the element being entered onto the stack. (This causes the algorithm to skip any descendants of the element.)
-		stack.push(node);
+		stack.push({node: node});
 		return;
 	}
 
@@ -180,7 +186,7 @@ function onExitNode(node) {
 	// When exiting an element, if that element is the element at the top of the stack
 	// Note: The element being exited is a heading content element or an element with a hidden attribute.
 	// Pop that element from the stack.
-	var stackTop = arrayLast(stack);
+	var stackTop = stackTopNode();
 	if (stackTop === node) {
 		stack.pop();
 	}
@@ -199,6 +205,8 @@ function onExitNode(node) {
 			currentSection.heading = {implied: true};
 		}
 
+		var targetBeingExited = currentOutlineTarget; // note: `targetBeingExited.node` is `node`
+
 		// Pop the top element from the stack, and let the current outline target be that element.
 		currentOutlineTarget = stack.pop();
 
@@ -207,8 +215,9 @@ function onExitNode(node) {
 
 		// Append the outline of the sectioning content element being exited to the current section.
 		// (This does not change which section is the last section in the outline.)
-		for (var i = 0; i < node.outline.sections.length; i++) {
-			currentSection.append(node.outline.sections[i]);
+		// @todo: what does "appending the outline" really mean?
+		for (var i = 0; i < targetBeingExited.outline.sections.length; i++) {
+			currentSection.append(targetBeingExited.outline.sections[i]);
 		}
 		return;
 	}
@@ -247,7 +256,7 @@ function onExitNode(node) {
 	// Do nothing.
 }
 
-function HTML5Outline(start) {
+function createOutline(start) {
 
 	if (!utils.isSecContent(start) && !utils.isSecRoot(start)) {
 		throw new TypeError("Invalid argument: start element must either be sectioning root or sectioning content.");
@@ -279,4 +288,4 @@ function HTML5Outline(start) {
 
 }
 
-module.exports = HTML5Outline;
+module.exports = createOutline;
