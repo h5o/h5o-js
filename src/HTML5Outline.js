@@ -270,8 +270,9 @@ function HTML5Outline(start) {
 	// @todo: Associate all non-element nodes that are in the subtree for which an outline is being created with the section with which their parent element is associated.
 	// @todo: Associate all nodes in the subtree with the heading of the section with which they are associated, if any.
 
-	// @todo: can currentOutlineTarget even be null?
-	return currentOutlineTarget != null ? currentOutlineTarget.outline : null;
+	// `currentOutlineTarget` cannot be null, since we can only `start` at sectioning root/content
+	// and entering sectioning root/content always sets a `currentOutlineTarget`
+	return currentOutlineTarget.outline;
 
 }
 
