@@ -55,6 +55,10 @@ Run `grunt release --bump=[patch|minor|major]`
 ### vNext (????-??-??) ###
 * ???
 
+### v0.9.2 (2015-03-07) ###
+* Throw when non-sectioning root / content element passed in for outlining
+* Cleanup
+
 ### v0.9.1 (2015-03-03) ###
 * More tests
 
