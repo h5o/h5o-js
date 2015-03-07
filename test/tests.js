@@ -19,6 +19,15 @@
 			this.timeout = 5000;
 		});
 
+		it("should throw when starting at non-sectioning root/content", function () {
+			expect(function () {
+				HTML5Outline(doc.createElement("div"));
+			}).toThrow({
+				//constructor: TypeError, // @todo: uncomment when https://github.com/busterjs/buster/issues/436 is fixed
+				message: "Invalid argument: start element must either be sectioning root or sectioning content."
+			});
+		});
+
 		var iframeTestList = [
 			"spec1", "spec2", "spec3a", "spec3b", "spec4",
 			"spec5", "spec6", "spec7", "spec8",

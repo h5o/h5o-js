@@ -249,6 +249,10 @@ function onExitNode(node) {
 
 function HTML5Outline(start) {
 
+	if (!utils.isSecContent(start) && !utils.isSecRoot(start)) {
+		throw new TypeError("Invalid argument: start element must either be sectioning root or sectioning content.");
+	}
+
 	// Let current outline target be null.
 	// (It holds the element whose outline is being created.)
 	currentOutlineTarget = null;
