@@ -1,12 +1,8 @@
 var Section = require("./Section"),
+	Outline = require("./Outline"),
 	OutlineTarget = require("./OutlineTarget"),
-	asHtml = require("./asHtml"),
 	walk = require("./walk"),
 	utils = require("./utils");
-
-function arrayLast(arr) {
-	return arr[arr.length - 1];
-}
 
 function getSectionHeadingRank(section) {
 	if (!utils.isHeading(section.heading)) {
@@ -19,8 +15,8 @@ function getSectionHeadingRank(section) {
 var currentOutlineTarget, currentSection, stack;
 
 function stackTopNode() {
-	var top = arrayLast(stack);
-	return top ? top.node : undefined;
+	if (!stack.length) return;
+	return stack[stack.length - 1].node;
 }
 
 function onEnterNode(node) {
@@ -65,14 +61,7 @@ function onEnterNode(node) {
 
 		// Let there be a new outline for the new current outline target, initialised with just the new current section
 		// as the only section in the outline.
-		// @todo: extract this into a new Outline()?
-		currentOutlineTarget.outline = {
-			sections: [currentSection],
-			startingNode: node,
-			asHTML: function (createLinks) {
-				return asHtml(this.sections, createLinks);
-			}
-		};
+		currentOutlineTarget.outline = new Outline(currentOutlineTarget.node, currentSection);
 		return;
 	}
 
@@ -96,14 +85,7 @@ function onEnterNode(node) {
 
 		// Let there be a new outline for the new current outline target, initialised with just the new current section
 		// as the only section in the outline.
-		// @todo: extract this into a new Outline()?
-		currentOutlineTarget.outline = {
-			sections: [currentSection],
-			startingNode: node,
-			asHTML: function (createLinks) {
-				return asHtml(this.sections, createLinks);
-			}
-		};
+		currentOutlineTarget.outline = new Outline(currentOutlineTarget.node, currentSection);
 		return;
 	}
 
@@ -117,7 +99,7 @@ function onEnterNode(node) {
 			// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
 			// the outline of the current outline target, or if the heading of the last section of the outline of the current
 			// outline target is an implied heading, then
-		} else if (arrayLast(currentOutlineTarget.outline.sections).heading.implied || utils.getHeadingElementRank(node) >= getSectionHeadingRank(arrayLast(currentOutlineTarget.outline.sections))) {
+		} else if (currentOutlineTarget.outline.getLastSection().heading.implied || utils.getHeadingElementRank(node) >= getSectionHeadingRank(currentOutlineTarget.outline.getLastSection())) {
 
 			// create a new section and
 			var newSection = new Section(node);
@@ -211,7 +193,7 @@ function onExitNode(node) {
 		currentOutlineTarget = stack.pop();
 
 		// Let current section be the last section in the outline of the current outline target element.
-		currentSection = arrayLast(currentOutlineTarget.outline.sections);
+		currentSection = currentOutlineTarget.outline.getLastSection();
 
 		// Append the outline of the sectioning content element being exited to the current section.
 		// (This does not change which section is the last section in the outline.)
