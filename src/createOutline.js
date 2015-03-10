@@ -4,14 +4,6 @@ var Section = require("./Section"),
 	walk = require("./walk"),
 	utils = require("./utils");
 
-function getSectionHeadingRank(section) {
-	if (!utils.isHeading(section.heading)) {
-		// @todo: find formal proof if this is possible/not-possible
-		throw new Exception("What is the heading rank of an implied heading? Is this code even reachable?")
-	}
-	return utils.getHeadingElementRank(section.heading);
-}
-
 var currentOutlineTarget, currentSection, stack;
 
 function stackTopNode() {
@@ -99,7 +91,7 @@ function onEnterNode(node) {
 			// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
 			// the outline of the current outline target, or if the heading of the last section of the outline of the current
 			// outline target is an implied heading, then
-		} else if (currentOutlineTarget.outline.getLastSection().heading.implied || utils.getHeadingElementRank(node) >= getSectionHeadingRank(currentOutlineTarget.outline.getLastSection())) {
+		} else if (currentOutlineTarget.outline.getLastSection().heading.implied || utils.getHeadingElementRank(node) >= utils.getHeadingElementRank(currentOutlineTarget.outline.getLastSection().heading)) {
 
 			// create a new section and
 			var newSection = new Section(node);
@@ -124,8 +116,22 @@ function onEnterNode(node) {
 
 			// Heading loop:
 			do {
+				// note:
+				// if candidateSection is still currentSection - it definitely has a heading, because otherwise
+				// `node`, which is a heading, would be a heading for that section
+
+				// if the heading for currentSection is higher (or same), e.g. `node` is H2 and currentSection.heading is H1
+				// then our `node` creates a subsection and we don't need to care about anything else
+
+				// if our `node` is actually higher, e.g. `node` is H3, and currentSection.heading is H4
+				// H4 is not the last child of the outline target [and therefore not the only child]
+				// therefore there must exist an element of at least H3 or higher rank
+				// that is the outline parent of the H4 and that element of H3 or higher
+				// would then be hit by going upwards
+				// therefore getSectionHeadingRank is sure that candidateSection.heading is not implied
+
 				// If the element being entered has a rank lower than the rank of the heading of the candidate section, then
-				if (utils.getHeadingElementRank(node) < getSectionHeadingRank(candidateSection)) {
+				if (utils.getHeadingElementRank(node) < utils.getHeadingElementRank(candidateSection.heading)) {
 
 					// create a new section,
 					var newSection = new Section(node);
