@@ -8,7 +8,7 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 		return s.replace(/>\s+/g, '>').replace(/\s+</g, '<');
 	};
 
-	describe('h5o' + suffix, function () {
+	describe('h5o.' + suffix, function () {
 
 		it("should throw when starting at non-sectioning root/content", function () {
 			expect(function () {

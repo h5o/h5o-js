@@ -8,7 +8,7 @@ function runTestsIn(jsdomModule) {
 		"<div></div>",
 		{features: {FetchExternalResources: ["iframe"]}},
 		function (e, w) {
-			createTests("-" + jsdomModule, w.document, contextPath, HTML5Outline);
+			createTests(jsdomModule, w.document, contextPath, HTML5Outline);
 		});
 }
 
