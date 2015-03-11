@@ -6,6 +6,8 @@ matrix:
   include:
     - node_js: "0.10"
     - node_js: "0.12"
+    - node_js: "0.12"
+      env: JSDOM4=true
     - node_js: "io.js"
       env: JSDOM4=true
     - node_js: "io.js"
