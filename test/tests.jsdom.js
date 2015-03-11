@@ -1,6 +1,6 @@
 buster = require("buster");
 
-require("jsdom")
+require("jsdom-compat")
 	.env("<div></div>", {
 		features: {
 			FetchExternalResources: ["iframe"]
