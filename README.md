@@ -3,7 +3,10 @@
 ![Supported: io.js](http://img.shields.io/badge/node-io.js-brightgreen.svg)
 ![Supported: node v0.10](http://img.shields.io/badge/node-0.10.x-brightgreen.svg)
 ![Supported: node v0.12](http://img.shields.io/badge/node-0.12.x-brightgreen.svg)
+
 ![Supported: phantom.js v1.9](http://img.shields.io/badge/phantom.js-1.9.x-brightgreen.svg)
+![Supported: jsdom v3.x](http://img.shields.io/badge/jsdom-3.x-brightgreen.svg)
+![Supported: jsdom v4.x](http://img.shields.io/badge/jsdom-4.x-brightgreen.svg)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/h5o-js.svg)](https://saucelabs.com/u/h5o-js)
 
@@ -54,6 +57,11 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ### vNext (????-??-??) ###
 * ???
+
+### v0.9.3 (2015-03-11) ###
+* `Outline` is not a separate object of its own
+* `getSectionHeadingRank` cleanup
+* Travis runs tests in both - `jsdom` v4.x and v3.x via [`jsdom-compat`](https://github.com/h5o/jsdom-compat)
 
 ### v0.9.2 (2015-03-07) ###
 * Throw when non-sectioning root / content element passed in for outlining
