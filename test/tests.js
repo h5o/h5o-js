@@ -1,23 +1,14 @@
-(function () {
-
-	var doc = this.document || this.jsdomDocument;
-
-	var contextPath = this.contextPath || buster.env.contextPath || "";
+function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 	var expect = buster.referee.expect,
 		describe = buster.spec.describe,
-		before = buster.spec.before,
 		it = buster.spec.it;
 
 	var cleanWhiteSpace = function (s) {
 		return s.replace(/>\s+/g, '>').replace(/\s+</g, '<');
 	};
 
-	describe('h5o', function () {
-
-		before(function () {
-			this.timeout = 5000;
-		});
+	describe('h5o' + suffix, function () {
 
 		it("should throw when starting at non-sectioning root/content", function () {
 			expect(function () {
@@ -84,4 +75,12 @@
 			}
 		}
 	});
-}());
+}
+
+if (typeof(window) === "undefined") {
+	// jsdom tests are created on demand in tests.jsdom.js
+	module.exports = createTests;
+} else {
+	// browser tests rely on the global and autorun
+	createTests("browser", document, buster.env.contextPath, HTML5Outline);
+}
