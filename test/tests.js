@@ -2,6 +2,7 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 	var expect = buster.referee.expect,
 		describe = buster.spec.describe,
+		before = buster.spec.before,
 		it = buster.spec.it;
 
 	var cleanWhiteSpace = function (s) {
@@ -9,6 +10,10 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 	};
 
 	describe('h5o.' + suffix, function () {
+
+		before(function () {
+			this.timeout = 5000;
+		});
 
 		it("should throw when starting at non-sectioning root/content", function () {
 			expect(function () {
@@ -82,5 +87,5 @@ if (typeof(window) === "undefined") {
 	module.exports = createTests;
 } else {
 	// browser tests rely on the global and autorun
-	createTests("browser", document, buster.env.contextPath, HTML5Outline);
+	createTests("browser", document, buster.env.contextPath || "", HTML5Outline);
 }
