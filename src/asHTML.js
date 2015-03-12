@@ -1,16 +1,22 @@
 var utils = require("./utils");
 
-function sectionHeadingText(sectionHeading) {
-	if (utils.getTagName(sectionHeading) == 'HGROUP') {
+function sectionHeadingText(section) {
+
+	if (section.heading.implied) {
+		return "<i>Untitled " + utils.getTagName(section.startingNode) + "</i>";
+	}
+
+	var elHeading = section.heading;
+	if (utils.getTagName(elHeading) === 'HGROUP') {
 		// @todo: share code with getHeadingElementRank() to return the heading itself and that would be it
-		var headings = sectionHeading.getElementsByTagName('h' + (-utils.getHeadingElementRank(sectionHeading)));
+		var headings = elHeading.getElementsByTagName('h' + (-utils.getHeadingElementRank(elHeading)));
 		if (!headings.length) {
 			return "<i>Error: no H1-H6 inside HGROUP</i>";
 		}
-		sectionHeading = headings[0];
+		elHeading = headings[0];
 	}
 	// @todo: try to resolve text content from img[alt] or *[title]
-	return utils.escapeHtml(sectionHeading.textContent) || "<i>No text content inside " + sectionHeading.nodeName + "</i>";
+	return utils.escapeHtml(elHeading.textContent) || "<i>No text content inside " + elHeading.nodeName + "</i>";
 }
 
 function generateId(node) {
@@ -20,33 +26,41 @@ function generateId(node) {
 
 	do {
 		id = 'h5o-' + (++linkCounter);
-	} while (node.ownerDocument.getElementById(id)); // @todo: there's probably no document when outlining a detached fragment... is there?
+	} while (node.ownerDocument.getElementById(id));
 	node.setAttribute('id', id);
 	return id;
 }
 
-function getSectionHeadingHtml(section, createLinks) {
-	var headingText = section.heading.implied
-		? "<i>Untitled " + utils.getTagName(section.startingNode) + "</i>"
-		: sectionHeadingText(section.heading);
-
-	if (createLinks) {
-		headingText = '<a href="#' + generateId(section.startingNode) + '">'
-		+ headingText
-		+ '</a>';
-	}
-	return headingText;
-}
-
 function asHTML(sections, createLinks) {
-	var retval = '';
+	if (!sections.length) {
+		return '';
+	}
+
+	var result = [];
+
+	result.push("<ol>");
 
 	for (var i = 0; i < sections.length; i++) {
 		var section = sections[i];
-		retval += '<li>' + getSectionHeadingHtml(section, createLinks) + asHTML(section.sections, createLinks) + '</li>';
+		result.push("<li>");
+
+		if (createLinks) {
+			result.push('<a href="#' + generateId(section.startingNode) + '">');
+		}
+
+		result.push(sectionHeadingText(section));
+
+		if (createLinks) {
+			result.push("</a>");
+		}
+
+		result.push(asHTML(section.sections, createLinks));
+		result.push("</li>");
 	}
 
-	return (retval == '' ? retval : '<ol>' + retval + '</ol>');
+	result.push("</ol>");
+
+	return result.join("");
 }
 
 module.exports = asHTML;
