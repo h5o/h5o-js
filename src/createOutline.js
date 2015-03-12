@@ -203,7 +203,6 @@ function onExitNode(node) {
 
 		// Append the outline of the sectioning content element being exited to the current section.
 		// (This does not change which section is the last section in the outline.)
-		// @todo: what does "appending the outline" really mean?
 		for (var i = 0; i < targetBeingExited.outline.sections.length; i++) {
 			currentSection.append(targetBeingExited.outline.sections[i]);
 		}
@@ -231,6 +230,7 @@ function onExitNode(node) {
 	// Note: The current outline target is the element being exited, and it is the sectioning content element or
 	// a sectioning root element at the root of the subtree for which an outline is being generated.
 	if (utils.isSecContent(node) || utils.isSecRoot(node)) {
+
 		// If the current section has no heading, create an implied heading and let that be the heading for the current section.
 		if (!currentSection.heading) {
 			currentSection.heading = {implied: true};
