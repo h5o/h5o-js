@@ -6,17 +6,17 @@ function sectionHeadingText(section) {
 		return "<i>Untitled " + utils.getTagName(section.startingNode) + "</i>";
 	}
 
-	var elHeading = section.heading;
-	if (utils.getTagName(elHeading) === 'HGROUP') {
-		// @todo: share code with getHeadingElementRank() to return the heading itself and that would be it
-		var headings = elHeading.getElementsByTagName('h' + (-utils.getHeadingElementRank(elHeading)));
-		if (!headings.length) {
-			return "<i>Error: no H1-H6 inside HGROUP</i>";
-		}
-		elHeading = headings[0];
+	var elHeading = utils.getRankingHeadingElement(section.heading);
+	if (!elHeading) {
+		return "<i>Error: no H1-H6 inside HGROUP</i>";
 	}
-	// @todo: try to resolve text content from img[alt] or *[title]
-	return utils.escapeHtml(elHeading.textContent) || "<i>No text content inside " + elHeading.nodeName + "</i>";
+
+	var textContent = elHeading.textContent; // @todo: try to resolve text content from img[alt] or *[title]
+	if (!textContent) {
+		return "<i>No text content inside " + utils.getTagName(elHeading) + "</i>";
+	}
+
+	return utils.escapeHtml(textContent);
 }
 
 function generateId(node) {

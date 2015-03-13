@@ -11,6 +11,17 @@ function stackTopNode() {
 	return stack[stack.length - 1].node;
 }
 
+function getRank(heading) {
+	var rankingElement = utils.getRankingHeadingElement(heading);
+	if (!rankingElement) {
+		// The rank of an hgroup element is the rank of the highest-ranked h1–h6 element descendant of the hgroup
+		// element, if there are any such elements, or otherwise the same as for an h1 element (the highest rank).
+		// ref: https://html.spec.whatwg.org/#the-hgroup-element
+		return -1; // rank of H1
+	}
+	return -parseInt(utils.getTagName(rankingElement).substr(1));
+}
+
 function onEnterNode(node) {
 
 	// If the top of the stack is a heading content element or an element with a hidden attribute
@@ -91,7 +102,7 @@ function onEnterNode(node) {
 			// Otherwise, if the element being entered has a rank equal to or higher than the heading of the last section of
 			// the outline of the current outline target, or if the heading of the last section of the outline of the current
 			// outline target is an implied heading, then
-		} else if (currentOutlineTarget.outline.getLastSection().heading.implied || utils.getHeadingElementRank(node) >= utils.getHeadingElementRank(currentOutlineTarget.outline.getLastSection().heading)) {
+		} else if (currentOutlineTarget.outline.getLastSection().heading.implied || getRank(node) >= getRank(currentOutlineTarget.outline.getLastSection().heading)) {
 
 			// create a new section and
 			var newSection = new Section(node);
@@ -131,7 +142,7 @@ function onEnterNode(node) {
 				// therefore getSectionHeadingRank is sure that candidateSection.heading is not implied
 
 				// If the element being entered has a rank lower than the rank of the heading of the candidate section, then
-				if (utils.getHeadingElementRank(node) < utils.getHeadingElementRank(candidateSection.heading)) {
+				if (getRank(node) < getRank(candidateSection.heading)) {
 
 					// create a new section,
 					var newSection = new Section(node);
