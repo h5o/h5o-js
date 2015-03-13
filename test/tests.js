@@ -34,7 +34,7 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 			"hgroup", "hgroup-without-headings", "hgroup-with-h1",
 
-			"issue-11", "issue-13"
+			"issue-11", "issue-13", "links_issue-19-look-harder-for-ids"
 		];
 
 		for (var i = 0; i < iframeTestList.length; i++) {

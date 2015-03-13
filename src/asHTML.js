@@ -19,14 +19,25 @@ function sectionHeadingText(section) {
 	return utils.escapeHtml(textContent);
 }
 
-function generateId(node) {
-	var linkCounter = 0; // @todo: move this out somewhere else, as this is not exactly performant (but makes old tests pass)
-	var id = node.getAttribute('id');
-	if (id) return id;
+function generateId(section) {
+	var sectionId = section.startingNode.getAttribute('id');
+	if (sectionId) {
+		return sectionId;
+	}
 
+	if (!section.heading.implied) {
+		var headingId = section.heading.getAttribute('id');
+		if (headingId) {
+			return headingId;
+		}
+	}
+
+	var linkCounter = 0; // @todo: move this out somewhere else, as this is not exactly performant (but makes old tests pass)
+	var node = section.startingNode;
 	do {
-		id = 'h5o-' + (++linkCounter);
+		var id = 'h5o-' + (++linkCounter);
 	} while (node.ownerDocument.getElementById(id));
+
 	node.setAttribute('id', id);
 	return id;
 }
@@ -45,7 +56,7 @@ function asHTML(sections, createLinks) {
 		result.push("<li>");
 
 		if (createLinks) {
-			result.push('<a href="#' + generateId(section.startingNode) + '">');
+			result.push('<a href="#' + generateId(section) + '">');
 		}
 
 		result.push(sectionHeadingText(section));
