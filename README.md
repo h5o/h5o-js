@@ -63,7 +63,7 @@ Run `grunt release --bump=[patch|minor|major]`
 * ???
 
 ### v0.10.0 (2015-03-15) ###
-* Implemented #18: Add an option to skip the top-level header when generating a ToC (thanks @jyasskin)
+* [Fixed #18](https://github.com/h5o/h5o-js/issues/18): Add an option to skip the top-level header when generating a ToC (thanks [@jyasskin](https://github.com/jyasskin))
 * Split up `getHeadingElementRank` into `getRankingHeadingElement` and `getRank`
 * `Section` no longer has `asHTML` (out of scope)
 
