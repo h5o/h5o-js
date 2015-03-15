@@ -9,8 +9,8 @@ Outline.prototype.getLastSection = function () {
 	return this.sections[this.sections.length - 1];
 };
 
-Outline.prototype.asHTML = function (createLinks) {
-	return asHTML(this.sections, createLinks);
+Outline.prototype.asHTML = function (options) {
+	return asHTML(this.sections, options);
 };
 
 module.exports = Outline;

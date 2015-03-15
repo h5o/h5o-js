@@ -42,11 +42,27 @@ function generateId(section) {
 	return id;
 }
 
-function asHTML(sections, createLinks) {
+function asHTML(sections, options) {
+
+	if (typeof(options) !== "object") {
+		// if second argument is not an object - it must be the boolean for `createLinks` (backwards compat)
+		options = {
+			createLinks: !!options
+		}
+	}
+
 	if (!sections.length) {
 		return '';
 	}
 
+	if (options.skipTopHeader) {
+		return asHTML(sections[0].sections, {
+			skipToHeader: false,
+			createLinks: options.createLinks
+		})
+	}
+
+	var createLinks = !!options.createLinks;
 	var result = [];
 
 	result.push("<ol>");

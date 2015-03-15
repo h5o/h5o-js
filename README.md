@@ -26,7 +26,11 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
   - Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
     `var HTML5Outline = require('h5o')` in node or browserify
   - `HTML5Outline(startFrom)` (you likely want `startFrom` to be `document.body`). Returned value is an outline object, with sections.
-  - `outline.asHTML(createLinks)` to get HTML with an ordered list. If `createLinks` is `true`, the DOM will be amended with IDs and the list will contain links for navigation
+  - `outline.asHTML( [ options | createLinks ])` to get HTML with an ordered list. 
+      - If `options.createLinks` (or `createLinks`) is `true`, the DOM will be amended with IDs and the list will contain links for navigation.
+      - If `options.skipToHeader` is true, the outline HTML will only include the sub-sections of the first section in 
+        the outline (which is usually the `body`), i.e. it will only contain the sections of the documents, skipping
+        the title of the whole document.
 
 ## Development ##
 
@@ -57,6 +61,11 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ### vNext (????-??-??) ###
 * ???
+
+### v0.10.0 (2015-03-15) ###
+* Implemented #18: Add an option to skip the top-level header when generating a ToC (thanks @jyasskin)
+* Split up `getHeadingElementRank` into `getRankingHeadingElement` and `getRank`
+* `Section` no longer has `asHTML` (out of scope)
 
 ### v0.9.3 (2015-03-11) ###
 * `Outline` is not a separate object of its own
@@ -128,3 +137,8 @@ Run `grunt release --bump=[patch|minor|major]`
 
 ### v0.5.1 and earlier ###
 Originally [lived on Google Code](https://code.google.com/p/h5o), if you like archeology 
+
+## Contributors ##
+
+* [Dominykas Blyžė](http://www.dominykas.com/)
+* [Jeffrey Yasskin](https://github.com/jyasskin)

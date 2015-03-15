@@ -16,6 +16,9 @@
     "email": "hello@dominykas.com",
     "url": "http://www.dominykas.com/"
   },
+  "contributors": [
+    { "name": "Jeffrey Yasskin", "email": "jyasskin@gmail.com", "url": "https://github.com/jyasskin" }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/h5o/h5o-js/issues"
