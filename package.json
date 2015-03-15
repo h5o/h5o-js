@@ -1,6 +1,6 @@
 {
   "name": "h5o",
-  "version": "0.9.3",
+  "version": "0.10.0",
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,11 @@
     "url": "http://www.dominykas.com/"
   },
   "contributors": [
-    { "name": "Jeffrey Yasskin", "email": "jyasskin@gmail.com", "url": "https://github.com/jyasskin" }
+    {
+      "name": "Jeffrey Yasskin",
+      "email": "jyasskin@gmail.com",
+      "url": "https://github.com/jyasskin"
+    }
   ],
   "license": "MIT",
   "bugs": {
