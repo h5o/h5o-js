@@ -15,7 +15,6 @@ function isElement(obj) {
 var isHeading = tagChecker('^H[1-6]|HGROUP$');
 
 function getRankingHeadingElement(heading) {
-	// @todo: I'm still not happy with the API here
 	if (!isHeading(heading)) {
 		throw new Error("Not a heading element");
 	}

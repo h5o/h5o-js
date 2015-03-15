@@ -58,8 +58,7 @@ function onEnterNode(node) {
 		currentOutlineTarget = new OutlineTarget(node);
 
 		// Let current section be a newly created section for the current outline target element.
-		// Associate current outline target with current section.
-		// @todo: should the above two steps really be done in one step?
+		// @todo: Associate current outline target with current section.
 		currentSection = new Section(node);
 
 		// Let there be a new outline for the new current outline target, initialised with just the new current section
@@ -83,7 +82,6 @@ function onEnterNode(node) {
 		currentOutlineTarget.parentSection = currentSection;
 
 		// Let current section be a newly created section for the current outline target element.
-		// @todo: why not "associate", like when entering a sectioning content element? Is the "parentSection" the association? Is Outline a Section?
 		currentSection = new Section(node);
 
 		// Let there be a new outline for the new current outline target, initialised with just the new current section
