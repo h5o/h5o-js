@@ -30,18 +30,28 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 			"hidden", "navfirst", "blockquote",
 
-			"links_simple", "links_idreuse", "links_idcollision",
+			["links_simple", true], ["links_idreuse", true], ["links_idcollision", true],
 
 			"hgroup", "hgroup-without-headings", "hgroup-with-h1",
 
-			"issue-11", "issue-13", "links_issue-19-look-harder-for-ids"
+			"issue-11", "issue-13",
+
+			["issue-19-look-harder-for-ids", true]
 		];
 
 		for (var i = 0; i < iframeTestList.length; i++) {
-			it(iframeTestList[i], testOutline(iframeTestList[i]));
+			var options = undefined,
+				test = iframeTestList[i];
+
+			if (typeof(test) !== "string") {
+				options = test[1];
+				test = test[0];
+			}
+
+			it(test, testOutline(test, options));
 		}
 
-		function testOutline(testID) {
+		function testOutline(testID, options) {
 			return function (done) {
 
 				var inputIframe = doc.createElement("iframe"),
@@ -49,12 +59,9 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 					outputBody,
 					inputBody = outputBody = false;
 
-				var createLinks = (testID.substring(0, 6) == 'links_');
-
-
 				var runTest = function () {
 					var expected = cleanWhiteSpace(outputBody.innerHTML);
-					var actual = cleanWhiteSpace(HTML5Outline(inputBody).asHTML(createLinks));
+					var actual = cleanWhiteSpace(HTML5Outline(inputBody).asHTML(options));
 
 					expect(actual).toEqual(expected, "Comparison for: " + testID);
 
