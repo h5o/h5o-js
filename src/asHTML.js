@@ -19,7 +19,7 @@ function sectionHeadingText(section) {
 	return utils.escapeHtml(textContent);
 }
 
-function generateId(section) {
+function getId(section, options) {
 	var sectionId = section.startingNode.getAttribute('id');
 	if (sectionId) {
 		return sectionId;
@@ -32,10 +32,9 @@ function generateId(section) {
 		}
 	}
 
-	var linkCounter = 0; // @todo: move this out somewhere else, as this is not exactly performant (but makes old tests pass)
 	var node = section.startingNode;
 	do {
-		var id = 'h5o-' + (++linkCounter);
+		var id = 'h5o-' + (++options.linkCounter);
 	} while (node.ownerDocument.getElementById(id));
 
 	node.setAttribute('id', id);
@@ -62,6 +61,10 @@ function asHTML(sections, options) {
 		})
 	}
 
+	if (typeof(options.linkCounter) === "undefined") {
+		options.linkCounter = 0;
+	}
+
 	var createLinks = !!options.createLinks;
 	var result = [];
 
@@ -72,7 +75,7 @@ function asHTML(sections, options) {
 		result.push("<li>");
 
 		if (createLinks) {
-			result.push('<a href="#' + generateId(section) + '">');
+			result.push('<a href="#' + getId(section, options) + '">');
 		}
 
 		result.push(sectionHeadingText(section));
@@ -81,7 +84,7 @@ function asHTML(sections, options) {
 			result.push("</a>");
 		}
 
-		result.push(asHTML(section.sections, createLinks));
+		result.push(asHTML(section.sections, options));
 		result.push("</li>");
 	}
 
