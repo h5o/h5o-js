@@ -42,12 +42,12 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
 
 ### Run tests locally ###
 Run `grunt test`
-* Will launch [buster](http://busterjs.org) server and capture a browser with it
-* Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom)
-* @todo: automatically run tests in phantom: https://github.com/h5o/h5o-js/issues/26
+* Will launch [buster](http://busterjs.org) server and capture the system default browser with it
+* Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom) and [`jsdom-compat`](https://www.npmjs.com/packages/jsdom-compat)
+* Will run tests in [PhantomJS](https://www.npmjs.com/package/phantomjs) 
 
 Run `grunt watch`
-* Will watch for file changes and run tests automatically
+* Will watch for file changes and rebuild/run tests automatically
 
 ### Release ###
 Run `grunt release --bump=[patch|minor|major]`
