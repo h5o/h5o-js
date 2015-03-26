@@ -63,7 +63,7 @@ Run `grunt release --bump=[patch|minor|major]`
 ### vNext (????-??-??) ###
 * ???
 
-### v0.10.1 (2015-03-25) ###
+### v0.10.1-v0.10.3 (2015-03-25) ###
 * Auto-publish in npm via Travis
 
 ### v0.10.0 (2015-03-15) ###
