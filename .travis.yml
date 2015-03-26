@@ -1,22 +1,35 @@
 language: node_js
 env:
   global:
-    secure: Bn4Ylq4Bde2lvKCwRZNzSlEgrzVYM/6NpA8gim5mlUpA2AWeMB5XZV9yT4cVnxZ9Yk3CDT9ZCnpmZFd8KJP0PK3DgcdXjWaNGRml+Uc3i5TpNWQmTCVIqOTq1g8VDzeIX4IiOFwPQiVdpaplNLdUVE7c4Ktl2FV9m7XUPlP0iso=
+    # SAUCE_USERNAME, SAUCE_ACCESS_KEY
+    - secure: "Bn4Ylq4Bde2lvKCwRZNzSlEgrzVYM/6NpA8gim5mlUpA2AWeMB5XZV9yT4cVnxZ9Yk3CDT9ZCnpmZFd8KJP0PK3DgcdXjWaNGRml+Uc3i5TpNWQmTCVIqOTq1g8VDzeIX4IiOFwPQiVdpaplNLdUVE7c4Ktl2FV9m7XUPlP0iso="
 matrix:
   include:
     - node_js: "0.10"
     - node_js: "0.12"
     - node_js: "io.js"
       env: SAUCE_LABS=true
+before_script:
+  - git config --global user.email "hello+travis@dominykas.com"
+  - git config --global user.name "Travis-CI (dominykas)"
 deploy:
-  provider: releases
-  skip_cleanup: true
-  file:
-    - "dist/outliner.html"
-    - "dist/outliner.min.js"
-  on:
-    tags: true
-    node_js: "io.js"
-    condition: $SAUCE_LABS = true
-  api-key:
-    secure: kQsaWLh8QwX5k3OweMEVxS+05H1yLQO0EqG9lHMMDD3h/sHCQQd/5OK6NxbC7xAN87gSbF3QFYx9Satd2z91FBrpnLqJcBAR31Wh+yTXxKIWT3MqABOqXxxQT1EEr7MKh9RanB+GlsEKYRfZV6kRdS8OzGJDyN8X6YZtNbwOkro=
+  - provider: releases
+    skip_cleanup: true
+    file:
+      - "dist/outliner.html"
+      - "dist/outliner.min.js"
+    on:
+      tags: true
+      node_js: "io.js"
+      condition: $SAUCE_LABS = true
+    api-key:
+      secure: "Z3jQA/Ei2r1+CSVDxwfYrmfGKdjV2DGF3tFLsetuw+40skIlCS6xAFA54NGdRfAPGuw4KrvCPqoT6/NkWNMitNWfBTBCgatAlBANAAphDo101+vRLMdwmU9WmKkhRuuMSotOYc8h2kRwRmKyJ1fKK62NxYl3go8nzqmYYPqWEHQ="
+  - provider: npm
+    skip_cleanup: true
+    email: "hello@dominykas.com"
+    api_key:
+      secure: "E38DnCuORjp08iPoeII3PkkR2e6fM0uWJhOLe2ekBn5RLPSTzWlE8FGm7K73SiUE1l+LG3XWncq1rcmPQKGHC9qlUrc4+oz+9qnw4nuteuCVFbqzGoMPWbxNerXTpLslA07RYPc3FBHmexnVYy7n4KoYYn+66SdxAmR1RqFdZbw="
+    on:
+      tags: true
+      node_js: "io.js"
+      condition: $SAUCE_LABS = true
