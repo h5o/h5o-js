@@ -112,6 +112,15 @@ module.exports = function (grunt) {
 					]
 				}
 			}
+		},
+		"bump": {
+			"options": {
+				commitMessage: 'release %VERSION%',
+				commitFiles: [ "-a" ],
+				tagName: '%VERSION%',
+				tagMessage: 'version %VERSION%',
+				pushTo: 'origin'
+			}
 		}
 	});
 
