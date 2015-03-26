@@ -27,13 +27,13 @@ module.exports = function (grunt) {
 			}
 		},
 		"gh-pages": {
-			"dist": {
-				"options": {"base": "dist"},
-				"src": [
-					"outliner.min.js",
-					"outliner.html"
-				]
-			}
+			"options": {
+				base: "dist",
+				add: true,
+				repo: "https://" + process.env.GH_TOKEN + "@github.com/h5o/h5o.github.io.git",
+				branch: "master"
+			},
+			"src": "bookmarklet.html"
 		},
 		"_watch": {
 			autoBuild: {
@@ -148,7 +148,7 @@ module.exports = function (grunt) {
 
 		}, function (err, bookmarklet) {
 			if (err) grunt.fail.fatal(err);
-			fs.writeFile("dist/outliner.html", bookmarklet, done);
+			fs.writeFile("dist/bookmarklet.html", bookmarklet, done);
 		});
 
 	});

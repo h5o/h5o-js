@@ -4,8 +4,9 @@
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
-    "prepublish": "node ./node_modules/grunt-cli/bin/grunt",
-    "test": "node ./node_modules/grunt-cli/bin/grunt test"
+    "prepublish": "in-publish && [ ! -z $TRAVIS_TAG ] && ls dist/outliner.min.js || in-install",
+    "postpublish": "grunt gh-pages",
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "grunt-gh-pages": "0.10.x",
     "grunt-open": "0.2.x",
     "grunt-saucelabs": "8.x",
+    "in-publish": "1.x",
     "jsdom": "4.x",
     "jsdom-compat": "1.x",
     "load-grunt-tasks": "3.x",

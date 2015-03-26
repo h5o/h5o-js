@@ -22,7 +22,7 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
 * [Chrome extension](https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo) available
     - Source: https://github.com/h5o/h5o-chrome
     - Standalone `crx`: https://github.com/h5o/h5o-chrome/releases/latest (note that while the signing key for the `crx` is encrypted, the password is "known" to Travis)
-* [Bookmarklet](http://h5o.github.io/h5o-js/outliner.html)
+* [Bookmarklet](http://h5o.github.io/bookmarklet.html)
 * `npm install h5o` (as of 2015, you should not be using any other way of managing your JS dependencies)
   - Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
     `var HTML5Outline = require('h5o')` in node or browserify
