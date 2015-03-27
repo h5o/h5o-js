@@ -19,19 +19,19 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
 
 ## Usage ##
 
-* [Chrome extension](https://chrome.google.com/extensions/detail/afoibpobokebhgfnknfndkgemglggomo) available
-    - Source: https://github.com/h5o/h5o-chrome
-    - Standalone `crx`: https://github.com/h5o/h5o-chrome/releases/latest (note that while the signing key for the `crx` is encrypted, the password is "known" to Travis)
-* [Bookmarklet](http://h5o.github.io/bookmarklet.html)
-* `npm install h5o` (as of 2015, you should not be using any other way of managing your JS dependencies)
-  - Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
-    `var HTML5Outline = require('h5o')` in node or browserify
-  - `HTML5Outline(startFrom)` (you likely want `startFrom` to be `document.body`). Returned value is an outline object, with sections.
-  - `outline.asHTML( [ options | createLinks ])` to get HTML with an ordered list. 
-      - If `options.createLinks` (or `createLinks`) is `true`, the DOM will be amended with IDs and the list will contain links for navigation.
-      - If `options.skipToHeader` is true, the outline HTML will only include the sub-sections of the first section in 
-        the outline (which is usually the `body`), i.e. it will only contain the sections of the documents, skipping
-        the title of the whole document.
+`npm install h5o` (as of 2015, you should not be using any other way of managing your JS dependencies, but
+you can still [download latest release](https://github.com/h5o/h5o-js/releases/latest))
+
+* Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
+  `var HTML5Outline = require('h5o')` in node or browserify
+* `var outline = HTML5Outline(startFrom)` (you likely want `startFrom` to be `document.body`). Returned value is an outline object, with sections.
+* `outline.asHTML( [ options | createLinks ])` to get HTML with an ordered list. 
+    - If `options.createLinks` (or `createLinks`) is `true`, the DOM will be amended with IDs and the list will contain links for navigation.
+    - If `options.skipToHeader` is true, the outline HTML will only include the sub-sections of the first section in 
+      the outline (which is usually the `body`), i.e. it will only contain the sections of the documents, skipping
+      the title of the whole document.
+
+Visit https://h5o.github.io/ for the Chrome extension and bookmarklet.
 
 ## Development ##
 
@@ -49,14 +49,6 @@ Run `grunt test`
 
 Run `grunt watch`
 * Will watch for file changes and rebuild/run tests automatically
-
-### Release ###
-Run `grunt release --bump=[patch|minor|major]`
-* Will bump version
-* Will tag the release
-* Will `npm publish`
-* Will push out an update `gh-pages`
-
 
 ## History ##
 
