@@ -18,7 +18,6 @@ deploy:
   - provider: releases
     skip_cleanup: true
     file:
-      - "dist/bookmarklet.html"
       - "dist/outliner.min.js"
     on:
       tags: true
