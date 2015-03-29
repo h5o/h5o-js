@@ -1,6 +1,6 @@
 {
   "name": "h5o",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "HTML5 outliner",
   "main": "index.js",
   "scripts": {
