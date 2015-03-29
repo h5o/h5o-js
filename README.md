@@ -55,7 +55,7 @@ Run `grunt watch`
 ### vNext (????-??-??) ###
 * ???
 
-### v0.10.4 (2015-03-39 ###
+### v0.10.4-v0.10.5 (2015-03-29) ###
 * Bookmarklet no longer part of GH releases
 * Some styling for bookmarklet.html
 
