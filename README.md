@@ -55,6 +55,10 @@ Run `grunt watch`
 ### vNext (????-??-??) ###
 * ???
 
+### v0.10.4 (2015-03-39 ###
+* Bookmarklet no longer part of GH releases
+* Some styling for bookmarklet.html
+
 ### v0.10.1-v0.10.3 (2015-03-25) ###
 * Auto-publish in npm via Travis
 
