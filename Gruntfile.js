@@ -11,13 +11,6 @@ module.exports = function (grunt) {
 			"all": ["dist/**"]
 		},
 		"uglify": {
-			"bookmarklet-js": {
-				"options": {
-					"banner": BANNER
-				},
-				"src": ["dist/debug/bookmarklet.debug.js"],
-				"dest": "dist/debug/bookmarklet.min.js"
-			},
 			"outliner-js": {
 				"options": {
 					"banner": BANNER
@@ -25,15 +18,6 @@ module.exports = function (grunt) {
 				"src": ["dist/debug/outliner.debug.js"],
 				"dest": "dist/outliner.min.js"
 			}
-		},
-		"gh-pages": {
-			"options": {
-				base: "dist",
-				add: true,
-				repo: "https://" + process.env.GH_TOKEN + "@github.com/h5o/h5o.github.io.git",
-				branch: "master"
-			},
-			"src": "bookmarklet.html"
 		},
 		"_watch": {
 			autoBuild: {
@@ -76,15 +60,6 @@ module.exports = function (grunt) {
 						"standalone": "HTML5Outline"
 					}
 				}
-			},
-			"bookmarklet-js": {
-				"src": [
-					"bookmarklet.js"
-				],
-				"dest": "dist/debug/bookmarklet.debug.js",
-				"options": {
-					"banner": BANNER
-				}
 			}
 		},
 		"saucelabs-custom": {
@@ -126,7 +101,7 @@ module.exports = function (grunt) {
 
 	grunt.renameTask("watch", "_watch");
 
-	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify", "uglify", "_bookmarklet-release"]);
+	grunt.registerTask("default", "Clean build and minify", ["clean:all", "browserify", "uglify"]);
 	grunt.registerTask("test", "Clean build, minify and run tests",
 		process.env.SAUCE_LABS === "true" ?
 			["default", "test-jsdom", "test-phantom", "test-sauce"] :
@@ -142,24 +117,6 @@ module.exports = function (grunt) {
 		var bump = grunt.option("bump");
 		if (bump != "patch" && bump != "minor" && bump != "major") grunt.fail.fatal("Please pass --bump");
 		grunt.task.run(["checkbranch:master", "checkpending", "bump:" + bump]);
-	});
-
-	grunt.registerTask("_bookmarklet-release", "Prepare bookmarklet HTML for release", function () {
-		var done = this.async();
-		var fs = require("fs"),
-			ejs = require("ejs");
-
-		ejs.renderFile("bookmarklet.html.ejs", {
-
-			version: VERSION,
-			banner: BANNER,
-			bookmarklet: encodeURIComponent(fs.readFileSync("dist/debug/bookmarklet.debug.js").toString())
-
-		}, function (err, bookmarklet) {
-			if (err) grunt.fail.fatal(err);
-			fs.writeFile("dist/bookmarklet.html", bookmarklet, done);
-		});
-
 	});
 
 	grunt.registerTask("buster-static", function () {

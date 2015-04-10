@@ -55,6 +55,9 @@ Run `grunt watch`
 ### vNext (????-??-??) ###
 * ???
 
+### v0.11.0 (2015-04-10) ###
+* Split off bookmarklet into a separate repo: https://github.com/h5o/h5o-bookmarklet
+
 ### v0.10.4-v0.10.6 (2015-03-29) ###
 * Bookmarklet no longer part of GH releases
 * Some styling for bookmarklet.html
