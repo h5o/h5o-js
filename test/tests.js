@@ -38,7 +38,9 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 			["issue-19-look-harder-for-ids", true],
 			["issue-18-skip-top-level", { skipTopHeader: true }],
-			["issue-18-skip-top-level-with-links", { skipTopHeader: true, createLinks: true }]
+			["issue-18-skip-top-level-with-links", { skipTopHeader: true, createLinks: true }],
+
+			"issue-32"
 		];
 
 		for (var i = 0; i < iframeTestList.length; i++) {

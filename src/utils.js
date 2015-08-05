@@ -47,8 +47,8 @@ function hasHiddenAttribute(el) {
 exports.getTagName = getTagName;
 
 exports.hasHiddenAttribute = hasHiddenAttribute;
-exports.isSecRoot = tagChecker('^BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD$');
-exports.isSecContent = tagChecker('^ARTICLE|ASIDE|NAV|SECTION$');
+exports.isSecRoot = tagChecker('^(BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD)$');
+exports.isSecContent = tagChecker('^(ARTICLE|ASIDE|NAV|SECTION)$');
 exports.isHeading = isHeading;
 exports.getRankingHeadingElement = getRankingHeadingElement;
 
