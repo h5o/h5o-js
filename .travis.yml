@@ -9,7 +9,7 @@ matrix:
   include:
     - node_js: "0.10"
     - node_js: "0.12"
-    - node_js: "io.js"
+    - node_js: "iojs-v2.5.0"
       env: SAUCE_LABS=true
 before_script:
   - git config --global user.email "hello+travis@dominykas.com"
@@ -21,7 +21,7 @@ deploy:
       - "dist/outliner.min.js"
     on:
       tags: true
-      node_js: "io.js"
+      node_js: "iojs-v2.5.0"
       condition: $SAUCE_LABS = true
     api-key:
       secure: "DbwPTbU9kEt6fEzN2W1ZBKXpNNMQJWMWOui6Yu/BxipnW+T+fObnh6Y1pcgZcZ00o8C8zrrwzQBuVRv3DBQYLZvQsLHxO0BQ4vyliovmj3GMNEws9dS4NiRKSTEex/+OW/AGbp+qMU2hgGp80HvS86NAaoqFGE+6ztaCuD0C04Q="
@@ -32,5 +32,5 @@ deploy:
       secure: "a/thAOxosaoSYL2SF7TyE9z2k7dmN8z2LLEpvhqydFc2nhBuwlC3geeE0Oejq4XpC3SdkGLApnUIjyfcE5joZiUw6uDM5qCc5nE+83/9RFbRBmiOAPTx+piP9Wyi3fMz54W0CGt3N+EYW5AzAeBcRm2KBjWJB0GUwic2VEtMcSc="
     on:
       tags: true
-      node_js: "io.js"
+      node_js: "iojs-v2.5.0"
       condition: $SAUCE_LABS = true
