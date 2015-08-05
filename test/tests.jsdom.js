@@ -13,4 +13,4 @@ function runTestsIn(jsdomModule) {
 }
 
 runTestsIn("jsdom-compat");
-(!process.version.indexOf("v0.10") && !process.version.indexOf("v0.12")) || runTestsIn("jsdom");
+!(process.version.indexOf("v0.10") || process.version.indexOf("v0.12")) || runTestsIn("jsdom");
