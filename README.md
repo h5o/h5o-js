@@ -55,7 +55,7 @@ Run `grunt watch`
 ### vNext (????-??-??) ###
 * ???
 
-### v0.11.2 (2015-08-05) ###
+### v0.11.3 (2015-08-05) ###
 * Fix for [h5o/h5o-chrome #10](https://github.com/h5o/h5o-chrome/issues/10) / [#18](https://github.com/h5o/h5o-js/issues/32)
 
 ### v0.11.0 (2015-04-10) ###
