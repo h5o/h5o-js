@@ -1,12 +1,5 @@
 # HTML5 outliner #
 [![Build Status](https://travis-ci.org/h5o/h5o-js.svg?branch=master)](https://travis-ci.org/h5o/h5o-js)
-![Supported: io.js](http://img.shields.io/badge/node-io.js-brightgreen.svg)
-![Supported: node v0.10](http://img.shields.io/badge/node-0.10.x-brightgreen.svg)
-![Supported: node v0.12](http://img.shields.io/badge/node-0.12.x-brightgreen.svg)
-
-![Supported: phantom.js v1.9](http://img.shields.io/badge/phantom.js-1.9.x-brightgreen.svg)
-![Supported: jsdom v3.x](http://img.shields.io/badge/jsdom-3.x-brightgreen.svg)
-![Supported: jsdom v4.x](http://img.shields.io/badge/jsdom-4.x-brightgreen.svg)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/h5o-js.svg)](https://saucelabs.com/u/h5o-js)
 
@@ -22,12 +15,12 @@ If you like this tool, please consider [a charitable donation](https://www.ammad
 `npm install h5o` (as of 2015, you should not be using any other way of managing your JS dependencies, but
 you can still [download latest release](https://github.com/h5o/h5o-js/releases/latest))
 
-* Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or 
+* Use the UMD module available in `dist/outliner.min.js` with a fallback to global `HTML5Outline` or
   `var HTML5Outline = require('h5o')` in node or browserify
 * `var outline = HTML5Outline(startFrom)` (you likely want `startFrom` to be `document.body`). Returned value is an outline object, with sections.
-* `outline.asHTML( [ options | createLinks ])` to get HTML with an ordered list. 
+* `outline.asHTML( [ options | createLinks ])` to get HTML with an ordered list.
     - If `options.createLinks` (or `createLinks`) is `true`, the DOM will be amended with IDs and the list will contain links for navigation.
-    - If `options.skipToHeader` is true, the outline HTML will only include the sub-sections of the first section in 
+    - If `options.skipToHeader` is true, the outline HTML will only include the sub-sections of the first section in
       the outline (which is usually the `body`), i.e. it will only contain the sections of the documents, skipping
       the title of the whole document.
 
@@ -36,7 +29,7 @@ Visit https://h5o.github.io/ for the Chrome extension and bookmarklet.
 ## Development ##
 
 ### Pre-requisites ###
- 
+
 1. install [`node`](http://nodejs.org/) or [`iojs`](https://iojs.org/) (includes `npm`)
 2. `npm install -g grunt-cli`
 4. `npm install` in your local clone of this repo
@@ -45,7 +38,7 @@ Visit https://h5o.github.io/ for the Chrome extension and bookmarklet.
 Run `grunt test`
 * Will launch [buster](http://busterjs.org) server and capture the system default browser with it
 * Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom) and [`jsdom-compat`](https://www.npmjs.com/packages/jsdom-compat)
-* Will run tests in [PhantomJS](https://www.npmjs.com/package/phantomjs) 
+* Will run tests in [PhantomJS](https://www.npmjs.com/package/phantomjs)
 
 Run `grunt watch`
 * Will watch for file changes and rebuild/run tests automatically
@@ -89,7 +82,7 @@ Run `grunt watch`
 * Added jsdom@4.x on io.js to the test matrix
 * Fixed implied headings to follow the spec - this actually means the previous implementation was
   incorrect - updated the following tests: `navfirst`, `issue-13`. Issue #13 was partly invalid.
-* Added more examples from the spec 
+* Added more examples from the spec
 
 ### v0.8.0 (2015-03-01) ###
 * Updated to the latest specified algorithm
@@ -142,7 +135,7 @@ Run `grunt watch`
 * First version published in npm
 
 ### v0.5.1 and earlier ###
-Originally [lived on Google Code](https://code.google.com/p/h5o), if you like archeology 
+Originally [lived on Google Code](https://code.google.com/p/h5o), if you like archeology
 
 ## Contributors ##
 

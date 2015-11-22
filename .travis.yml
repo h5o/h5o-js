@@ -8,10 +8,11 @@ env:
     - secure: "Hxg4dE7Yfk6rykyLX+BK0qx0Vk7vO6W2w2dm6p62pnfvHLD/jWZX8Y5U6x0F/tal/Hvfv+pXWZeCX83y7Ergmf3CEJoz4YKmyXn7jfodEcArfbt/hW9WR63H7uPEbCpF9TwhXjd5jw/ZfOOD+CzTcNnD+VcBl+9ImXh+ZFf3ASM="
 matrix:
   include:
-    - node_js: "0.10"
-    - node_js: "0.12"
-    - node_js: "iojs-v2.5.0"
+    - node_js: "4"
       env: SAUCE_LABS=true
+    - node_js: "6"
+before_install:
+  - npm i -g npm
 before_script:
   - git config --global user.email "hello+travis@dominykas.com"
   - git config --global user.name "Travis-CI (dominykas)"
@@ -22,7 +23,7 @@ deploy:
       - "dist/outliner.min.js"
     on:
       tags: true
-      node_js: "iojs-v2.5.0"
+      node_js: "4"
       condition: $SAUCE_LABS = true
     api-key:
       secure: "DbwPTbU9kEt6fEzN2W1ZBKXpNNMQJWMWOui6Yu/BxipnW+T+fObnh6Y1pcgZcZ00o8C8zrrwzQBuVRv3DBQYLZvQsLHxO0BQ4vyliovmj3GMNEws9dS4NiRKSTEex/+OW/AGbp+qMU2hgGp80HvS86NAaoqFGE+6ztaCuD0C04Q="
@@ -33,5 +34,5 @@ deploy:
       secure: "ctMDPEcHSZCXk4dOaeaXIepHuem95ZKqjhIcWx7h80kozqgfMcWn2bFmnM5arJK6I47/zQZ1G6f4I1cycL9RUDGnx/HWUIvURyj6GJZl7F2ZozAZFLgjZyxZEFyMFFx+fx8AeJXdU4IbF8Gibl1oYW1UkfjPRd+4us0XW9o48a0="
     on:
       tags: true
-      node_js: "iojs-v2.5.0"
+      node_js: "4"
       condition: $SAUCE_LABS = true
