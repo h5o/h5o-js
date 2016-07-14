@@ -37,11 +37,17 @@ function getRankingHeadingElement(heading) {
 }
 
 function getText(element) {
-	if (element.nodeType == 3) {
+	// is a TEXT_NODE or CDATA section
+	if (element.nodeType == 3 || element.nodeType == 4) {
 		return element.nodeValue;
 	}
 
-	if (getTagName(element) == 'IMG' || getTagName(element) == 'AREA' || (getTagName(element) == 'INPUT' && element.getAttribute('type').toLowerCase() == 'image')) {
+	if (element.nodeType != 1) {
+		return '';
+	}
+
+	// tag with alt attribute
+	if (getTagName(element) == 'IMG' || (getTagName(element) == 'INPUT' && element.getAttribute('type').toLowerCase() == 'image')) {
 		var alternatives = '';
 		if (element.getAttribute('alt')) {
 			alternatives += element.getAttribute('alt');
@@ -51,22 +57,11 @@ function getText(element) {
 
 	var texto = [];
 
-	if(element.childNodes[0]){
-		if(element.childNodes[0].nodeType != 8) {
-			texto[0] = getText(element.childNodes[0]);
-		}
-	}
-
-	var i = 1;
-
-	if(element.childNodes[i]) {
-		while(element.childNodes[i]) {
-			if(element.childNodes[i]) {
-				if(element.childNodes[i].nodeType != 8) {
-					texto[texto.length] = getText(element.childNodes[i]);
-				}
-				i++;
-			}
+	// get text from child nodes
+	for (var i = 0; i < element.childNodes.length; i++) {
+		// non-comment node
+		if(element.childNodes[i].nodeType != 8) {
+			texto[texto.length] = getText(element.childNodes[i]);
 		}
 	}
 
