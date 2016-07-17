@@ -30,14 +30,14 @@ Visit https://h5o.github.io/ for the Chrome extension and bookmarklet.
 
 ### Pre-requisites ###
 
-1. install [`node`](http://nodejs.org/) or [`iojs`](https://iojs.org/) (includes `npm`)
+1. install [`node`](http://nodejs.org/)
 2. `npm install -g grunt-cli`
 4. `npm install` in your local clone of this repo
 
 ### Run tests locally ###
 Run `grunt test`
 * Will launch [buster](http://busterjs.org) server and capture the system default browser with it
-* Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom) and [`jsdom-compat`](https://www.npmjs.com/packages/jsdom-compat)
+* Will run tests in node using [`jsdom`](https://www.npmjs.com/package/jsdom)
 * Will run tests in [PhantomJS](https://www.npmjs.com/package/phantomjs)
 
 Run `grunt watch`
