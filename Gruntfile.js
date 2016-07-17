@@ -68,19 +68,17 @@ module.exports = function (grunt) {
 					testname: "HTML5 outliner",
 					build: process.env.TRAVIS_JOB_ID || "",
 					browsers: [
-						{browserName: "internet explorer", platform: "Windows 8.1", version: "11"},
-						{browserName: "internet explorer", platform: "Windows 7", version: "11"},
-						{browserName: "internet explorer", platform: "Windows 7", version: "10"},
-						{browserName: "internet explorer", platform: "Windows 7", version: "9"},
-						{browserName: "firefox", platform: "Windows 8.1"},
-						{browserName: "firefox", platform: "Windows 7"},
-						{browserName: "firefox", platform: "OS X 10.10"},
+						{browserName: "microsoftedge", version: "13"},
+						{browserName: "internet explorer", version: "11"},
+						{browserName: "internet explorer", version: "10"},
+						{browserName: "internet explorer", version: "9"},
+						{browserName: "firefox", platform: "Windows"},
+						{browserName: "firefox", platform: "OS X 10.11"},
 						{browserName: "firefox", platform: "Linux"},
-						{browserName: "chrome", platform: "Windows 8.1"},
-						{browserName: "chrome", platform: "Windows 7"},
-						{browserName: "chrome", platform: "OS X 10.10"},
+						{browserName: "chrome", platform: "Windows"},
+						{browserName: "chrome", platform: "OS X 10.11"},
 						{browserName: "chrome", platform: "Linux"},
-						{browserName: "safari", platform: "OS X 10.10"}
+						{browserName: "safari", platform: "OS X 10.11"}
 					],
 					urls: [
 						"http://127.0.0.1:8000/?reporter=sauce"
