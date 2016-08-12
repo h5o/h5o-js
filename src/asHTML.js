@@ -11,7 +11,7 @@ function sectionHeadingText(section) {
 		return "<i>Error: no H1-H6 inside HGROUP</i>";
 	}
 
-	var textContent = elHeading.textContent;
+	var textContent = utils.getText(elHeading);
 	if (!textContent) {
 		return "<i>No text content inside " + utils.getTagName(elHeading) + "</i>";
 	}

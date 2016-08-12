@@ -10,7 +10,8 @@ config["browser"] = {
 		"test/tests.js"
 	],
 	resources: [
-		"test/*.html"
+		"test/*.html",
+		"test/images/kitten.jpg"
 	],
 	extensions: [
 		require("buster-reporter-sauce")

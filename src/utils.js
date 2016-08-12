@@ -36,6 +36,34 @@ function getRankingHeadingElement(heading) {
 	return null;
 }
 
+function getText(element) {
+	// is a TEXT_NODE or CDATA section
+	if (element.nodeType == 3 || element.nodeType == 4) {
+		return element.nodeValue;
+	}
+
+	if (element.nodeType != 1) {
+		return '';
+	}
+
+	// tag with alt attribute
+	if (getTagName(element) == 'IMG' || (getTagName(element) == 'INPUT' && element.getAttribute('type').toLowerCase() == 'image')) {
+		return element.getAttribute('alt') || '';
+	}
+
+	var texto = [];
+
+	// get text from child nodes
+	for (var i = 0; i < element.childNodes.length; i++) {
+		// non-comment node
+		if(element.childNodes[i].nodeType != 8) {
+			texto.push(getText(element.childNodes[i]));
+		}
+	}
+
+	return texto.join('');
+}
+
 function escapeHtml(str) {
 	return (""+str).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 }
@@ -51,5 +79,6 @@ exports.isSecRoot = tagChecker('^(BLOCKQUOTE|BODY|DETAILS|FIELDSET|FIGURE|TD)$')
 exports.isSecContent = tagChecker('^(ARTICLE|ASIDE|NAV|SECTION)$');
 exports.isHeading = isHeading;
 exports.getRankingHeadingElement = getRankingHeadingElement;
+exports.getText = getText;
 
 exports.escapeHtml = escapeHtml;

@@ -34,6 +34,8 @@ function createTests(suffix, doc, contextPath, HTML5Outline) {
 
 			"hgroup", "hgroup-without-headings", "hgroup-with-h1",
 
+			"alternative-text",
+
 			"issue-11", "issue-13",
 
 			["issue-19-look-harder-for-ids", true],
