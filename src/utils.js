@@ -48,11 +48,7 @@ function getText(element) {
 
 	// tag with alt attribute
 	if (getTagName(element) == 'IMG' || (getTagName(element) == 'INPUT' && element.getAttribute('type').toLowerCase() == 'image')) {
-		var alternatives = '';
-		if (element.getAttribute('alt')) {
-			alternatives += element.getAttribute('alt');
-		}
-		return alternatives;
+		return element.getAttribute('alt') || '';
 	}
 
 	var texto = [];
@@ -61,7 +57,7 @@ function getText(element) {
 	for (var i = 0; i < element.childNodes.length; i++) {
 		// non-comment node
 		if(element.childNodes[i].nodeType != 8) {
-			texto[texto.length] = getText(element.childNodes[i]);
+			texto.push(getText(element.childNodes[i]));
 		}
 	}
 
